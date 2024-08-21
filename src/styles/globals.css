@@ -1,0 +1,29 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Titillium Web", Urbanist;
+}
+
+:root {
+  --background-color: #105749;
+  --secondary-background-color: #0c4237;
+
+  --details-color: #c7ff9b;
+  --secondary-details-color: #fff6e5;
+  --third-details-color: #25d366;
+
+  --primary-font-color: #ffffff;
+  --secondary-font-color: #000000;
+  --third-font-color: #cecece;
+  --fourth-font-color: #ff5f5f;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
