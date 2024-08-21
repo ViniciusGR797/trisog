@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Inter", "Work Sans", "Kaushan Script";
+}
+
+:root {
+  --background-color: #FFFFFF;
+  --secondary-background-color: #F7F8FA;
+  --third-background-color: #111111;
+
+  --details-color: #FD5056;
+
+  --primary-font-color: #041036;
+  --secondary-font-color: #C7C7C7;
+  --third-font-color: #CFCFCF;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
