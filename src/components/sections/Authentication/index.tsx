@@ -88,7 +88,7 @@ const Authentication: React.FC<AuthenticationProps> = ({
       toast.warn(firebaseError);
       return;
     }
-    toast.success(`Welcome, ${user.email}!`);
+    toast.success(`Welcome, ${user.email?.split('@')[0]}!`);
     router.push("/home");
   };
 
@@ -98,7 +98,7 @@ const Authentication: React.FC<AuthenticationProps> = ({
       toast.warn(firebaseError);
       return;
     }
-    toast.success(`Welcome, ${user.email}!`);
+    toast.success(`Welcome, ${user.email?.split('@')[0]}!`);
     router.push("/home");
   };
 
@@ -108,7 +108,7 @@ const Authentication: React.FC<AuthenticationProps> = ({
       toast.warn(firebaseError);
       return;
     }
-    toast.success(`Welcome, ${user.email}!`);
+    toast.success(`Welcome, ${user.email?.split('@')[0]}!`);
     router.push("/home");
   };
 

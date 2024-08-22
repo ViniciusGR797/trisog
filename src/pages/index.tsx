@@ -17,7 +17,7 @@ export default function Home() {
       toast.warn(firebaseError);
       return;
     }
-    toast.success(`Welcome, ${user.email}!`)
+    toast.success(`Welcome, ${user.email?.split('@')[0]}!`)
     router.push('/home');
   };
 
@@ -46,7 +46,7 @@ export default function Home() {
               </Link>
             </>
           }
-          imageUrl="/images/login.svg"
+          imageUrl="/images/landscape-woman.svg"
           onSubmit={handleLogIn}
         />
       </main>

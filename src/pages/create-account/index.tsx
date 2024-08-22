@@ -2,14 +2,14 @@ import Head from "next/head";
 import Link from "next/link";
 import Authentication from "@/components/sections/Authentication";
 import { toast } from "react-toastify";
-import { logInWithEmail } from "@/services/firebase/userService";
+import { signUpWithEmail } from "@/services/firebase/userService";
 import { useRouter } from "next/router";
 
 export default function Home() {
   const router = useRouter();
-  
-  const handleLogIn = async (email: string, password: string) => {
-    const { user, error: firebaseError } = await logInWithEmail(
+
+  const handleSignUp = async (email: string, password: string) => {
+    const { user, error: firebaseError } = await signUpWithEmail(
       email,
       password
     );
@@ -17,14 +17,14 @@ export default function Home() {
       toast.warn(firebaseError);
       return;
     }
-    toast.success(`Welcome, ${user.email}!`)
-    router.push('/home');
+    toast.success(`Welcome, ${user.email?.split('@')[0]}!`);
+    router.push("/home");
   };
 
   return (
     <>
       <Head>
-        <title>Login - Trisog</title>
+        <title>CreateAccount - Trisog</title>
         <meta
           name="description"
           content="Discover immersive experiences and honest reviews of destinations worldwide. Explore travel tips, insights, and the best activities tailored to your interests. Plan your next adventure with confidence and create unforgettable memories."
@@ -34,20 +34,17 @@ export default function Home() {
       </Head>
       <main>
         <Authentication
-          title="Welcome back"
+          title="Create account"
           emailPlaceholder="Enter your email"
-          passwordPlaceholder="Enter your password"
-          buttonText="Sign In"
+          passwordPlaceholder="Create a password"
+          buttonText="Create account"
           bottomText={
             <>
-              Don't have an account?{" "}
-              <Link href="/create-account">
-                Sign Up
-              </Link>
+              Already have an account? <Link href="/">Log In</Link>
             </>
           }
-          imageUrl="/images/login.svg"
-          onSubmit={handleLogIn}
+          imageUrl="/images/paradise-beach.svg"
+          onSubmit={handleSignUp}
         />
       </main>
     </>
