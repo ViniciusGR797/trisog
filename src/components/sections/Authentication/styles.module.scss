@@ -1,141 +1,130 @@
 .authentication {
-    display: flex;
-    height: 100vh;
-  
-    .content {
-      display: flex;
-      width: 100%;
-    }
-  
-    .image {
-      width: 60%;
-      object-fit: cover;
-    }
-  
-    .formContainer {
-      width: 40%;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-  
-      .logo {
-        align-self: flex-start;
-        margin-bottom: 2rem;
-        font-size: 2rem;
-        font-weight: bold;
-      }
-  
-      .title {
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-      }
-  
-      .socialLogin {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 1rem;
-  
-        button {
-          margin-bottom: 0.5rem;
-          padding: 0.75rem;
-          border: none;
-          border-radius: 4px;
-          background-color: #f0f0f0;
-          cursor: pointer;
-          font-size: 1rem;
-          transition: background-color 0.3s ease;
-  
-          &:hover {
-            background-color: #e0e0e0;
-          }
-        }
-      }
-  
-      .orDivider {
-        margin: 1.5rem 0;
-        text-align: center;
-        width: 100%;
-        position: relative;
-  
-        &::before,
-        &::after {
-          content: '';
-          height: 1px;
-          background: #ddd;
-          position: absolute;
-          top: 50%;
-          width: 45%;
-        }
-  
-        &::before {
-          left: 0;
-        }
-  
-        &::after {
-          right: 0;
-        }
-      }
-  
-      .form {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-  
-        .inputGroup {
-          margin-bottom: 1rem;
-  
-          label {
-            display: block;
-            margin-bottom: 0.5rem;
-          }
-  
-          input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1rem;
-          }
-  
-          .error {
-            margin-top: 0.25rem;
-            color: #f00;
-            font-size: 0.875rem;
-          }
-        }
-  
-        .submitButton {
-          padding: 0.75rem;
-          border: none;
-          border-radius: 4px;
-          background-color: #0070f3;
-          color: #fff;
-          cursor: pointer;
-          font-size: 1rem;
-          transition: background-color 0.3s ease;
-  
-          &:hover {
-            background-color: #005bb5;
-          }
-        }
-      }
-  
-      .bottomText {
-        margin-top: 1.5rem;
-        text-align: center;
-        font-size: 0.875rem;
-  
-        a {
-          color: #0070f3;
-          text-decoration: none;
-  
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.imageContainer {
+  z-index: -1;
+}
+
+.formContainer {
+  max-width: 450px;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--background-color);
+}
+
+.logo {
+  align-self: flex-start;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.socialLogin {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.orDivider {
+  margin: 1rem 0;
+  text-align: center;
+  width: 100%;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    height: 1px;
+    background: var(--primary-font-color);
+    position: absolute;
+    top: 50%;
+    width: 45%;
+  }
+
+  &::before {
+    left: 0;
+  }
+
+  &::after {
+    right: 0;
+  }
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .submitButton {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: var(--details-color);
+    color: var(--background-color);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: var(--secondary-details-color);
     }
   }
+}
+
+.bottomText {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+
+  a {
+    color: var(--details-color);
+    font-weight: bold;
+  }
+}
+
+@media (max-height: 700px) {
+  .formContainer {
+    padding: 1.5rem;
+  }
+
+  .logo {
+    margin-bottom: 0.5rem;
+  }
+
+  .title {
+    margin-bottom: 0.5rem;
+  }
+
+  .socialLogin {
+    gap: 0.5rem;
+  }
+
+  .orDivider {
+    margin: 0.5rem 0;
+  }
+
+  .form {
+    gap: 0.5rem;
   
+    .submitButton {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .bottomText {
+    margin-top: 0.5rem;
+  }
+}
