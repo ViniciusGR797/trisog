@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styles from "./styles.module.scss";
+import Header from "@/components/sections/Header";
 
 export default function Home() {
   return (
@@ -11,7 +12,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-
+        <Header />
+        {/* <Hero />
+        <SearchBar />
+        <TourMostPopular />
+        <Statistics />
+        <DestinationPopular />
+        <ChooseUs />
+        <Category />
+        <Testimonials />
+        <Updates />
+        <Partnerships />
+        <Footer /> */}
       </main>
     </>
   );

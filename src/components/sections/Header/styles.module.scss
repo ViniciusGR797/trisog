@@ -1,0 +1,138 @@
+.header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.contact {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7rem 3rem;
+  background-color: var(--secondary-background-color);
+  color: var(--fourth-font-color);
+  font-size: 0.8rem;
+
+  .contactLeft {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .contactRight {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    a {
+      display: flex;
+      align-items: center;
+
+      .iconSocialMedia {
+        font-size: 1rem;
+
+        &:hover {
+          color: var(--details-color);
+        }
+      }
+    }
+
+    .currencySelect {
+      outline: none;
+      border: none;
+      background-color: var(--secondary-background-color);
+      color: var(--fourth-font-color);
+    }
+  }
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  gap: 4rem;
+  padding: 0.7rem 3rem;
+}
+
+.nav {
+  .menuBar {
+    list-style: none;
+    display: flex;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+
+    li {
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin: 0 1rem;
+      cursor: pointer;
+
+      a {
+        font-size: 1.1rem;
+        display: block;
+        padding: 0.5rem 0;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+
+      &:hover::after {
+        content: "";
+        display: block;
+        height: 4px;
+        background-color: var(--details-color);
+        color: var(--primary-font-color);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease-in-out;
+      }
+
+      &.active a {
+        color: var(--details-color);
+      }
+
+      &:hover::after {
+        animation: expandEffect 0.5s forwards;
+      }
+    }
+  }
+}
+
+@keyframes expandEffect {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.rightIcons {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  gap: 2rem;
+  align-items: center;
+
+  .loginSignup {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 550;
+  }
+}
+
+.iconMenu {
+  font-size: 1.5rem;
+}
