@@ -1,8 +1,18 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.scss";
 import Authentication from "@/components/sections/Authentication";
+import { toast } from "react-toastify";
+import { logInWithEmail } from "@/services/firebase/userService";
 
 export default function Home() {
+  const handleLogIn = async (email: string, password: string) => {
+    const { user, error: firebaseError } = await logInWithEmail(email, password);
+    if (firebaseError || !user) {
+      toast.warn(firebaseError);
+      return;
+    }
+  };
+
   return (
     <>
       <Head>
@@ -12,7 +22,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <Authentication />
+      <Authentication
+        title="Welcome back"
+        emailPlaceholder="Enter your email"
+        passwordPlaceholder="Enter your password"
+        buttonText="Sign In"
+        bottomText="Don't have an account? Sign Up"
+        imageUrl="/images/login.svg"
+        onSubmit={handleLogIn}
+      />
       </main>
     </>
   );

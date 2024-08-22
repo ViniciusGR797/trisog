@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { parseCookies } from 'nookies';
 
-const baseURL = process.env.BACKEND_URL;
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export function createAPI(ctx = undefined) {
   const cookies = parseCookies(ctx);
