@@ -11,6 +11,7 @@
   --third-background-color: #111111;
 
   --details-color: #FD5056;
+  --secondary-details-color: #db4248;
 
   --primary-font-color: #041036;
   --secondary-font-color: #C7C7C7;
@@ -20,6 +21,10 @@
 a {
   color: inherit;
   text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 li {

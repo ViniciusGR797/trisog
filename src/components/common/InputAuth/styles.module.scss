@@ -1,0 +1,32 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .label {
+    font-family: "Inter";
+    font-size: 1rem;
+    color: var(--primary-font-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .input {
+    padding: 0.8rem;
+    border: 1px solid var(--primary-font-color);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    color: var(--primary-font-color);
+    background-color: rgba(255, 255, 255, 0.07);
+
+    &:focus {
+      outline: none;
+      border-color: var(--details-color);
+    }
+  }
+
+  .error {
+    font-size: 0.875rem;
+    color: var(--details-color);
+    margin-top: 0.25rem;
+  }
+}
