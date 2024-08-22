@@ -35,7 +35,6 @@ const Authentication: React.FC<AuthenticationProps> = ({
   const router = useRouter();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
-  const [isFormValid, setIsFormValid] = useState(false);
 
   const validateField = (name: string, value: string): string => {
     let error = "";
@@ -70,13 +69,6 @@ const Authentication: React.FC<AuthenticationProps> = ({
     setErrors({ ...errors, [name]: error });
   };
 
-  useEffect(() => {
-    const allFieldsValid =
-      Object.values(errors).every((error) => error === "") &&
-      Object.values(formData).every((field) => field !== "");
-    setIsFormValid(allFieldsValid);
-  }, [errors, formData]);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData.email, formData.password);
@@ -88,7 +80,7 @@ const Authentication: React.FC<AuthenticationProps> = ({
       toast.warn(firebaseError);
       return;
     }
-    toast.success(`Welcome, ${user.email?.split('@')[0]}!`);
+    toast.success(`Welcome, ${user.displayName?.split(' ')[0]}!`);
     router.push("/home");
   };
 
@@ -98,7 +90,7 @@ const Authentication: React.FC<AuthenticationProps> = ({
       toast.warn(firebaseError);
       return;
     }
-    toast.success(`Welcome, ${user.email?.split('@')[0]}!`);
+    toast.success(`Welcome, ${user.displayName?.split(' ')[0]}!`);
     router.push("/home");
   };
 
@@ -108,7 +100,7 @@ const Authentication: React.FC<AuthenticationProps> = ({
       toast.warn(firebaseError);
       return;
     }
-    toast.success(`Welcome, ${user.email?.split('@')[0]}!`);
+    toast.success(`Welcome, ${user.displayName?.split(' ')[0]}!`);
     router.push("/home");
   };
 
@@ -143,7 +135,7 @@ const Authentication: React.FC<AuthenticationProps> = ({
           />
           <LoginSocial
             imageUrl="/icons/github.svg"
-            text="Github"
+            text="GitHub"
             onClick={handleGithubLogIn}
           />
         </div>
@@ -170,7 +162,6 @@ const Authentication: React.FC<AuthenticationProps> = ({
           <button
             type="submit"
             className={styles.submitButton}
-            disabled={!isFormValid}
           >
             {buttonText}
           </button>
