@@ -12,6 +12,7 @@
   gap: 0.5rem;
   color: var(--background-color);
   z-index: 1;
+  transform: translateY(-30px);
 
   .subtitle {
     font-family: "Kaushan Script";
@@ -30,6 +31,12 @@
     font-family: "Work Sans";
     font-weight: 600;
     font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .textContainer {
+    transform: translateY(-60px);
   }
 }
 
@@ -67,9 +74,14 @@
   }
 }
 
+@media screen and (max-width: 520px) {
+  .textContainer {
+    transform: translateY(-110px);
+  }
+}
+
 @media screen and (max-width: 350px) {
   .textContainer {
-    
     padding: 13rem 1.5rem;
     gap: 1rem;
 

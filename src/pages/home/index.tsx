@@ -16,8 +16,7 @@ export default function Home() {
       <main className={styles.main}>
         <Header />
         <Hero />
-        {/* <SearchBar />
-        <TourMostPopular />
+        {/* <TourMostPopular />
         <Statistics />
         <DestinationPopular />
         <ChooseUs />

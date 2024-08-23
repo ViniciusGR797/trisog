@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import Image from "next/image";
+import SearchBar from "@/components/common/SearchBar";
 
 const Hero: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const Hero: React.FC = () => {
           Find awesome hotel, tour, car and activities in London
         </p>
       </div>
+      <SearchBar />
     </section>
   );
 };
