@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styles from "./styles.module.scss";
 import Header from "@/components/sections/Header";
+import Hero from "@/components/sections/Hero";
 import Footer from "@/components/sections/Footer";
 
 export default function Home() {
@@ -14,8 +15,8 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <Header />
-        {/* <Hero />
-        <SearchBar />
+        <Hero />
+        {/* <SearchBar />
         <TourMostPopular />
         <Statistics />
         <DestinationPopular />
