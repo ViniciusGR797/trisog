@@ -37,6 +37,13 @@
     width: 100%;
     border: none;
     outline: none;
+    position: relative;
+
+    &[type="date"]::-webkit-calendar-picker-indicator {
+      position: absolute;
+      background: none;
+      width: 100%;
+    }
   }
 }
 
@@ -55,19 +62,19 @@
   margin-top: 0.5rem;
 
   &::-webkit-scrollbar {
-    width: 12px; 
-    height: 12px; 
+    width: 12px;
+    height: 12px;
   }
- 
+
   &::-webkit-scrollbar-track {
-    background: #f0f0f0; 
-    border-radius: 10px; 
+    background: #f0f0f0;
+    border-radius: 10px;
   }
- 
+
   &::-webkit-scrollbar-thumb {
-    background-color: #888; 
-    border-radius: 10px; 
-    border: 3px solid #f0f0f0; 
+    background-color: #888;
+    border-radius: 10px;
+    border: 3px solid #f0f0f0;
   }
 }
 
