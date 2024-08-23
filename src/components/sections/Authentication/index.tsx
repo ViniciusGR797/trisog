@@ -171,6 +171,7 @@ const Authentication: React.FC<AuthenticationProps> = ({
           alt="Authentication Visual"
           fill={true}
           style={{ objectFit: "cover" }}
+          priority={true}
           placeholder="blur"
           blurDataURL={imageUrl}
         />

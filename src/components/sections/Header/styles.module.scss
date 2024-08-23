@@ -52,6 +52,7 @@
 .menu {
   display: flex;
   flex-direction: row;
+  background-color: var(--background-color);
   gap: 4rem;
   padding: 0.7rem 3rem;
 }

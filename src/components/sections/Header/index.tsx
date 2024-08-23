@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FaTwitter, FaLinkedin, FaGoogle, FaPinterestP } from "react-icons/fa";
+import {
+  FaTwitter,
+  FaLinkedinIn,
+  FaGoogle,
+  FaPinterestP,
+} from "react-icons/fa";
 import { GoSearch, GoPerson } from "react-icons/go";
 import styles from "./styles.module.scss";
 import Image from "next/image";
@@ -7,6 +12,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { parseCookies, setCookie, destroyCookie } from "nookies";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { RevealWrapper } from "next-reveal";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -40,7 +46,12 @@ const Header: React.FC = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.contact}>
+      <RevealWrapper
+        origin="top"
+        delay={200}
+        duration={1000}
+        className={styles.contact}
+      >
         <div className={styles.contactLeft}>
           <p>(000) 999-898-999</p>
           <span className={styles.separator}>|</span>
@@ -55,7 +66,7 @@ const Header: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaLinkedin className={styles.iconSocialMedia} />
+            <FaLinkedinIn className={styles.iconSocialMedia} />
           </a>
           <a
             href="https://google.com"
@@ -78,9 +89,14 @@ const Header: React.FC = () => {
             <option value="BRL">BRL</option>
           </select>
         </div>
-      </div>
+      </RevealWrapper>
 
-      <div className={styles.menu}>
+      <RevealWrapper
+        origin="top"
+        delay={200}
+        duration={1000}
+        className={styles.menu}
+      >
         <Link href="/home">
           <Image
             src="/logo.svg"
@@ -168,7 +184,7 @@ const Header: React.FC = () => {
         {menuOpen && (
           <div className={styles.overlay} onClick={toggleMenu}></div>
         )}
-      </div>
+      </RevealWrapper>
     </header>
   );
 };

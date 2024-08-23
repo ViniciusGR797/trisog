@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styles from "./styles.module.scss";
 import Header from "@/components/sections/Header";
+import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   return (
@@ -22,8 +23,8 @@ export default function Home() {
         <Category />
         <Testimonials />
         <Updates />
-        <Partnerships />
-        <Footer /> */}
+        <Partnerships /> */}
+        <Footer />
       </main>
     </>
   );
