@@ -4,6 +4,7 @@
   gap: 0.5rem;
   flex: 1;
   width: 100%;
+  position: relative;
 }
 
 .label {
@@ -21,6 +22,7 @@
   padding: 0.5rem 1rem;
   gap: 0.5rem;
   transition: border 0.3s;
+  position: relative;
 
   &:focus-within {
     border: 1px solid var(--details-color);
@@ -36,4 +38,49 @@
     border: none;
     outline: none;
   }
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: var(--background-color);
+  border: 1px solid var(--fourth-font-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  margin-top: 0.5rem;
+
+  &::-webkit-scrollbar {
+    width: 12px; 
+    height: 12px; 
+  }
+ 
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0; 
+    border-radius: 10px; 
+  }
+ 
+  &::-webkit-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 10px; 
+    border: 3px solid #f0f0f0; 
+  }
+}
+
+.dropdownItem {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--details-color);
+  }
+}
+
+.noOptions {
+  padding: 0.5rem 1rem;
+  color: var(--secondary-font-color);
 }
