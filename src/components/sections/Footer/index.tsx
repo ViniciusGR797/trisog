@@ -96,8 +96,6 @@ const Footer: React.FC = () => {
                 Love Street, Muscat, Oman
               </a>
             </li>
-
-            {/* <p>Love Street, Muscat, Oman</p> */}
             <li>
               <a href="mailto:example@trisog.com?subject=Travel%20Inquiry&body=Hello%2C%20I%20am%20contacting%20you%20through%20your%20website%20to%20inquire%20about%20travel%20packages.%20Could%20you%20please%20provide%20more%20details%20about%20your%20services%20and%20how%20I%20can%20book%20a%20trip%3F%20Thank%20you.">
                 example@trisog.com

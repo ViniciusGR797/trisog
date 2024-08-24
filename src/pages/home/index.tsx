@@ -4,6 +4,7 @@ import Header from "@/components/sections/Header";
 import Hero from "@/components/sections/Hero";
 import TourMostPopular from "@/components/sections/TourMostPopular";
 import Statistics from "@/components/sections/Statistics";
+import DestinationPopular from "@/components/sections/DestinationPopular";
 import Footer from "@/components/sections/Footer";
 
 export default function Home() {
@@ -20,8 +21,8 @@ export default function Home() {
         <Hero />
         <TourMostPopular />
         <Statistics />
-        {/* <DestinationPopular />
-        <ChooseUs />
+        <DestinationPopular />
+        {/* <ChooseUs />
         <Category />
         <Testimonials />
         <Updates />
