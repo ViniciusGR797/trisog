@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 import Header from "@/components/sections/Header";
 import Hero from "@/components/sections/Hero";
 import TourMostPopular from "@/components/sections/TourMostPopular";
+import Statistics from "@/components/sections/Statistics";
 import Footer from "@/components/sections/Footer";
 
 export default function Home() {
@@ -18,8 +19,8 @@ export default function Home() {
         <Header />
         <Hero />
         <TourMostPopular />
-        {/* <Statistics />
-        <DestinationPopular />
+        <Statistics />
+        {/* <DestinationPopular />
         <ChooseUs />
         <Category />
         <Testimonials />
