@@ -1,0 +1,106 @@
+.card {
+  width: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: var(--secondary-background-color);
+
+  .cardDetail {
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.image {
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 1rem;
+
+  .location {
+    color: var(--fourth-details-color);
+  }
+
+  .name {
+    font-family: "Work Sans";
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .ratingTime {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .reviews {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+
+      .ratingStar {
+        display: flex;
+        justify-content: center;
+        padding: 0.5rem 0.7rem 0.5rem 0.5rem;
+        border-radius: 4px;
+        background: var(--details-color);
+        gap: 0.2rem;
+
+        .starIcon {
+          font-size: 1.2rem;
+          color: var(--background-color);
+        }
+
+        span {
+          color: var(--background-color);
+          font-weight: 400;
+        }
+      }
+
+      .reviews {
+        color: var(--fourth-font-color);
+      }
+    }
+
+    .time {
+      display: flex;
+      color: var(--fourth-font-color);
+      gap: 0.5rem;
+
+      .starTime{
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .separator {
+    border: none;
+    border-top: 1px solid var(--fourth-details-color);
+  }
+
+  .budget {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .startFrom {
+      color: var(--fourth-font-color);
+    }
+
+    .price {
+      font-family: "Kaushan Script";
+      font-size: 1.3rem;
+      color: var(--primary-font-color);
+    }
+  }
+}

@@ -2,6 +2,7 @@ import Head from "next/head";
 import styles from "./styles.module.scss";
 import Header from "@/components/sections/Header";
 import Hero from "@/components/sections/Hero";
+import TourMostPopular from "@/components/sections/TourMostPopular";
 import Footer from "@/components/sections/Footer";
 
 export default function Home() {
@@ -16,8 +17,8 @@ export default function Home() {
       <main className={styles.main}>
         <Header />
         <Hero />
-        {/* <TourMostPopular />
-        <Statistics />
+        <TourMostPopular />
+        {/* <Statistics />
         <DestinationPopular />
         <ChooseUs />
         <Category />
