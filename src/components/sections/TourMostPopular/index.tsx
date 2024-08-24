@@ -1,7 +1,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
+import "swiper/scss";
+import "swiper/scss/pagination";
 import styles from "./styles.module.scss";
 import { Pagination } from "swiper/modules";
 import CardExperience from "@/components/common/CardExperience";
@@ -252,12 +252,29 @@ const TourMostPopular: React.FC = () => {
       </div>
       <div className={styles.carousel}>
         <Swiper
-          slidesPerView={4}
-          spaceBetween={30}
           pagination={{
             clickable: true,
           }}
           modules={[Pagination]}
+          className={styles.swiperContainer}
+          breakpoints={{
+            1200: {
+              slidesPerView: 4,
+              spaceBetween: 30,
+            },
+            1000: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            0: {
+              slidesPerView: 1,
+              spaceBetween: 0,
+            },
+          }}
         >
           {cards.map((card, index) => (
             <SwiperSlide key={index}>

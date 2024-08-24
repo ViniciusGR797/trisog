@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import styles from "./styles.module.scss";
-import { AiFillStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { CiClock2 } from "react-icons/ci";
 
 interface CardExperienceProps {
@@ -28,8 +28,22 @@ const CardExperience: React.FC<CardExperienceProps> = ({
   price,
   isActivity = false,
 }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+    console.log(`${name} favorite status changed`);
+  };
+
   return (
     <div className={styles.card}>
+      <div className={styles.favoriteButton} onClick={toggleFavorite}>
+        {isFavorite ? (
+          <AiFillHeart className={styles.heartIcon} />
+        ) : (
+          <AiOutlineHeart className={styles.heartIcon} />
+        )}
+      </div>
       <div className={styles.cardDetail}>
         <Image
           src={imageSrc}

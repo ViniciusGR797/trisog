@@ -17,7 +17,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 20%;
+    max-width: 270px;
+    width: 100%;
 
     .line {
       width: 100%;
@@ -42,36 +43,75 @@
 }
 
 .carousel {
-  .swiper-slide {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .swiperContainer {
+    padding-bottom: 40px;
+
+    :global(.swiper-pagination-bullet-active) {
+      background-color: var(--details-color);
+    }
   }
+}
 
-  // .card {
-  //   background: var(--secondary-background-color);
-  //   // border-radius: 8px;
-  //   overflow: hidden;
-  //   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  // }
+@media screen and (max-width: 1200px) {
+  .tourMostPopular {
+    padding: 9rem 2rem 2rem 2rem;
+  }
+}
 
-  // .cardImage {
-  //   width: 100%;
-  //   height: auto;
-  // }
+@media screen and (max-width: 1000px) {
+  .tourMostPopular {
+    padding: 13rem 2rem 2rem 2rem;
+  }
+}
 
-  // .cardContent {
-  //   padding: 1rem;
-  // }
+@media screen and (max-width: 520px) {
+  .tourMostPopular {
+    padding: 17rem 2rem 2rem 2rem;
+  }
+}
 
-  // .cardTitle {
-  //   font-size: 1.25rem;
-  //   font-weight: bold;
-  //   margin-bottom: 0.5rem;
-  // }
+@media screen and (max-width: 520px) {
+  .content {
+    .subtitle {
+      max-width: 220px;
 
-  // .cardDescription {
-  //   font-size: 1rem;
-  //   color: #666;
-  // }
+      .text {
+        font-size: 1.5rem;
+      }
+    }
+
+    .title {
+      font-size: 2rem;
+    }
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .content {
+    .subtitle {
+      max-width: 200px;
+
+      .text {
+        font-size: 1.3rem;
+      }
+    }
+
+    .title {
+      font-size: 1.7rem;
+    }
+  }
+}
+
+@media screen and (max-width: 250px) {
+  .tourMostPopular {
+    padding: 17rem 1.5rem 2rem 1.5rem;
+  }
+}
+
+@media screen and (max-width: 210px) {
+  .carousel {
+    .swiperContainer {
+      padding-bottom: 60px;
+    }
+  }
 }
