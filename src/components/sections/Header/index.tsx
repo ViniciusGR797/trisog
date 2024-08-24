@@ -121,15 +121,15 @@ const Header: React.FC = () => {
               <li className={router.pathname === "/about" ? styles.active : ""}>
                 <Link href="/about">About</Link>
               </li>
-              <li className={router.pathname === "/tuors" ? styles.active : ""}>
-                <Link href="/tuors">Tours</Link>
+              <li className={router.pathname === "/tours" ? styles.active : ""}>
+                <Link href="/tours">Tours</Link>
               </li>
               <li
                 className={
-                  router.pathname === "/destination" ? styles.active : ""
+                  router.pathname === "/destinations" ? styles.active : ""
                 }
               >
-                <Link href="/destination">Destination</Link>
+                <Link href="/destinations">Destination</Link>
               </li>
               <li className={router.pathname === "/blog" ? styles.active : ""}>
                 <Link href="/blog">Blog</Link>
