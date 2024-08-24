@@ -1,0 +1,35 @@
+.testimonial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  width: 100%;
+  text-align: center;
+
+  .quoteIcon {
+    font-size: 2.2rem;
+    color: var(--details-color); 
+  }
+
+  .message {
+    font-family: "Work Sans";
+    font-size: 1.2rem;
+    color: var(--primary-font-color);
+    line-height: 1.5;
+    font-weight: bold;
+  }
+
+  .author {
+    padding-top: 0.5rem;
+    color: var(--fourth-details-color);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .testimonial {
+    .message {
+      font-size: 1rem;
+    }
+  }
+}

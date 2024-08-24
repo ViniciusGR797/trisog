@@ -2,12 +2,23 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/scss";
 import "swiper/scss/pagination";
-import styles from "./styles.module.scss";
 import { Pagination } from "swiper/modules";
+import styles from "./styles.module.scss";
 import CardExperience from "@/components/common/CardExperience";
 
 const TourMostPopular: React.FC = () => {
-  const cards = ["", "", "", "", "", "", "", "", "", ""];
+  const cards = [
+    { name: "teste" },
+    { name: "teste" },
+    { name: "teste" },
+    { name: "teste" },
+    { name: "teste" },
+    { name: "teste" },
+    { name: "teste" },
+    { name: "teste" },
+    { name: "teste" },
+    { name: "teste" },
+  ];
 
   return (
     <section className={styles.tourMostPopular}>

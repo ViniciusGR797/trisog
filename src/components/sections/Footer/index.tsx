@@ -69,7 +69,6 @@ const Footer: React.FC = () => {
               width={120}
               height={35}
               priority={true}
-              className={styles.logo}
             />
           </Link>
           <div className={`${styles.contactInfo} ${styles.listItems}`}>
@@ -170,7 +169,7 @@ const Footer: React.FC = () => {
                   <Link href="/tours/tokyo">Tokyo</Link>
                 </li>
                 <li>
-                  <Link href="/tours/sydney">sydney</Link>
+                  <Link href="/tours/sydney">Sydney</Link>
                 </li>
                 <li>
                   <Link href="/tours/melbourne">Melbourne</Link>
