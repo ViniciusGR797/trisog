@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 import Header from "@/components/sections/Header";
 import Footer from "@/components/sections/Footer";
 import PageHeader from "@/components/sections/PageHeader";
+import Search from "@/components/sections/Search";
 
 export default function Tours() {
   return (
@@ -23,7 +24,7 @@ export default function Tours() {
           title="Tour Package"
           pathPrefix={"Home"}
         />
-        {/* <Search /> */}
+        <Search />
         <Footer />
       </main>
     </>

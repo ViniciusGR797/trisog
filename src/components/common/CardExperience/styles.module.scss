@@ -2,14 +2,13 @@
   position: relative;
   width: 100%;
   border-radius: 5px;
-  overflow: hidden;
   background-color: var(--secondary-background-color);
 
   .cardDetail {
     transition: transform 0.3s ease;
 
     &:hover {
-      transform: scale(1.05);
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     }
   }
 }
@@ -62,6 +61,18 @@
     font-family: "Work Sans";
     font-size: 1.5rem;
     font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    @supports (-webkit-line-clamp: 2) {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: initial;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
   }
 
   .ratingTime {

@@ -13,13 +13,19 @@ import { useRouter } from "next/router";
 import { parseCookies, setCookie, destroyCookie } from "nookies";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { RevealWrapper } from "next-reveal";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 const Header: React.FC = () => {
   const router = useRouter();
+  const { currency, setCurrency } = useCurrency();
 
   const [user, setUser] = useState<any>(null);
   const [showLogout, setShowLogout] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setCurrency(event.target.value as 'USD' | 'EUR' | 'BRL');
+  };
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -84,9 +90,13 @@ const Header: React.FC = () => {
               <FaPinterestP className={styles.iconSocialMedia} />
             </a>
             <span className={styles.separator}>|</span>
-            <select className={styles.currencySelect}>
-              <option value="EUR">EUR</option>
+            <select
+              className={styles.currencySelect}
+              value={currency}
+              onChange={handleChange}
+            >
               <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
               <option value="BRL">BRL</option>
             </select>
           </div>

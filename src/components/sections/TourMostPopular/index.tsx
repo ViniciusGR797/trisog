@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/scss";
 import "swiper/scss/pagination";
@@ -7,18 +7,56 @@ import styles from "./styles.module.scss";
 import CardExperience from "@/components/common/CardExperience";
 
 const TourMostPopular: React.FC = () => {
-  const cards = [
-    { name: "teste" },
-    { name: "teste" },
-    { name: "teste" },
-    { name: "teste" },
-    { name: "teste" },
-    { name: "teste" },
-    { name: "teste" },
-    { name: "teste" },
-    { name: "teste" },
-    { name: "teste" },
-  ];
+  const [cards, setCards] = useState([
+    {
+      id: "1",
+      image: "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
+      country: "Brazil",
+      city: "Rio de Janeiro",
+      name: "Sunset Cruise in Rio",
+      rating: 4.8,
+      reviews: 180,
+      duration: "2.5 hours",
+      price: "150",
+      isActivity: true,
+    },
+    {
+      id: "2",
+      image: "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
+      country: "Brazil",
+      city: "Petropolis",
+      name: "Mountain Hike Adventure",
+      rating: 4.7,
+      reviews: 95,
+      duration: "4 hours",
+      price: "80",
+      isActivity: true,
+    },
+    {
+      id: "3",
+      image: "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
+      country: "Brazil",
+      city: "Iguazu",
+      name: "Iguazu Falls Tour",
+      rating: 5.0,
+      reviews: 220,
+      duration: "6 hours",
+      price: "200",
+      isActivity: true,
+    },
+    {
+      id: "4",
+      image: "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
+      country: "Brazil",
+      city: "Salvador",
+      name: "Cultural Festival Experience",
+      rating: 4.6,
+      reviews: 150,
+      duration: "5 hours",
+      price: "100",
+      isActivity: true,
+    },
+  ]);
 
   return (
     <section className={styles.tourMostPopular}>
@@ -59,14 +97,15 @@ const TourMostPopular: React.FC = () => {
           {cards.map((card, index) => (
             <SwiperSlide key={index}>
               <CardExperience
-                imageSrc="https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6"
-                location={{ country: "Brazil", city: "Rio de Janeiro" }}
-                name="Amazing Experience in Rio"
-                rating={4.5}
-                reviews={120}
-                time="3 hours"
-                price="$120"
-                isActivity={true}
+                id={card.id}
+                image={card.image}
+                location={{ country: card.country, city: card.city }}
+                name={card.name}
+                rating={card.rating}
+                reviews={card.reviews}
+                duration={card.duration}
+                price={card.price}
+                isActivity={card.isActivity}
               />
             </SwiperSlide>
           ))}
