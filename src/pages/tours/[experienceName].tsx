@@ -1,3 +1,5 @@
+import Footer from "@/components/sections/Footer";
+import Header from "@/components/sections/Header";
 import Head from "next/head";
 
 export default function ExperienceName() {
@@ -10,7 +12,8 @@ export default function ExperienceName() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-
+        <Header />
+        <Footer />
       </main>
     </>
   );
