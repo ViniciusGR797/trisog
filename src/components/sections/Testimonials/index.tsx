@@ -6,6 +6,7 @@ import "swiper/scss/pagination";
 import { Pagination } from "swiper/modules";
 import styles from "./styles.module.scss";
 import Testimonial from "@/components/common/Testimonial";
+import SectionHeader from "@/components/common/SectionHeader";
 
 const testimonials = [
   {
@@ -43,14 +44,7 @@ const Testimonials: React.FC = () => {
           className={styles.testimonialImage}
         />
         <div className={styles.testimonialDetail}>
-          <div className={styles.content}>
-            <div className={styles.subtitle}>
-              <span className={styles.line}></span>
-              <span className={styles.text}>Testimonial</span>
-              <span className={styles.line}></span>
-            </div>
-            <h2 className={styles.title}>What Travelers Say</h2>
-          </div>
+          <SectionHeader title="What Travelers Say" subtitle="Testimonial" />
           <div className={styles.carousel}>
             <Swiper
               slidesPerView={1}

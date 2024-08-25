@@ -2,19 +2,12 @@ import React from "react";
 import styles from "./styles.module.scss";
 import CardDestination from "@/components/common/CardDestination";
 import Gallery from "@/components/common/Gallery";
+import SectionHeader from "@/components/common/SectionHeader";
 
 const DestinationPopular: React.FC = () => {
   return (
     <section className={styles.destinationPopular}>
-      <div className={styles.content}>
-        <div className={styles.subtitle}>
-          <span className={styles.line}></span>
-          <span className={styles.text}>Destination</span>
-          <span className={styles.line}></span>
-        </div>
-        <h2 className={styles.title}>Top Attractions Destinations</h2>
-      </div>
-
+      <SectionHeader title="Top Attractions Destinations" subtitle="Destination" />
       <div className={styles.gallery}>
         <Gallery
           cards={[

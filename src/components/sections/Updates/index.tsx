@@ -2,18 +2,12 @@ import React from "react";
 import styles from "./styles.module.scss";
 import CardDestination from "@/components/common/CardDestination";
 import News from "@/components/common/News";
+import SectionHeader from "@/components/common/SectionHeader";
 
 const Updates: React.FC = () => {
   return (
     <section className={styles.updates}>
-      <div className={styles.content}>
-        <div className={styles.subtitle}>
-          <span className={styles.line}></span>
-          <span className={styles.text}>Updates</span>
-          <span className={styles.line}></span>
-        </div>
-        <h2 className={styles.title}>Latest Travel Guide</h2>
-      </div>
+      <SectionHeader title="Latest Travel Guide" subtitle="Updates" />
       <div className={styles.updatesContainer}>
         <div className={styles.updatesColumn}>
           <News

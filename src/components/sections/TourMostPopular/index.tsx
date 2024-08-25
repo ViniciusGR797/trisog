@@ -5,6 +5,7 @@ import "swiper/scss/pagination";
 import { Pagination } from "swiper/modules";
 import styles from "./styles.module.scss";
 import CardExperience from "@/components/common/CardExperience";
+import SectionHeader from "@/components/common/SectionHeader";
 
 const TourMostPopular: React.FC = () => {
   const [cards, setCards] = useState([
@@ -142,14 +143,7 @@ const TourMostPopular: React.FC = () => {
 
   return (
     <section className={styles.tourMostPopular}>
-      <div className={styles.content}>
-        <div className={styles.subtitle}>
-          <span className={styles.line}></span>
-          <span className={styles.text}>Tours</span>
-          <span className={styles.line}></span>
-        </div>
-        <h2 className={styles.title}>Most Popular Tours</h2>
-      </div>
+      <SectionHeader title="Most Popular Tours" subtitle="Tours" />
       <div className={styles.carousel}>
         <Swiper
           pagination={{
