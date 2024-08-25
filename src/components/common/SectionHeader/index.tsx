@@ -1,5 +1,6 @@
-import React from 'react';
-import styles from './styles.module.scss';
+import React from "react";
+import styles from "./styles.module.scss";
+import { RevealWrapper } from "next-reveal";
 
 interface SectionHeaderProps {
   title: string;
@@ -8,14 +9,19 @@ interface SectionHeaderProps {
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle }) => {
   return (
-    <div className={styles.content}>
+    <RevealWrapper
+      origin="left"
+      delay={200}
+      duration={1000}
+      className={styles.content}
+    >
       <div className={styles.subtitle}>
         <span className={styles.line}></span>
         <span className={styles.text}>{subtitle}</span>
         <span className={styles.line}></span>
       </div>
       <h2 className={styles.title}>{title}</h2>
-    </div>
+    </RevealWrapper>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import CardExperience from "@/components/common/CardExperience";
 import Sorting from "@/components/common/Sorting";
+import { RevealWrapper } from "next-reveal";
 
 const Search: React.FC = () => {
   const [results, setResults] = useState([
@@ -70,7 +71,7 @@ const Search: React.FC = () => {
     return [...data].sort((a, b) => {
       const aValue = a[sortOption as keyof typeof a];
       const bValue = b[sortOption as keyof typeof b];
-      
+
       if (typeof aValue === "string" && typeof bValue === "string") {
         // Comparação para valores de string (nome, cidade, etc.)
         return isAscending
@@ -129,13 +130,25 @@ const Search: React.FC = () => {
         </div>
 
         <div className={styles.results}>
-          <div className={styles.resultsHeader}>
+          <RevealWrapper
+            origin="left"
+            delay={200}
+            duration={1000}
+            className={styles.resultsHeader}
+          >
             <span>
-              {sortedResults.length} {sortedResults.length > 1 ? "Tours" : "Tour"}
+              {sortedResults.length}{" "}
+              {sortedResults.length > 1 ? "Tours" : "Tour"}
             </span>
             <Sorting onSortChange={handleSortChange} />
-          </div>
-          <div className={`${sortedResults.length > 0 ? styles.resultsList : styles.noResultsList}`}>
+          </RevealWrapper>
+          <div
+            className={`${
+              sortedResults.length > 0
+                ? styles.resultsList
+                : styles.noResultsList
+            }`}
+          >
             {sortedResults.length > 0 ? (
               sortedResults.map((result, index) => (
                 <div key={index} className={styles.resultItem}>
@@ -153,9 +166,7 @@ const Search: React.FC = () => {
                 </div>
               ))
             ) : (
-              <div className={styles.noResults}>
-                No tours available
-              </div>
+              <div className={styles.noResults}>No tours available</div>
             )}
           </div>
           <div className={styles.pagination}>

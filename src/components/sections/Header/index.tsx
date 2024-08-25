@@ -155,7 +155,7 @@ const Header: React.FC = () => {
             </ul>
 
             <div className={styles.rightIcons}>
-              <Link href="/tuors">
+              <Link href="/tours">
                 <GoSearch className={styles.iconMenu} />
               </Link>
 

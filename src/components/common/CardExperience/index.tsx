@@ -5,6 +5,7 @@ import styles from "./styles.module.scss";
 import { AiFillStar, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { CiClock2 } from "react-icons/ci";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { RevealWrapper } from "next-reveal";
 
 interface CardExperienceProps {
   id: string;
@@ -43,21 +44,29 @@ const CardExperience: React.FC<CardExperienceProps> = ({
   const formatDuration = (hours: number): string => {
     if (hours >= 24) {
       const days = Math.floor(hours / 24);
-      return `${days} day${days > 1 ? 's' : ''}`;
+      return `${days} day${days > 1 ? "s" : ""}`;
     } else if (hours >= 1) {
       const formattedHours = hours % 1 === 0 ? Math.floor(hours) : hours;
-      const displayHours = formattedHours % 1 === 0 ? formattedHours.toString() : formattedHours.toFixed(1);
-      return `${displayHours} hour${formattedHours > 1 ? 's' : ''}`;
+      const displayHours =
+        formattedHours % 1 === 0
+          ? formattedHours.toString()
+          : formattedHours.toFixed(1);
+      return `${displayHours} hour${formattedHours > 1 ? "s" : ""}`;
     } else if (hours > 0) {
       const minutes = Math.round(hours * 60);
-      return `${minutes} min${minutes > 1 ? 's' : ''}`;
+      return `${minutes} min${minutes > 1 ? "s" : ""}`;
     } else {
-      return '0 min';
+      return "0 min";
     }
   };
 
   return (
-    <div className={styles.card}>
+    <RevealWrapper
+      origin="left"
+      delay={200}
+      duration={1000}
+      className={styles.card}
+    >
       <div className={styles.favoriteButton} onClick={toggleFavorite}>
         {isFavorite ? (
           <AiFillHeart className={styles.heartIcon} />
@@ -96,11 +105,14 @@ const CardExperience: React.FC<CardExperienceProps> = ({
           <hr className={styles.separator} />
           <div className={styles.budget}>
             <p className={styles.startFrom}>Starting From</p>
-            <p className={styles.price}>{symbol} {parseFloat((price * exchangeRate).toFixed(2)).toString()}</p>
+            <p className={styles.price}>
+              {symbol}{" "}
+              {parseFloat((price * exchangeRate).toFixed(2)).toString()}
+            </p>
           </div>
         </div>
       </Link>
-    </div>
+    </RevealWrapper>
   );
 };
 

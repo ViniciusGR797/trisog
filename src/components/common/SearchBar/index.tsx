@@ -5,6 +5,7 @@ import { PiPaperPlaneTilt } from "react-icons/pi";
 import { CiFlag1, CiCalendar } from "react-icons/ci";
 import { GoPeople } from "react-icons/go";
 import { toast } from "react-toastify";
+import { RevealWrapper } from "next-reveal";
 
 const SearchBar: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -90,7 +91,12 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div className={styles.searchBar}>
+    <RevealWrapper
+      origin="left"
+      delay={200}
+      duration={1000}
+      className={styles.searchBar}
+    >
       <div className={styles.form}>
         <div className={styles.inputs}>
           <InputSearch
@@ -142,7 +148,7 @@ const SearchBar: React.FC = () => {
       >
         Search
       </button>
-    </div>
+    </RevealWrapper>
   );
 };
 
