@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import CardDestination from "@/components/common/CardDestination";
+import Gallery from "@/components/common/Gallery";
 
 const DestinationPopular: React.FC = () => {
   return (
@@ -13,48 +14,48 @@ const DestinationPopular: React.FC = () => {
         </div>
         <h2 className={styles.title}>Top Attractions Destinations</h2>
       </div>
-      <div className={styles.galleryContainer}>
-        <div className={styles.galleryColumn}>
-          <div className={styles.galleryRowTop}>
-            <CardDestination
-              image="https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6"
-              travels={150}
-              destination="France"
-            />
-            <CardDestination
-              image="https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6"
-              travels={150}
-              destination="France"
-            />
-            <CardDestination
-              image="https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6"
-              travels={150}
-              destination="France"
-            />
-          </div>
-          <div className={styles.galleryRowBottom}>
-            <CardDestination
-              image="https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6"
-              travels={150}
-              destination="France"
-              className={styles.itemLeft}
-            />
-            <CardDestination
-              image="https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6"
-              travels={150}
-              destination="France"
-              className={styles.itemRight}
-            />
-          </div>
-        </div>
 
-        <div className={styles.galleryTallImage}>
-          <CardDestination
-            image="https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6"
-            travels={150}
-            destination="France"
-          />
-        </div>
+      <div className={styles.gallery}>
+        <Gallery
+          cards={[
+            {
+              image:
+                "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
+              travels: 150,
+              destination: "France",
+            },
+            {
+              image:
+                "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
+              travels: 100,
+              destination: "Italy",
+            },
+            {
+              image:
+                "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
+              travels: 200,
+              destination: "Spain",
+            },
+            {
+              image:
+                "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
+              travels: 250,
+              destination: "Portugal",
+            },
+            {
+              image:
+                "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
+              travels: 300,
+              destination: "Germany",
+            },
+            {
+              image:
+                "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
+              travels: 350,
+              destination: "Netherlands",
+            },
+          ]}
+        />
       </div>
     </section>
   );

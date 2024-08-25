@@ -1,5 +1,4 @@
 import Head from "next/head";
-import styles from "./styles.module.scss";
 import Header from "@/components/sections/Header";
 import Footer from "@/components/sections/Footer";
 import PageHeader from "@/components/sections/PageHeader";
@@ -17,7 +16,7 @@ export default function Tours() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
+      <main>
         <Header />
         <PageHeader
           imageSrc="/images/tour.svg"

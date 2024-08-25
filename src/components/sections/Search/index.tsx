@@ -14,8 +14,8 @@ const Search: React.FC = () => {
       name: "Sunset Cruise in Rio",
       rating: 4.8,
       reviews: 180,
-      duration: "2.5 hours",
-      price: "150",
+      duration: 72,
+      price: 150,
       isActivity: true,
     },
     {
@@ -27,8 +27,8 @@ const Search: React.FC = () => {
       name: "Mountain Hike Adventure",
       rating: 4.7,
       reviews: 95,
-      duration: "4 hours",
-      price: "80",
+      duration: 24,
+      price: 80,
       isActivity: true,
     },
     {
@@ -40,8 +40,8 @@ const Search: React.FC = () => {
       name: "Iguazu Falls Tour",
       rating: 5.0,
       reviews: 220,
-      duration: "2 days",
-      price: "200",
+      duration: 2,
+      price: 200,
       isActivity: true,
     },
     {
@@ -53,8 +53,8 @@ const Search: React.FC = () => {
       name: "Cultural Festival Experience",
       rating: 4.6,
       reviews: 150,
-      duration: "5 hours",
-      price: "100",
+      duration: 0,
+      price: 100,
       isActivity: true,
     },
   ]);

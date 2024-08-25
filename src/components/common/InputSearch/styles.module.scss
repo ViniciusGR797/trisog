@@ -42,8 +42,8 @@
     color: var(--primary-font-color);
 
     &[type="date"]::-webkit-calendar-picker-indicator {
-      position: absolute;
       background: none;
+      position: absolute;
       width: 100%;
     }
 

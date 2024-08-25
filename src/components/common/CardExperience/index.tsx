@@ -16,8 +16,8 @@ interface CardExperienceProps {
   name: string;
   rating: number;
   reviews: number;
-  duration: string;
-  price: string;
+  duration: number;
+  price: number;
   isActivity?: boolean;
 }
 
@@ -40,8 +40,24 @@ const CardExperience: React.FC<CardExperienceProps> = ({
     console.log(`${name} favorite status changed`);
   };
 
+  const formatDuration = (hours: number): string => {
+    if (hours >= 24) {
+      const days = Math.floor(hours / 24);
+      return `${days} day${days > 1 ? 's' : ''}`;
+    } else if (hours >= 1) {
+      const formattedHours = hours % 1 === 0 ? Math.floor(hours) : hours;
+      const displayHours = formattedHours % 1 === 0 ? formattedHours.toString() : formattedHours.toFixed(1);
+      return `${displayHours} hour${formattedHours > 1 ? 's' : ''}`;
+    } else if (hours > 0) {
+      const minutes = Math.round(hours * 60);
+      return `${minutes} min${minutes > 1 ? 's' : ''}`;
+    } else {
+      return '0 min';
+    }
+  };
+
   return (
-    <Link href={`/tours/${id}`} className={styles.card}>
+    <div className={styles.card}>
       <div className={styles.favoriteButton} onClick={toggleFavorite}>
         {isFavorite ? (
           <AiFillHeart className={styles.heartIcon} />
@@ -49,7 +65,7 @@ const CardExperience: React.FC<CardExperienceProps> = ({
           <AiOutlineHeart className={styles.heartIcon} />
         )}
       </div>
-      <div className={styles.cardDetail}>
+      <Link href={`/tours/${id}`} className={styles.cardDetail}>
         <Image
           src={image}
           alt={name}
@@ -74,17 +90,17 @@ const CardExperience: React.FC<CardExperienceProps> = ({
             </div>
             <div className={styles.time}>
               <CiClock2 className={styles.starTime} />
-              <span>{duration}</span>
+              <span>{formatDuration(duration)}</span>
             </div>
           </div>
           <hr className={styles.separator} />
           <div className={styles.budget}>
             <p className={styles.startFrom}>Starting From</p>
-            <p className={styles.price}>{symbol} {parseFloat(price) * exchangeRate}</p>
+            <p className={styles.price}>{symbol} {parseFloat((price * exchangeRate).toFixed(2)).toString()}</p>
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };
 
