@@ -3,6 +3,22 @@
   padding: 0;
   margin: 0;
   font-family: "Inter", "Work Sans", "Kaushan Script";
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+    border: 3px solid #f0f0f0;
+  }
 }
 
 :root {
@@ -12,10 +28,13 @@
 
   --details-color: #FD5056;
   --secondary-details-color: #db4248;
+  --third-details-color: #bc6063;
+  --fourth-details-color: #A9AFBB;
 
   --primary-font-color: #041036;
   --secondary-font-color: #C7C7C7;
   --third-font-color: #CFCFCF;
+  --fourth-font-color: #646A82;
 }
 
 a {

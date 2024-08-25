@@ -1,5 +1,6 @@
+import Footer from "@/components/sections/Footer";
+import Header from "@/components/sections/Header";
 import Head from "next/head";
-import styles from "./styles.module.scss";
 
 export default function ExperienceName() {
   return (
@@ -10,8 +11,9 @@ export default function ExperienceName() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-
+      <main>
+        <Header />
+        <Footer />
       </main>
     </>
   );

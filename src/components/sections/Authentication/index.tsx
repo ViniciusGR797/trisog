@@ -80,7 +80,7 @@ const Authentication: React.FC<AuthenticationProps> = ({
       toast.warn(firebaseError);
       return;
     }
-    toast.success(`Welcome, ${user.displayName?.split(' ')[0]}!`);
+    toast.success(`Welcome, ${user.displayName?.split(" ")[0]}!`);
     router.push("/home");
   };
 
@@ -90,7 +90,7 @@ const Authentication: React.FC<AuthenticationProps> = ({
       toast.warn(firebaseError);
       return;
     }
-    toast.success(`Welcome, ${user.displayName?.split(' ')[0]}!`);
+    toast.success(`Welcome, ${user.displayName?.split(" ")[0]}!`);
     router.push("/home");
   };
 
@@ -100,7 +100,7 @@ const Authentication: React.FC<AuthenticationProps> = ({
       toast.warn(firebaseError);
       return;
     }
-    toast.success(`Welcome, ${user.displayName?.split(' ')[0]}!`);
+    toast.success(`Welcome, ${user.displayName?.split(" ")[0]}!`);
     router.push("/home");
   };
 
@@ -159,10 +159,7 @@ const Authentication: React.FC<AuthenticationProps> = ({
             onChange={handleChange}
             error={errors.password}
           />
-          <button
-            type="submit"
-            className={styles.submitButton}
-          >
+          <button type="submit" className={styles.submitButton}>
             {buttonText}
           </button>
         </form>
@@ -172,8 +169,11 @@ const Authentication: React.FC<AuthenticationProps> = ({
         <Image
           src={imageUrl}
           alt="Authentication Visual"
-          layout="fill"
-          objectFit="cover"
+          fill={true}
+          style={{ objectFit: "cover" }}
+          priority={true}
+          placeholder="blur"
+          blurDataURL={imageUrl}
         />
       </div>
     </section>

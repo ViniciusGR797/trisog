@@ -1,5 +1,13 @@
 import Head from "next/head";
 import styles from "./styles.module.scss";
+import Header from "@/components/sections/Header";
+import Hero from "@/components/sections/Hero";
+import TourMostPopular from "@/components/sections/TourMostPopular";
+import Statistics from "@/components/sections/Statistics";
+import DestinationPopular from "@/components/sections/DestinationPopular";
+import Testimonials from "@/components/sections/Testimonials";
+import Updates from "@/components/sections/Updates";
+import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   return (
@@ -10,8 +18,18 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-
+      <main>
+        <Header />
+        <Hero />
+        <TourMostPopular />
+        <Statistics />
+        <DestinationPopular />
+        {/* <ChooseUs />
+        <Category /> */}
+        <Testimonials />
+        <Updates />
+        {/* <Partnerships /> */}
+        <Footer />
       </main>
     </>
   );

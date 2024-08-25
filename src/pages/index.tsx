@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { logInWithEmail } from "@/services/firebase/userService";
 import { useRouter } from "next/router";
 
-export default function Home() {
+export default function Login() {
   const router = useRouter();
   
   const handleLogIn = async (email: string, password: string) => {

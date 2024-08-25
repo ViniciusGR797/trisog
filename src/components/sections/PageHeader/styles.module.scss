@@ -1,0 +1,142 @@
+.pageHeader {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 6rem 3rem;
+  gap: 0.5rem;
+  color: var(--background-color);
+  z-index: 1;
+  transform: translateY(-35px);
+
+  .title {
+    font-family: "Work Sans";
+    font-weight: bold;
+    font-size: 3.4rem;
+  }
+
+  .path {
+    font-family: "Work Sans";
+    font-weight: 600;
+    font-size: 1rem;
+
+    .finalPath {
+      color: var(--details-color);
+    }
+  }
+}
+
+.listItems {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  span {
+    position: relative;
+    cursor: pointer;
+
+    a {
+      position: relative;
+      padding-bottom: 0.5rem;
+      text-decoration: none;
+
+      &:hover {
+        color: var(--details-color);
+      }
+    }
+
+    &:hover::after {
+      content: "";
+      display: block;
+      height: 4px;
+      background-color: var(--details-color);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      transition: width 0.5s ease-in-out;
+    }
+
+    &:hover a::after {
+      content: "";
+      display: block;
+      height: 4px;
+      background-color: var(--details-color);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      transition: width 0.5s ease-in-out;
+      animation: expandEffect 0.5s forwards;
+    }
+  }
+}
+
+@keyframes expandEffect {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .textContainer {
+    padding: 7rem 3rem;
+    transform: translateY(-70px);
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .textContainer {
+    padding: 7rem 2rem;
+
+    .title {
+      font-size: 3rem;
+    }
+
+    .path {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .textContainer {
+    .title {
+      font-size: 2.5rem;
+    }
+
+    .path {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .textContainer {
+    padding: 9rem 2rem;
+    transform: translateY(-110px);
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .textContainer {
+    padding: 9rem 1.5rem;
+    gap: 1rem;
+
+    .title {
+      font-size: 1.5rem;
+    }
+
+    .path {
+      font-size: 0.8rem;
+    }
+  }
+}
