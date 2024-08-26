@@ -15,7 +15,11 @@ const Gallery: React.FC<GalleryProps> = ({ destinations, reverse = false }) => {
         reverse ? styles.galleryReverse : ""
       }`}
     >
-      <div className={styles.galleryColumn}>
+      <div
+        className={`${styles.galleryColumn} ${
+          destinations.length !== 6 ? styles.extendedWidth : ""
+        }`}
+      >
         <div className={styles.galleryRowTop}>
           {destinations.slice(0, 3).map((card, index) => (
             <CardDestination
@@ -28,7 +32,12 @@ const Gallery: React.FC<GalleryProps> = ({ destinations, reverse = false }) => {
             />
           ))}
         </div>
-        <div className={styles.galleryRowBottom}>
+
+        <div
+        className={`${styles.galleryRowBottom} ${
+          destinations.length === 4 ? styles.extendedItemLeft : ""
+        }`}
+      >
           {destinations[3] && (
             <CardDestination
               key={destinations[3].id}
@@ -54,7 +63,13 @@ const Gallery: React.FC<GalleryProps> = ({ destinations, reverse = false }) => {
         </div>
       </div>
 
-      <div className={styles.galleryTallImage}>
+      <div
+        className={
+          destinations.length === 6
+            ? styles.galleryTallImage
+            : styles.noGalleryTallImage
+        }
+      >
         {destinations[5] && (
           <CardDestination
             key={destinations[5].id}

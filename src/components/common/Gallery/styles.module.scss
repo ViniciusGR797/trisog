@@ -31,11 +31,25 @@
         width: 55%;
       }
     }
+
+    .extendedItemLeft {
+      .itemLeft {
+        width: 100%;
+      }
+    }
+  }
+
+  .extendedWidth {
+    width: 100%;
   }
 
   .galleryTallImage {
     display: flex;
     width: 25%;
+  }
+
+  .noGalleryTallImage {
+    display: none;
   }
 }
 
