@@ -1,54 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.scss";
-import CardDestination from "@/components/common/CardDestination";
 import Gallery from "@/components/common/Gallery";
 import SectionHeader from "@/components/common/SectionHeader";
+import DestinationService from "@/services/api/destinationService";
+import { useDestinationContext } from "@/contexts/DestinationContext";
+import { toast } from "react-toastify";
 
 const DestinationPopular: React.FC = () => {
+  const { destinations, setDestinations } = useDestinationContext();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await DestinationService.getDestinations();
+      if (response.status === 200) {
+        setDestinations(response.data);
+      } else {
+        toast.error(response.data.msg);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <section className={styles.destinationPopular}>
-      <SectionHeader title="Top Attractions Destinations" subtitle="Destination" />
+      <SectionHeader
+        title="Top Attractions Destinations"
+        subtitle="Destination"
+      />
       <div className={styles.gallery}>
-        <Gallery
-          cards={[
-            {
-              image:
-                "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-              travels: 150,
-              destination: "France",
-            },
-            {
-              image:
-                "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-              travels: 100,
-              destination: "Italy",
-            },
-            {
-              image:
-                "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-              travels: 200,
-              destination: "Spain",
-            },
-            {
-              image:
-                "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-              travels: 250,
-              destination: "Portugal",
-            },
-            {
-              image:
-                "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-              travels: 300,
-              destination: "Germany",
-            },
-            {
-              image:
-                "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-              travels: 350,
-              destination: "Netherlands",
-            },
-          ]}
-        />
+        <Gallery destinations={destinations.slice(0, 6)} />
       </div>
     </section>
   );

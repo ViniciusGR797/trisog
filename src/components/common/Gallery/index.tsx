@@ -1,46 +1,53 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import CardDestination from "../CardDestination";
-
-interface CardData {
-  image: string;
-  travels: number;
-  destination: string;
-}
+import { Destination } from "@/types/destination";
 
 interface GalleryProps {
-  cards: CardData[];
+  destinations: Destination[];
   reverse?: boolean;
 }
 
-const Gallery: React.FC<GalleryProps> = ({ cards, reverse = false }) => {
+const Gallery: React.FC<GalleryProps> = ({ destinations, reverse = false }) => {
   return (
-    <div className={`${styles.galleryContainer} ${reverse ? styles.galleryReverse : ""}`}>
+    <div
+      className={`${styles.galleryContainer} ${
+        reverse ? styles.galleryReverse : ""
+      }`}
+    >
       <div className={styles.galleryColumn}>
         <div className={styles.galleryRowTop}>
-          {cards.slice(0, 3).map((card, index) => (
+          {destinations.slice(0, 3).map((card, index) => (
             <CardDestination
-              key={index}
-              image={card.image}
-              travels={card.travels}
-              destination={card.destination}
+              key={card.id}
+              id={card.id}
+              image={card.images[0]}
+              travels={card.travel_count}
+              destination={card.name}
+              about={card.about}
             />
           ))}
         </div>
         <div className={styles.galleryRowBottom}>
-          {cards[3] && (
+          {destinations[3] && (
             <CardDestination
-              image={cards[3].image}
-              travels={cards[3].travels}
-              destination={cards[3].destination}
+              key={destinations[3].id}
+              id={destinations[3].id}
+              image={destinations[3].images[0]}
+              travels={destinations[3].travel_count}
+              destination={destinations[3].name}
+              about={destinations[3].about}
               className={styles.itemLeft}
             />
           )}
-          {cards[4] && (
+          {destinations[4] && (
             <CardDestination
-              image={cards[4].image}
-              travels={cards[4].travels}
-              destination={cards[4].destination}
+              key={destinations[4].id}
+              id={destinations[4].id}
+              image={destinations[4].images[0]}
+              travels={destinations[4].travel_count}
+              destination={destinations[4].name}
+              about={destinations[4].about}
               className={styles.itemRight}
             />
           )}
@@ -48,11 +55,14 @@ const Gallery: React.FC<GalleryProps> = ({ cards, reverse = false }) => {
       </div>
 
       <div className={styles.galleryTallImage}>
-        {cards[5] && (
+        {destinations[5] && (
           <CardDestination
-            image={cards[5].image}
-            travels={cards[5].travels}
-            destination={cards[5].destination}
+            key={destinations[5].id}
+            id={destinations[5].id}
+            image={destinations[5].images[0]}
+            travels={destinations[5].travel_count}
+            about={destinations[5].about}
+            destination={destinations[5].name}
           />
         )}
       </div>

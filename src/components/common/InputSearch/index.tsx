@@ -61,6 +61,7 @@ const InputSearch: React.FC<InputSearchProps> = ({
           type={type !== 'select' ? type : 'text'}
           name={name}
           value={value}
+          min={type === 'number' ? 0 : undefined}
           placeholder={placeholder}
           onChange={handleInputChange}
           className={styles.input}

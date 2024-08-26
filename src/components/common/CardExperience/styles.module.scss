@@ -4,12 +4,8 @@
   border-radius: 5px;
   background-color: var(--secondary-background-color);
 
-  .cardDetail {
-    transition: transform 0.3s ease;
-
-    &:hover {
-      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    }
+  &:hover {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   }
 }
 

@@ -5,16 +5,20 @@ import styles from "./styles.module.scss";
 import { RevealWrapper } from "next-reveal";
 
 interface CardDestinationProps {
+  id: string; 
   image: string;
   travels: number;
   destination: string;
+  about: string;
   className?: string;
 }
 
 const CardDestination: React.FC<CardDestinationProps> = ({
+  id,
   image,
   travels,
   destination,
+  about,
   className = styles.defaultCard,
 }) => {
   return (
@@ -25,7 +29,7 @@ const CardDestination: React.FC<CardDestinationProps> = ({
       className={`${styles.card} ${className}`}
     >
       <Link
-        href={`/destination/${destination.toLowerCase().replace(" ", "-")}`}
+        href={`/destinations/${id}`}
       >
         <div className={styles.imageContainer}>
           <Image
@@ -35,10 +39,12 @@ const CardDestination: React.FC<CardDestinationProps> = ({
             style={{ objectFit: "cover" }}
             className={styles.image}
           />
+          <div className={styles.overlay}></div>
         </div>
         <div className={styles.content}>
           <p className={styles.travels}>{travels} Travels</p>
           <h3 className={styles.destination}>{destination}</h3>
+          <p className={styles.about}>{about}</p>
         </div>
       </Link>
     </RevealWrapper>
