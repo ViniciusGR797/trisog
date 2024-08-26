@@ -29,7 +29,11 @@ const DestinationPopular: React.FC = () => {
         subtitle="Destination"
       />
       <div className={styles.gallery}>
-        <Gallery destinations={destinations.slice(0, 6)} />
+        {destinations.length === 0 ? (
+          <p className={styles.noDestinationsMessage}>No top attractions available at the moment</p>
+        ) : (
+          <Gallery destinations={destinations.slice(0, 6)} />
+        )}
       </div>
     </section>
   );
