@@ -91,10 +91,7 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <RevealWrapper
-      origin="left"
-      delay={200}
-      duration={1000}
+    <div
       className={styles.searchBar}
     >
       <div className={styles.form}>
@@ -148,7 +145,7 @@ const SearchBar: React.FC = () => {
       >
         Search
       </button>
-    </RevealWrapper>
+    </div>
   );
 };
 
