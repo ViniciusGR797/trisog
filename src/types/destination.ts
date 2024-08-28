@@ -1,10 +1,10 @@
 export type Weather = {
-  jan_fev: number;
-  mar_apr: number;
-  may_jun: number;
-  jul_ago: number;
-  sep_oct: number;
-  nov_dec: number;
+  jan_fev: number[];
+  mar_apr: number[];
+  may_jun: number[];
+  jul_ago: number[];
+  sep_oct: number[];
+  nov_dec: number[];
 };
 
 export type Destination = {

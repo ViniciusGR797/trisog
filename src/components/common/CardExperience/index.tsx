@@ -5,7 +5,6 @@ import styles from "./styles.module.scss";
 import { AiFillStar, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { CiClock2 } from "react-icons/ci";
 import { useCurrency } from "@/contexts/CurrencyContext";
-import { RevealWrapper } from "next-reveal";
 
 interface CardExperienceProps {
   id: string;
@@ -61,10 +60,7 @@ const CardExperience: React.FC<CardExperienceProps> = ({
   };
 
   return (
-    <RevealWrapper
-      origin="left"
-      delay={200}
-      duration={1000}
+    <div
       className={styles.card}
     >
       <div className={styles.favoriteButton} onClick={toggleFavorite}>
@@ -112,7 +108,7 @@ const CardExperience: React.FC<CardExperienceProps> = ({
           </div>
         </div>
       </Link>
-    </RevealWrapper>
+    </div>
   );
 };
 
