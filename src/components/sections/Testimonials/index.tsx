@@ -7,7 +7,6 @@ import { Pagination } from "swiper/modules";
 import styles from "./styles.module.scss";
 import Testimonial from "@/components/common/Testimonial";
 import SectionHeader from "@/components/common/SectionHeader";
-import { RevealWrapper } from "next-reveal";
 
 const testimonials = [
   {
@@ -36,10 +35,7 @@ const Testimonials: React.FC = () => {
   return (
     <section className={styles.testimonials}>
       <div className={styles.testimonialContainer}>
-        <RevealWrapper
-          origin="left"
-          delay={200}
-          duration={1000}
+        <div
           className={styles.testimonialImage}
         >
           <Image
@@ -49,7 +45,7 @@ const Testimonials: React.FC = () => {
             height={660}
             priority={true}
           />
-        </RevealWrapper>
+        </div>
         <div className={styles.testimonialDetail}>
           <SectionHeader title="What Travelers Say" subtitle="Testimonial" />
           <div className={styles.carousel}>

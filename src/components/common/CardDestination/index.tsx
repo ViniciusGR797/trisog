@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./styles.module.scss";
-import { RevealWrapper } from "next-reveal";
 
 interface CardDestinationProps {
   id: string; 
@@ -22,10 +21,7 @@ const CardDestination: React.FC<CardDestinationProps> = ({
   className = styles.defaultCard,
 }) => {
   return (
-    <RevealWrapper
-      origin="left"
-      delay={200}
-      duration={1000}
+    <div
       className={`${styles.card} ${className}`}
     >
       <Link
@@ -47,7 +43,7 @@ const CardDestination: React.FC<CardDestinationProps> = ({
           <p className={styles.about}>{about}</p>
         </div>
       </Link>
-    </RevealWrapper>
+    </div>
   );
 };
 

@@ -5,7 +5,6 @@ import { PiPaperPlaneTilt } from "react-icons/pi";
 import { CiFlag1, CiCalendar } from "react-icons/ci";
 import { GoPeople } from "react-icons/go";
 import { toast } from "react-toastify";
-import { RevealWrapper } from "next-reveal";
 
 const SearchBar: React.FC = () => {
   const [formData, setFormData] = useState({

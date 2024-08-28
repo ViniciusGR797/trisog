@@ -3,7 +3,6 @@ import styles from "./styles.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "@/components/common/SearchBar";
-import { RevealWrapper } from "next-reveal";
 
 interface PageHeaderProps {
   imageSrc: string;
@@ -63,10 +62,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
         style={{ objectFit: "cover" }}
         priority={true}
       />
-      <RevealWrapper
-        origin="left"
-        delay={200}
-        duration={1000}
+      <div
         className={styles.textContainer}
       >
         <h1 className={styles.title}>{title}</h1>
@@ -78,7 +74,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
             </Link>
           </span>
         </p>
-      </RevealWrapper>
+      </div>
       <SearchBar />
     </section>
   );

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import CardExperience from "@/components/common/CardExperience";
 import Sorting from "@/components/common/Sorting";
-import { RevealWrapper } from "next-reveal";
 
 const Search: React.FC = () => {
   const [results, setResults] = useState([
@@ -130,10 +129,7 @@ const Search: React.FC = () => {
         </div>
 
         <div className={styles.results}>
-          <RevealWrapper
-            origin="left"
-            delay={200}
-            duration={1000}
+          <div
             className={styles.resultsHeader}
           >
             <span>
@@ -141,7 +137,7 @@ const Search: React.FC = () => {
               {sortedResults.length > 1 ? "Tours" : "Tour"}
             </span>
             <Sorting onSortChange={handleSortChange} />
-          </RevealWrapper>
+          </div>
           <div
             className={`${
               sortedResults.length > 0

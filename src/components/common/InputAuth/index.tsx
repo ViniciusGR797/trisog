@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { RevealWrapper } from "next-reveal";
 
 interface InputAuthProps {
   label: string;

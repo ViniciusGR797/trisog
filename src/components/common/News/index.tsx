@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./styles.module.scss";
-import { RevealWrapper } from "next-reveal";
 
 interface NewsProps {
   image: string;
@@ -13,7 +12,6 @@ interface NewsProps {
 
 const News: React.FC<NewsProps> = ({ image, date, author, title }) => {
   return (
-    <RevealWrapper origin="left" delay={200} duration={1000}>
       <Link href="/blog" className={styles.card}>
         <Image
           src={image}
@@ -33,7 +31,6 @@ const News: React.FC<NewsProps> = ({ image, date, author, title }) => {
           <h3 className={styles.title}>{title}</h3>
         </div>
       </Link>
-    </RevealWrapper>
   );
 };
 
