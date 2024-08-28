@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import Gallery from "@/components/common/Gallery";
 import SectionHeader from "@/components/common/SectionHeader";
 import DestinationService from "@/services/api/destinationService";
-import { useDestinationContext } from "@/contexts/DestinationContext";
 import { toast } from "react-toastify";
+import { Destination } from "@/types/destination";
 
 const DestinationPopular: React.FC = () => {
-  const { destinations, setDestinations } = useDestinationContext();
+  const [destinations, setDestinations] = useState<Destination[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {

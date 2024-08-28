@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import Galley from "@/components/common/Gallery";
-import { useDestinationContext } from "@/contexts/DestinationContext";
 import DestinationService from "@/services/api/destinationService";
 import { toast } from "react-toastify";
+import { Destination } from "@/types/destination";
 
 const DestinationGalley: React.FC = () => {
-  const { destinations, setDestinations } = useDestinationContext();
+  const [destinations, setDestinations] = useState<Destination[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {

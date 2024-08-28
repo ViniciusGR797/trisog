@@ -12,7 +12,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { parseCookies, setCookie, destroyCookie } from "nookies";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { RevealWrapper } from "next-reveal";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
 const Header: React.FC = () => {
@@ -24,7 +23,7 @@ const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setCurrency(event.target.value as 'USD' | 'EUR' | 'BRL');
+    setCurrency(event.target.value as "USD" | "EUR" | "BRL");
   };
 
   const toggleMenu = () => {
@@ -53,12 +52,7 @@ const Header: React.FC = () => {
   return (
     <>
       <header className={styles.header}>
-        <RevealWrapper
-          origin="top"
-          delay={200}
-          duration={1000}
-          className={styles.contact}
-        >
+        <div className={styles.contact}>
           <div className={styles.contactLeft}>
             <p>(000) 999-898-999</p>
             <span className={styles.separator}>|</span>
@@ -100,14 +94,9 @@ const Header: React.FC = () => {
               <option value="BRL">BRL</option>
             </select>
           </div>
-        </RevealWrapper>
+        </div>
 
-        <RevealWrapper
-          origin="top"
-          delay={200}
-          duration={1000}
-          className={styles.menu}
-        >
+        <div className={styles.menu}>
           <Link href="/home">
             <Image
               src="/logo.svg"
@@ -197,7 +186,7 @@ const Header: React.FC = () => {
               )}
             </div>
           </nav>
-        </RevealWrapper>
+        </div>
       </header>
       {menuOpen && <div className={styles.overlay} onClick={toggleMenu}></div>}
     </>

@@ -4,7 +4,6 @@ import { PiPaperPlaneTilt } from "react-icons/pi";
 import styles from "./styles.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import { RevealWrapper } from "next-reveal";
 import { toast } from "react-toastify";
 
 const Footer: React.FC = () => {
@@ -55,10 +54,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className={styles.footer}>
-      <RevealWrapper
-        origin="bottom"
-        delay={200}
-        duration={1000}
+      <div
         className={styles.footerContainer}
       >
         <div className={styles.contact}>
@@ -204,7 +200,7 @@ const Footer: React.FC = () => {
           </button>
           <p>&copy; 2023 Trisog All Right Reserved</p>
         </div>
-      </RevealWrapper>
+      </div>
     </footer>
   );
 };
