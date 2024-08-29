@@ -2,19 +2,18 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import CardExperience from "@/components/common/CardExperience";
 import Sorting from "@/components/common/Sorting";
-import { usePaginatedExperiencesContext } from "@/contexts/PaginatedExperiencesContext";
 import { toast } from "react-toastify";
 import ExperienceService from "@/services/api/experienceService";
 import { useRouter } from "next/router";
 import { useFavoriteContext } from "@/contexts/FavoriteContext";
 import FavoriteService from "@/services/api/favoriteService";
 import { parseCookies } from "nookies";
+import { useExperienceContext } from "@/contexts/ExperienceContext";
 
 const Search: React.FC = () => {
   const router = useRouter();
 
-  const { paginatedExperiences, setPaginatedExperiences } =
-    usePaginatedExperiencesContext();
+  const { experiences, setExperiences } = useExperienceContext();
   const { favorites, setFavorites } = useFavoriteContext();
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -22,7 +21,7 @@ const Search: React.FC = () => {
   const fetchDataExperiences = async () => {
     const response = await ExperienceService.getExperiences();
     if (response?.status === 200) {
-      setPaginatedExperiences(response.data);
+      setExperiences(response.data);
     } else {
       toast.error(response?.data.msg);
     }
@@ -161,14 +160,14 @@ const Search: React.FC = () => {
           <div className={styles.resultsHeader}>
             <span>
               {`${
-                paginatedExperiences && paginatedExperiences.experiences
-                  ? paginatedExperiences.experiences.length + " "
+                experiences && experiences.experiences
+                  ? experiences.experiences.length + " "
                   : "0 "
               }`}
               {`${
-                paginatedExperiences &&
-                paginatedExperiences.experiences &&
-                paginatedExperiences.experiences.length > 1
+                experiences &&
+                experiences.experiences &&
+                experiences.experiences.length > 1
                   ? "Tours"
                   : "Tour"
               }`}
@@ -178,17 +177,17 @@ const Search: React.FC = () => {
 
           <div
             className={`${
-              paginatedExperiences &&
-              paginatedExperiences.experiences &&
-              paginatedExperiences.experiences.length > 0
+              experiences &&
+              experiences.experiences &&
+              experiences.experiences.length > 0
                 ? styles.resultsList
                 : styles.noResultsList
             }`}
           >
-            {paginatedExperiences &&
-            paginatedExperiences.experiences &&
-            paginatedExperiences.experiences.length > 0 ? (
-              paginatedExperiences.experiences.map((result, index) => (
+            {experiences &&
+            experiences.experiences &&
+            experiences.experiences.length > 0 ? (
+              experiences.experiences.map((result, index) => (
                 <div key={index} className={styles.resultItem}>
                   <CardExperience
                     id={result.id}

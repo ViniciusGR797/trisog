@@ -6,19 +6,18 @@ import { Pagination } from "swiper/modules";
 import styles from "./styles.module.scss";
 import CardExperience from "@/components/common/CardExperience";
 import SectionHeader from "@/components/common/SectionHeader";
-import { usePaginatedExperiencesContext } from "@/contexts/PaginatedExperiencesContext";
 import { toast } from "react-toastify";
 import ExperienceService from "@/services/api/experienceService";
 import FavoriteService from "@/services/api/favoriteService";
 import { useFavoriteContext } from "@/contexts/FavoriteContext";
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
+import { useExperienceContext } from "@/contexts/ExperienceContext";
 
 const TourMostPopular: React.FC = () => {
   const router = useRouter();
 
-  const { paginatedExperiences, setPaginatedExperiences } =
-    usePaginatedExperiencesContext();
+  const { experiences, setExperiences } = useExperienceContext();
   const { favorites, setFavorites } = useFavoriteContext();
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -26,7 +25,7 @@ const TourMostPopular: React.FC = () => {
   const fetchDataExperiences = async () => {
     const response = await ExperienceService.getExperiences();
     if (response?.status === 200) {
-      setPaginatedExperiences(response.data);
+      setExperiences(response.data);
     } else {
       toast.error(response?.data.msg);
     }
@@ -40,14 +39,16 @@ const TourMostPopular: React.FC = () => {
         response.data.map((fav: { experience_id: string }) => fav.experience_id)
       );
       setFavoriteIds(ids);
-    } 
+    }
   };
 
   useEffect(() => {
     fetchDataExperiences();
 
     const cookies = parseCookies();
-    const userCookie = cookies['@auth.user'] ? JSON.parse(cookies['@auth.user']) : null;
+    const userCookie = cookies["@auth.user"]
+      ? JSON.parse(cookies["@auth.user"])
+      : null;
     setIsLoggedIn(userCookie !== null);
     if (userCookie) fetchDataFavorites();
   }, [router]);
@@ -94,9 +95,9 @@ const TourMostPopular: React.FC = () => {
       <SectionHeader title="Most Popular Tours" subtitle="Tours" />
 
       <div className={styles.carousel}>
-        {paginatedExperiences &&
-        paginatedExperiences.experiences &&
-        paginatedExperiences.experiences.length > 0 ? (
+        {experiences &&
+        experiences.experiences &&
+        experiences.experiences.length > 0 ? (
           <Swiper
             pagination={{
               clickable: true,
@@ -122,7 +123,7 @@ const TourMostPopular: React.FC = () => {
               },
             }}
           >
-            {paginatedExperiences?.experiences.map((experience, index) => (
+            {experiences?.experiences.map((experience, index) => (
               <SwiperSlide key={index}>
                 <CardExperience
                   id={experience.id}
