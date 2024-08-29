@@ -5,21 +5,16 @@ import { setCookie } from 'nookies';
 
 const setAuthToken = async (user: User) => {
   const token = await getIdToken(user, true);
-
   const firstName = user.displayName?.split(' ')[0] || '';
   const email = user.email || '';
   const photoUrl = user.photoURL || ''; 
   const userData = {
+    token,
     firstName,
     email,
     photoUrl,
   };
   const userDataString = JSON.stringify(userData);
-
-  setCookie(null, '@auth.token', token, {
-    maxAge: 55 * 60,
-    path: '/',
-  });
 
   setCookie(null, '@auth.user', userDataString, {
     maxAge: 55 * 60,

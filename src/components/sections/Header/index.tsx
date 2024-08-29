@@ -10,15 +10,21 @@ import styles from "./styles.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { parseCookies, setCookie, destroyCookie } from "nookies";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { destroyCookie, parseCookies } from 'nookies';
+
+interface User {
+  firstName: string;
+  email: string;
+  photoUrl: string;
+}
 
 const Header: React.FC = () => {
   const router = useRouter();
   const { currency, setCurrency } = useCurrency();
 
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [showLogout, setShowLogout] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -31,10 +37,6 @@ const Header: React.FC = () => {
   };
 
   const handleLogout = () => {
-    destroyCookie(null, "@auth.token", {
-      path: "/",
-    });
-
     destroyCookie(null, "@auth.user", {
       path: "/",
     });
@@ -43,9 +45,7 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const cookies = parseCookies();
-    const userCookie = cookies["@auth.user"]
-      ? JSON.parse(cookies["@auth.user"])
-      : null;
+    const userCookie = cookies['@auth.user'] ? JSON.parse(cookies['@auth.user']) : null;
     setUser(userCookie);
   }, []);
 

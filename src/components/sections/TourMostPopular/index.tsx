@@ -9,34 +9,94 @@ import SectionHeader from "@/components/common/SectionHeader";
 import { usePaginatedExperiencesContext } from "@/contexts/PaginatedExperiencesContext";
 import { toast } from "react-toastify";
 import ExperienceService from "@/services/api/experienceService";
+import FavoriteService from "@/services/api/favoriteService";
+import { useFavoriteContext } from "@/contexts/FavoriteContext";
+import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
 
 const TourMostPopular: React.FC = () => {
+  const router = useRouter();
+
   const { paginatedExperiences, setPaginatedExperiences } =
     usePaginatedExperiencesContext();
+  const { favorites, setFavorites } = useFavoriteContext();
+  const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  const fetchDataExperiences = async () => {
+    const response = await ExperienceService.getExperiences();
+    if (response?.status === 200) {
+      setPaginatedExperiences(response.data);
+    } else {
+      toast.error(response?.data.msg);
+    }
+  };
+
+  const fetchDataFavorites = async () => {
+    const response = await FavoriteService.getFavorite();
+    if (response?.status === 200) {
+      setFavorites(response.data);
+      const ids: Set<string> = new Set(
+        response.data.map((fav: { experience_id: string }) => fav.experience_id)
+      );
+      setFavoriteIds(ids);
+    } 
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await ExperienceService.getExperiences();
-        if (response.status === 200) {
-          setPaginatedExperiences(response.data);
-        } else {
-          toast.error(response.data.msg);
-        }
-      } catch (error) {
-        toast.error("An error occurred while fetching experiences.");
-      }
-    };
+    fetchDataExperiences();
 
-    fetchData();
-  }, []);
+    const cookies = parseCookies();
+    const userCookie = cookies['@auth.user'] ? JSON.parse(cookies['@auth.user']) : null;
+    setIsLoggedIn(userCookie !== null);
+    if (userCookie) fetchDataFavorites();
+  }, [router]);
+
+  const handleFavoriteToggle = async (id: string) => {
+    if (!isLoggedIn) {
+      toast.warning("You need to be logged in to add to favorites");
+      return;
+    }
+
+    const isFavorite = favoriteIds.has(id);
+
+    let response;
+    if (isFavorite) {
+      response = await FavoriteService.deleteFavorite(id);
+      if (response.status === 200) {
+        setFavorites(
+          favorites.filter((favorite) => favorite.experience_id !== id)
+        );
+        setFavoriteIds((prevIds) => {
+          const updatedIds = new Set(prevIds);
+          updatedIds.delete(id);
+          return updatedIds;
+        });
+        toast.success("Removed from favorites");
+      }
+    } else {
+      response = await FavoriteService.createFavorite(id);
+      if (response.status === 201) {
+        const newFavorite = response.data;
+        setFavorites([...favorites, newFavorite]);
+        setFavoriteIds((prevIds) => {
+          const updatedIds = new Set(prevIds);
+          updatedIds.add(id);
+          return updatedIds;
+        });
+        toast.success("Added to favorites");
+      }
+    }
+  };
 
   return (
     <section className={styles.tourMostPopular}>
       <SectionHeader title="Most Popular Tours" subtitle="Tours" />
 
       <div className={styles.carousel}>
-        {paginatedExperiences && paginatedExperiences.experiences.length > 0 ? (
+        {paginatedExperiences &&
+        paginatedExperiences.experiences &&
+        paginatedExperiences.experiences.length > 0 ? (
           <Swiper
             pagination={{
               clickable: true,
@@ -77,6 +137,8 @@ const TourMostPopular: React.FC = () => {
                   duration={experience.duration}
                   price={experience.default_price}
                   isActivity={experience.is_activity}
+                  isFavorite={favoriteIds.has(experience.id)}
+                  onFavoriteToggle={handleFavoriteToggle}
                 />
               </SwiperSlide>
             ))}

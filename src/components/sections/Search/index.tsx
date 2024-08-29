@@ -5,82 +5,87 @@ import Sorting from "@/components/common/Sorting";
 import { usePaginatedExperiencesContext } from "@/contexts/PaginatedExperiencesContext";
 import { toast } from "react-toastify";
 import ExperienceService from "@/services/api/experienceService";
+import { useRouter } from "next/router";
+import { useFavoriteContext } from "@/contexts/FavoriteContext";
+import FavoriteService from "@/services/api/favoriteService";
+import { parseCookies } from "nookies";
 
 const Search: React.FC = () => {
+  const router = useRouter();
+
   const { paginatedExperiences, setPaginatedExperiences } =
     usePaginatedExperiencesContext();
+  const { favorites, setFavorites } = useFavoriteContext();
+  const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  const fetchDataExperiences = async () => {
+    const response = await ExperienceService.getExperiences();
+    if (response?.status === 200) {
+      setPaginatedExperiences(response.data);
+    } else {
+      toast.error(response?.data.msg);
+    }
+  };
+
+  const fetchDataFavorites = async () => {
+    const response = await FavoriteService.getFavorite();
+    if (response?.status === 200) {
+      setFavorites(response.data);
+      const ids: Set<string> = new Set(
+        response.data.map((fav: { experience_id: string }) => fav.experience_id)
+      );
+      setFavoriteIds(ids);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await ExperienceService.getExperiences();
-        if (response.status === 200) {
-          setPaginatedExperiences(response.data);
-        } else {
-          toast.error(response.data.msg);
-        }
-      } catch (error) {
-        toast.error("An error occurred while fetching experiences.");
+    fetchDataExperiences();
+
+    const cookies = parseCookies();
+    const userCookie = cookies["@auth.user"]
+      ? JSON.parse(cookies["@auth.user"])
+      : null;
+    setIsLoggedIn(userCookie !== null);
+    if (userCookie) fetchDataFavorites();
+  }, [router]);
+
+  const handleFavoriteToggle = async (id: string) => {
+    if (!isLoggedIn) {
+      toast.warning("You need to be logged in to add to favorites");
+      return;
+    }
+
+    const isFavorite = favoriteIds.has(id);
+
+    let response;
+    if (isFavorite) {
+      response = await FavoriteService.deleteFavorite(id);
+      if (response.status === 200) {
+        setFavorites(
+          favorites.filter((favorite) => favorite.experience_id !== id)
+        );
+        setFavoriteIds((prevIds) => {
+          const updatedIds = new Set(prevIds);
+          updatedIds.delete(id);
+          return updatedIds;
+        });
+        toast.success("Removed from favorites");
       }
-    };
-
-    fetchData();
-  }, []);
-
-  // const [results, setResults] = useState([
-  //   {
-  //     id: "1",
-  //     image:
-  //       "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-  //     country: "Brazil",
-  //     city: "Rio de Janeiro",
-  //     name: "Sunset Cruise in Rio",
-  //     rating: 4.8,
-  //     reviews: 180,
-  //     duration: 72,
-  //     price: 150,
-  //     isActivity: true,
-  //   },
-  //   {
-  //     id: "2",
-  //     image:
-  //       "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-  //     country: "Brazil",
-  //     city: "Petropolis",
-  //     name: "Mountain Hike Adventure",
-  //     rating: 4.7,
-  //     reviews: 95,
-  //     duration: 24,
-  //     price: 80,
-  //     isActivity: true,
-  //   },
-  //   {
-  //     id: "3",
-  //     image:
-  //       "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-  //     country: "Brazil",
-  //     city: "Iguazu",
-  //     name: "Iguazu Falls Tour",
-  //     rating: 5.0,
-  //     reviews: 220,
-  //     duration: 2,
-  //     price: 200,
-  //     isActivity: true,
-  //   },
-  //   {
-  //     id: "4",
-  //     image:
-  //       "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-  //     country: "Brazil",
-  //     city: "Salvador",
-  //     name: "Cultural Festival Experience",
-  //     rating: 4.6,
-  //     reviews: 150,
-  //     duration: 0,
-  //     price: 100,
-  //     isActivity: true,
-  //   },
-  // ]);
+    } else {
+      response = await FavoriteService.createFavorite(id);
+      if (response.status === 201) {
+        const newFavorite = response.data;
+        setFavorites([...favorites, newFavorite]);
+        setFavoriteIds((prevIds) => {
+          const updatedIds = new Set(prevIds);
+          updatedIds.add(id);
+          return updatedIds;
+        });
+        toast.success("Added to favorites");
+      }
+    }
+  };
 
   const [sortOption, setSortOption] = useState<string>("name");
   const [isAscending, setIsAscending] = useState<boolean>(true);
@@ -188,13 +193,18 @@ const Search: React.FC = () => {
                   <CardExperience
                     id={result.id}
                     image={result.image}
-                    location={{ country: result.destination.name, city: result.city }}
+                    location={{
+                      country: result.destination.name,
+                      city: result.city,
+                    }}
                     name={result.title}
                     rating={result.rating}
                     reviews={result.review_count}
                     duration={result.duration}
                     price={result.default_price}
                     isActivity={result.is_activity}
+                    isFavorite={favoriteIds.has(result.id)}
+                    onFavoriteToggle={handleFavoriteToggle}
                   />
                 </div>
               ))

@@ -19,6 +19,8 @@ interface CardExperienceProps {
   duration: number;
   price: number;
   isActivity?: boolean;
+  isFavorite: boolean;
+  onFavoriteToggle: (id: string) => void;
 }
 
 const CardExperience: React.FC<CardExperienceProps> = ({
@@ -31,14 +33,10 @@ const CardExperience: React.FC<CardExperienceProps> = ({
   duration,
   price,
   isActivity = false,
+  isFavorite,
+  onFavoriteToggle
 }) => {
   const { symbol, exchangeRate } = useCurrency();
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-    console.log(`${name} favorite status changed`);
-  };
 
   const formatDuration = (hours: number): string => {
     if (hours >= 24) {
@@ -63,7 +61,7 @@ const CardExperience: React.FC<CardExperienceProps> = ({
     <div
       className={styles.card}
     >
-      <div className={styles.favoriteButton} onClick={toggleFavorite}>
+      <div className={styles.favoriteButton} onClick={() => onFavoriteToggle(id)}>
         {isFavorite ? (
           <AiFillHeart className={styles.heartIcon} />
         ) : (

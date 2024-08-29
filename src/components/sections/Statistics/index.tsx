@@ -13,15 +13,11 @@ const Statistics = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await DestinationService.getDestinations();
-        if (response.status === 200) {
-          setDestinations(response.data);
-        } else {
-          toast.error(response.data.msg);
-        }
-      } catch (error) {
-        toast.error("An error occurred while fetching destinations.");
+      const response = await DestinationService.getDestinations();
+      if (response?.status === 200) {
+        setDestinations(response.data);
+      } else {
+        toast.error(response?.data.msg);
       }
     };
 
@@ -33,7 +29,11 @@ const Statistics = () => {
       <div className={styles.line}></div>
       <div className={styles.data}>
         <StatisticalData
-          data={`${destinations ? destinations.length - 1 + "+" : "0"}`}
+          data={`${
+            destinations && destinations.length > 0
+              ? destinations.length - 1 + "+"
+              : "0"
+          }`}
           title="Total Destination"
         />
         <StatisticalData

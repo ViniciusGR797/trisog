@@ -12,10 +12,10 @@ const DestinationPopular: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await DestinationService.getDestinations();
-      if (response.status === 200) {
+      if (response?.status === 200) {
         setDestinations(response.data);
       } else {
-        toast.error(response.data.msg);
+        toast.error(response?.data.msg);
       }
     };
 
