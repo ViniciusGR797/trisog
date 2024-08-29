@@ -10,6 +10,8 @@ import FavoriteService from "@/services/api/favoriteService";
 import { parseCookies } from "nookies";
 import { useExperienceContext } from "@/contexts/ExperienceContext";
 import SearchFilter from "@/components/common/SearchFilter";
+import SliderFilter from "@/components/common/SliderFilter";
+import Filter from "@/components/common/Filter";
 
 const Search: React.FC = () => {
   const router = useRouter();
@@ -23,8 +25,6 @@ const Search: React.FC = () => {
     const response = await ExperienceService.getExperiences();
     if (response?.status === 200) {
       setExperiences(response.data);
-    } else {
-      toast.error(response?.data.msg);
     }
   };
 
@@ -115,48 +115,15 @@ const Search: React.FC = () => {
 
   // const sortedResults = sortResults(results);
 
+  const handleFilterSliderSubmit = (min: number, max: number) => {
+    console.log(`Filtro aplicado: de $${min} até $${max}`);
+    // Você pode adicionar a lógica para aplicar o filtro aqui
+  };
+
   return (
     <section className={styles.searchSection}>
       <div className={styles.searchContainer}>
-        <div className={styles.filters}>
-          <div className={styles.filter}>
-            <SearchFilter />
-          </div>
-          <div className={styles.filter}>
-            <h4>Price Range</h4>
-            {/* Add range input or slider */}
-          </div>
-          <div className={styles.filter}>
-            <h4>Categories</h4>
-            <label>
-              <input type="checkbox" /> Category 1
-            </label>
-            <label>
-              <input type="checkbox" /> Category 2
-            </label>
-            {/* Add more categories */}
-          </div>
-          <div className={styles.filter}>
-            <h4>Destinations</h4>
-            <label>
-              <input type="checkbox" /> Continent 1
-            </label>
-            <label>
-              <input type="checkbox" /> Continent 2
-            </label>
-            {/* Add more continents */}
-          </div>
-          <div className={styles.filter}>
-            <h4>Reviews</h4>
-            <label>
-              <input type="checkbox" /> 4 Stars & Up
-            </label>
-            <label>
-              <input type="checkbox" /> 3 Stars & Up
-            </label>
-          </div>
-        </div>
-
+        <Filter />
         <div className={styles.results}>
           <div className={styles.resultsHeader}>
             <span>

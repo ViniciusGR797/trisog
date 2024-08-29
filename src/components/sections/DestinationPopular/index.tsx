@@ -14,8 +14,6 @@ const DestinationPopular: React.FC = () => {
       const response = await DestinationService.getDestinations();
       if (response?.status === 200) {
         setDestinations(response.data);
-      } else {
-        toast.error(response?.data.msg);
       }
     };
 

@@ -10,15 +10,9 @@ const DestinationGalley: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await DestinationService.getDestinations();
-        if (response.status === 200) {
-          setDestinations(response.data);
-        } else {
-          toast.error(response.data.msg);
-        }
-      } catch (error) {
-        toast.error("An error occurred while fetching destinations.");
+      const response = await DestinationService.getDestinations();
+      if (response?.status === 200) {
+        setDestinations(response.data);
       }
     };
 
@@ -39,7 +33,9 @@ const DestinationGalley: React.FC = () => {
     <section className={styles.destinationGalley}>
       <div className={styles.destinationContainer}>
         {destinations.length === 0 ? (
-          <p className={styles.noDestinationsMessage}>No destinations available at the moment</p>
+          <p className={styles.noDestinationsMessage}>
+            No destinations available at the moment
+          </p>
         ) : (
           destinationChunks.map((chunk, index) => (
             <Galley

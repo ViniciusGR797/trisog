@@ -1,22 +1,26 @@
-import React, { useState, ChangeEvent, MouseEvent } from "react";
+import React, { ChangeEvent, MouseEvent } from "react";
 import { FiSearch } from "react-icons/fi";
 import styles from "./styles.module.scss";
 import { useQueryContext } from "@/contexts/QueryOptionsContext";
 
-const SearchFilter: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+interface SearchFilterProps {
+  searchTerm: string;
+  onChange: (value: string) => void;
+  onClick: () => void;
+}
+
+const SearchFilter: React.FC<SearchFilterProps> = ({ searchTerm, onChange, onClick }) => {
   const { dispatch } = useQueryContext();
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     const term = event.target.value;
-    setSearchTerm(term);
-    dispatch({ type: "SET_TITLE", payload: term });
+    onChange(term);
+    
   };
 
   const handleSearchClick = (event: MouseEvent<SVGElement>) => {
     event.preventDefault();
-    
-    
+    onClick();
   };
 
   return (

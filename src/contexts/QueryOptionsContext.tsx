@@ -1,7 +1,5 @@
-// QueryOptionContext.tsx
 import React, { createContext, useReducer, ReactNode, useContext } from 'react';
 
-// Tipos para o estado e as ações
 type QueryOption = {
   page: string;
   limit: string;
@@ -31,7 +29,6 @@ type QueryAction =
   | { type: 'SET_SORT_BY'; payload: string }
   | { type: 'SET_ORDER'; payload: 'asc' | 'desc' };
 
-// Estado inicial
 const initialState: QueryOption = {
   page: '1',
   limit: '10',
@@ -47,7 +44,6 @@ const initialState: QueryOption = {
   order: 'desc',
 };
 
-// Reducer para gerenciar o estado
 function queryReducer(state: QueryOption, action: QueryAction): QueryOption {
   switch (action.type) {
     case 'SET_PAGE':
@@ -79,7 +75,6 @@ function queryReducer(state: QueryOption, action: QueryAction): QueryOption {
   }
 }
 
-// Contexto e Provider
 interface QueryContextProps {
   state: QueryOption;
   dispatch: React.Dispatch<QueryAction>;
@@ -97,7 +92,6 @@ const QueryProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-// Hook para usar o contexto
 function useQueryContext() {
   const context = useContext(QueryContext);
   if (context === undefined) {

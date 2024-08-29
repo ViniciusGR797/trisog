@@ -26,8 +26,6 @@ const TourMostPopular: React.FC = () => {
     const response = await ExperienceService.getExperiences();
     if (response?.status === 200) {
       setExperiences(response.data);
-    } else {
-      toast.error(response?.data.msg);
     }
   };
 

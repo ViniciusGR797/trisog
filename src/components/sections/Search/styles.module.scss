@@ -9,24 +9,7 @@
     flex-direction: row;
     align-items: center;
     width: 85%;
-    gap: 3rem;
-  }
-}
-
-.filters {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-self: flex-start;
-  gap: 2rem;
-
-  .filter {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    background: var(--secondary-background-color);
-    padding: 1.8rem;
-    border-radius: 5px;
+    gap: 2rem;
   }
 }
 
@@ -44,7 +27,6 @@
     align-items: center;
 
     span {
-      flex: 1;
       color: var(--fourth-font-color);
     }
   }
@@ -82,6 +64,12 @@
     .resultsList {
       grid-template-columns: repeat(2, 1fr);
     }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .results {
+    flex: 2;
   }
 }
 

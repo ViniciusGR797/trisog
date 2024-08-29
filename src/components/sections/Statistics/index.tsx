@@ -5,19 +5,17 @@ import { toast } from "react-toastify";
 import DestinationService from "@/services/api/destinationService";
 import ExperienceService from "@/services/api/experienceService";
 import { Destination } from "@/types/destination";
-import { usePaginatedExperiencesContext } from "@/contexts/PaginatedExperiencesContext";
+import { useExperienceContext } from "@/contexts/ExperienceContext";
 
 const Statistics = () => {
   const [destinations, setDestinations] = useState<Destination[]>([]);
-  const { paginatedExperiences } = usePaginatedExperiencesContext();
+  const { experiences } = useExperienceContext();
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await DestinationService.getDestinations();
       if (response?.status === 200) {
         setDestinations(response.data);
-      } else {
-        toast.error(response?.data.msg);
       }
     };
 
@@ -38,8 +36,8 @@ const Statistics = () => {
         />
         <StatisticalData
           data={`${
-            paginatedExperiences && paginatedExperiences.experiences
-              ? paginatedExperiences.experiences.length - 1 + "+"
+            experiences && experiences.experiences
+              ? experiences.experiences.length - 1 + "+"
               : "0"
           }`}
           title="Travel Packages"
