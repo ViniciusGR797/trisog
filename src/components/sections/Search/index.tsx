@@ -9,6 +9,7 @@ import { useFavoriteContext } from "@/contexts/FavoriteContext";
 import FavoriteService from "@/services/api/favoriteService";
 import { parseCookies } from "nookies";
 import { useExperienceContext } from "@/contexts/ExperienceContext";
+import SearchFilter from "@/components/common/SearchFilter";
 
 const Search: React.FC = () => {
   const router = useRouter();
@@ -119,7 +120,7 @@ const Search: React.FC = () => {
       <div className={styles.searchContainer}>
         <div className={styles.filters}>
           <div className={styles.filter}>
-            <input type="text" placeholder="Search..." />
+            <SearchFilter />
           </div>
           <div className={styles.filter}>
             <h4>Price Range</h4>

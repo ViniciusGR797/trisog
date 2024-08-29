@@ -1,0 +1,43 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  flex: 1;
+  width: 100%;
+}
+
+.label {
+  font-family: "Work Sans";
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--primary-font-color);
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--background-color);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  gap: 0.5rem;
+
+  .icon {
+    font-size: 2rem;
+    color: var(--primary-font-color);
+    color: var(--fourth-font-color);
+  }
+
+  .input {
+    font-size: 1rem;
+    width: 100%;
+    border: none;
+    outline: none;
+    position: relative;
+    color: var(--primary-font-color);
+
+    &::placeholder {
+      color: var(--fourth-font-color);
+    }
+  }
+}

@@ -18,20 +18,20 @@
   display: flex;
   flex-direction: column;
   align-self: flex-start;
-  gap: 1rem;
+  gap: 2rem;
 
   .filter {
     display: flex;
     flex-direction: column;
     width: 100%;
-    border: 1px solid #ddd;
-    padding: 1rem;
+    background: var(--secondary-background-color);
+    padding: 1.8rem;
     border-radius: 5px;
   }
 }
 
 .results {
-  flex: 4;
+  flex: 3;
   width: 100%;
   display: flex;
   flex-direction: column;
