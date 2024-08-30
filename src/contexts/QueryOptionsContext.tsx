@@ -15,7 +15,7 @@ export type QueryAction =
   | { type: 'SET_SORT_BY'; payload: string }
   | { type: 'SET_ORDER'; payload: 'asc' | 'desc' };
 
-const initialState: QueryOption = {
+export const initialQueryOption: QueryOption = {
   page: '1',
   limit: '10',
   title: undefined,
@@ -27,7 +27,7 @@ const initialState: QueryOption = {
   guests: undefined,
   isActivity: undefined,
   sortBy: 'title',
-  order: 'desc',
+  order: 'asc',
 };
 
 function queryReducer(state: QueryOption, action: QueryAction): QueryOption {
@@ -69,7 +69,7 @@ interface QueryContextProps {
 const QueryContext = createContext<QueryContextProps | undefined>(undefined);
 
 const QueryProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [state, dispatch] = useReducer(queryReducer, initialState);
+  const [state, dispatch] = useReducer(queryReducer, initialQueryOption);
 
   return (
     <QueryContext.Provider value={{ state, dispatch }}>

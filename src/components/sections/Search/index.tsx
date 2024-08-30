@@ -11,18 +11,20 @@ import { parseCookies } from "nookies";
 import { useExperienceContext } from "@/contexts/ExperienceContext";
 import Filter from "@/components/common/Filter";
 import { useSearch } from "@/contexts/SearchContext";
-import { se } from "date-fns/locale";
+import { QueryOption } from "@/types/queryOption";
+import { useQueryContext } from "@/contexts/QueryOptionsContext";
 
 const Search: React.FC = () => {
   const router = useRouter();
+  const { state, dispatch } = useQueryContext();
   const { experiences, setExperiences } = useExperienceContext();
   const { favorites, setFavorites } = useFavoriteContext();
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const { searchState, setSearchState } = useSearch();
 
-  const fetchDataExperiences = async () => {
-    const response = await ExperienceService.getExperiences();
+  const fetchDataExperiences = async (queryOption: QueryOption) => {
+    const response = await ExperienceService.getExperiences(queryOption);
     if (response?.status === 200) {
       setExperiences(response.data);
     }
@@ -39,11 +41,9 @@ const Search: React.FC = () => {
     }
   };
 
-
-
   useEffect(() => {
-    if (!searchState.isSearchActive) {
-      fetchDataExperiences();
+    if (!searchState.isSearchActive && experiences === undefined) {
+      fetchDataExperiences(state);
     }
 
     if (
@@ -103,37 +103,23 @@ const Search: React.FC = () => {
     }
   };
 
-  const [sortOption, setSortOption] = useState<string>("name");
-  const [isAscending, setIsAscending] = useState<boolean>(true);
-
   const handleSortChange = (selectedOption: string, isAscending: boolean) => {
-    setSortOption(selectedOption);
-    setIsAscending(isAscending);
-  };
+    const sortBy = selectedOption;
+    const order = isAscending ? "asc" : "desc";
+    
+    dispatch({
+      type: "SET_SORT_BY",
+      payload: sortBy,
+    });
 
-  // const sortResults = (data: typeof results) => {
-  //   return [...data].sort((a, b) => {
-  //     const aValue = a[sortOption as keyof typeof a];
-  //     const bValue = b[sortOption as keyof typeof b];
+    dispatch({
+      type: "SET_ORDER",
+      payload: order,
+    });
 
-  //     if (typeof aValue === "string" && typeof bValue === "string") {
-  //       // Comparação para valores de string (nome, cidade, etc.)
-  //       return isAscending
-  //         ? aValue.localeCompare(bValue)
-  //         : bValue.localeCompare(aValue);
-  //     } else if (typeof aValue === "number" && typeof bValue === "number") {
-  //       // Comparação para valores numéricos (rating, reviews, etc.)
-  //       return isAscending ? aValue - bValue : bValue - aValue;
-  //     }
-  //     return 0;
-  //   });
-  // };
-
-  // const sortedResults = sortResults(results);
-
-  const handleFilterSliderSubmit = (min: number, max: number) => {
-    console.log(`Filtro aplicado: de $${min} até $${max}`);
-    // Você pode adicionar a lógica para aplicar o filtro aqui
+    state.sortBy = sortBy;
+    state.order = order;
+    fetchDataExperiences(state);
   };
 
   return (
@@ -156,7 +142,7 @@ const Search: React.FC = () => {
                   : "Tour"
               }`}
             </span>
-            <Sorting onSortChange={handleSortChange} />
+            <Sorting selectedOption={state.sortBy} isAscending={state.order === "asc"} onSortChange={handleSortChange} />
           </div>
 
           <div

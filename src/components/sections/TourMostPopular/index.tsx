@@ -12,18 +12,19 @@ import FavoriteService from "@/services/api/favoriteService";
 import { useFavoriteContext } from "@/contexts/FavoriteContext";
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
-import { useExperienceContext } from "@/contexts/ExperienceContext";
+import { initialQueryOption, useQueryContext } from "@/contexts/QueryOptionsContext";
+import { QueryOption } from "@/types/queryOption";
+import { PaginatedExperiences } from "@/types/experience";
 
 const TourMostPopular: React.FC = () => {
-  const router = useRouter();
-
-  const { experiences, setExperiences } = useExperienceContext();
+  const router = useRouter();  
+  const [experiences, setExperiences] = useState<PaginatedExperiences | undefined>(undefined);
   const { favorites, setFavorites } = useFavoriteContext();
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  const fetchDataExperiences = async () => {
-    const response = await ExperienceService.getExperiences();
+  const fetchDataExperiences = async (queryOption: QueryOption) => {
+    const response = await ExperienceService.getExperiences(queryOption);
     if (response?.status === 200) {
       setExperiences(response.data);
     }
@@ -41,7 +42,7 @@ const TourMostPopular: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchDataExperiences();
+    fetchDataExperiences(initialQueryOption);
 
     const cookies = parseCookies();
     const userCookie = cookies["@auth.user"]
