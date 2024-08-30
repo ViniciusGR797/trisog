@@ -9,17 +9,17 @@ import { useFavoriteContext } from "@/contexts/FavoriteContext";
 import FavoriteService from "@/services/api/favoriteService";
 import { parseCookies } from "nookies";
 import { useExperienceContext } from "@/contexts/ExperienceContext";
-import SearchFilter from "@/components/common/SearchFilter";
-import SliderFilter from "@/components/common/SliderFilter";
 import Filter from "@/components/common/Filter";
+import { useSearch } from "@/contexts/SearchContext";
+import { se } from "date-fns/locale";
 
 const Search: React.FC = () => {
   const router = useRouter();
-
   const { experiences, setExperiences } = useExperienceContext();
   const { favorites, setFavorites } = useFavoriteContext();
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const { searchState, setSearchState } = useSearch();
 
   const fetchDataExperiences = async () => {
     const response = await ExperienceService.getExperiences();
@@ -39,8 +39,24 @@ const Search: React.FC = () => {
     }
   };
 
+
+
   useEffect(() => {
-    fetchDataExperiences();
+    if (!searchState.isSearchActive) {
+      fetchDataExperiences();
+    }
+
+    if (
+      searchState.destination === "" &&
+      searchState.activity === "" &&
+      searchState.when === "" &&
+      searchState.guess === ""
+    ) {
+      setSearchState((prevState) => ({
+        ...prevState,
+        isSearchActive: false,
+      }));
+    }
 
     const cookies = parseCookies();
     const userCookie = cookies["@auth.user"]

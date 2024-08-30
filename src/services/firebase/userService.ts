@@ -20,6 +20,8 @@ const setAuthToken = async (user: User) => {
     maxAge: 55 * 60,
     path: '/',
   });
+
+  console.log('User data:', userData);
 };
 
 const errorMessages: { [key: string]: string } = {

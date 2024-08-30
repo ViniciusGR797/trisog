@@ -1,21 +1,7 @@
+import { QueryOption } from '@/types/queryOption';
 import React, { createContext, useReducer, ReactNode, useContext } from 'react';
 
-type QueryOption = {
-  page: string;
-  limit: string;
-  title?: string;
-  price?: string;
-  categoriesId?: string;
-  destinationsId?: string;
-  rating?: string;
-  date?: string;
-  guests?: string;
-  isActivity?: boolean;
-  sortBy: string;
-  order: 'asc' | 'desc';
-};
-
-type QueryAction =
+export type QueryAction =
   | { type: 'SET_PAGE'; payload: string }
   | { type: 'SET_LIMIT'; payload: string }
   | { type: 'SET_TITLE'; payload: string | undefined }

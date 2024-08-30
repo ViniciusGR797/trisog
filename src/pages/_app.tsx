@@ -8,18 +8,21 @@ import { CurrencyProvider } from "@/contexts/CurrencyContext";
 import { ExperienceProvider } from "@/contexts/ExperienceContext";
 import { FavoriteProvider } from "@/contexts/FavoriteContext";
 import { QueryProvider } from "@/contexts/QueryOptionsContext";
+import { SearchProvider } from "@/contexts/SearchContext";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <CurrencyProvider>
       <FavoriteProvider>
         <ExperienceProvider>
-          <QueryProvider>
-            <Component {...pageProps} />
-            <ToastContainer />
-            <Analytics />
-            <SpeedInsights />
-          </QueryProvider>
+          <SearchProvider>
+            <QueryProvider>
+              <Component {...pageProps} />
+              <ToastContainer />
+              <Analytics />
+              <SpeedInsights />
+            </QueryProvider>
+          </SearchProvider>
         </ExperienceProvider>
       </FavoriteProvider>
     </CurrencyProvider>
