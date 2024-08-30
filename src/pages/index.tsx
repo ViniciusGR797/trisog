@@ -4,6 +4,8 @@ import Authentication from "@/components/sections/Authentication";
 import { toast } from "react-toastify";
 import { logInWithEmail } from "@/services/firebase/userService";
 import { useRouter } from "next/router";
+import { use, useEffect } from "react";
+import { destroyCookie, parseCookies } from "nookies";
 
 export default function Login() {
   const router = useRouter();
@@ -20,6 +22,17 @@ export default function Login() {
     toast.success(`Welcome, ${user.email?.split('@')[0]}!`)
     router.push('/home');
   };
+
+  useEffect(() => {
+    const cookies = parseCookies();
+    const loginToast = cookies["loginToast"];
+    if (loginToast) {
+      toast.warning(loginToast);
+      destroyCookie(null, "loginToast", {
+        path: "/",
+      });
+    }    
+  }, [router]);
 
   return (
     <>

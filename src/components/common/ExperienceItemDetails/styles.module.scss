@@ -1,0 +1,16 @@
+.detailContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detailTitle {
+  color: var(--fourth-font-color);
+  font-size: 1.1rem;
+}
+
+.detailContent {
+  color: var(--primary-font-color);
+  font-size: 1.1rem;
+  font-weight: bold;
+}

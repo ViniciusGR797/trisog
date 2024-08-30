@@ -1,0 +1,34 @@
+.tourInfoSection {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 0 4rem 0;
+  width: 100%;
+
+  .tourInfoContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 85%;
+    gap: 2rem;
+  }
+}
+
+.experience {
+    flex: 2;
+    width: 100%;
+    height: 100%;
+}
+
+.booking {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (max-width: 800px) {
+  .tourInfoSection {
+    .tourInfoContainer {
+      flex-direction: column;
+    }
+  }
+}
