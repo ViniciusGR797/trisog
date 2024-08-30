@@ -9,14 +9,6 @@
 
 .carousel {
   width: 85%;
-
-  .swiperContainer {
-    padding-bottom: 60px;
-
-    :global(.swiper-pagination-bullet-active) {
-      background-color: var(--details-color);
-    }
-  }
 }
 
 .skeletonWrapper {
@@ -66,13 +58,5 @@
 @media screen and (max-width: 520px) {
   .tourMostPopular {
     padding: 17rem 0 4rem 0;
-  }
-}
-
-@media screen and (max-width: 210px) {
-  .carousel {
-    .swiperContainer {
-      padding-bottom: 80px;
-    }
   }
 }

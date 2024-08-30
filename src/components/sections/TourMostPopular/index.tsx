@@ -19,6 +19,7 @@ import {
 import { QueryOption } from "@/types/queryOption";
 import { PaginatedExperiences } from "@/types/experience";
 import CardExperienceSkeleton from "@/components/common/CardExperienceSkeleton";
+import Carousel from "@/components/common/Carousel";
 
 const TourMostPopular: React.FC = () => {
   const router = useRouter();
@@ -121,52 +122,11 @@ const TourMostPopular: React.FC = () => {
         ) : experiences &&
           experiences.experiences &&
           experiences.experiences.length > 0 ? (
-          <Swiper
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Pagination]}
-            className={styles.swiperContainer}
-            breakpoints={{
-              1200: {
-                slidesPerView: 4,
-                spaceBetween: 30,
-              },
-              1000: {
-                slidesPerView: 3,
-                spaceBetween: 30,
-              },
-              768: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              0: {
-                slidesPerView: 1,
-                spaceBetween: 0,
-              },
-            }}
-          >
-            {experiences?.experiences.map((experience, index) => (
-              <SwiperSlide key={index}>
-                <CardExperience
-                  id={experience.id}
-                  image={experience.image}
-                  location={{
-                    country: experience.destination.name,
-                    city: experience.city,
-                  }}
-                  name={experience.title}
-                  rating={experience.rating}
-                  reviews={experience.review_count}
-                  duration={experience.duration}
-                  price={experience.default_price}
-                  isActivity={experience.is_activity}
-                  isFavorite={favoriteIds.has(experience.id)}
-                  onFavoriteToggle={handleFavoriteToggle}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          <Carousel
+            experiences={experiences.experiences}
+            favoriteIds={favoriteIds}
+            handleFavoriteToggle={handleFavoriteToggle}
+          />
         ) : (
           <p className={styles.noToursMessage}>
             No most popular tours available at the moment
