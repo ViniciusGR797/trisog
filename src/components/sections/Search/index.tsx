@@ -13,6 +13,7 @@ import Filter from "@/components/common/Filter";
 import { useSearch } from "@/contexts/SearchContext";
 import { QueryOption } from "@/types/queryOption";
 import { useQueryContext } from "@/contexts/QueryOptionsContext";
+import Pagination from "@/components/common/Pagination";
 
 const Search: React.FC = () => {
   const router = useRouter();
@@ -43,6 +44,12 @@ const Search: React.FC = () => {
 
   useEffect(() => {
     if (!searchState.isSearchActive && experiences === undefined) {
+      dispatch({
+        type: "SET_PAGE",
+        payload: "1",
+      });
+  
+      state.page = "1";
       fetchDataExperiences(state);
     }
 
@@ -106,7 +113,7 @@ const Search: React.FC = () => {
   const handleSortChange = (selectedOption: string, isAscending: boolean) => {
     const sortBy = selectedOption;
     const order = isAscending ? "asc" : "desc";
-    
+
     dispatch({
       type: "SET_SORT_BY",
       payload: sortBy,
@@ -117,8 +124,24 @@ const Search: React.FC = () => {
       payload: order,
     });
 
+    dispatch({
+      type: "SET_PAGE",
+      payload: "1",
+    });
+
+    state.page = "1";
     state.sortBy = sortBy;
     state.order = order;
+    fetchDataExperiences(state);
+  };
+
+  const handlePageChange = (page: number) => {
+    dispatch({
+      type: "SET_PAGE",
+      payload: page.toString(),
+    });
+
+    state.page = page.toString();
     fetchDataExperiences(state);
   };
 
@@ -142,7 +165,11 @@ const Search: React.FC = () => {
                   : "Tour"
               }`}
             </span>
-            <Sorting selectedOption={state.sortBy} isAscending={state.order === "asc"} onSortChange={handleSortChange} />
+            <Sorting
+              selectedOption={state.sortBy}
+              isAscending={state.order === "asc"}
+              onSortChange={handleSortChange}
+            />
           </div>
 
           <div
@@ -182,7 +209,11 @@ const Search: React.FC = () => {
             )}
           </div>
           <div className={styles.pagination}>
-            {/* Implement pagination controls */}
+            <Pagination
+              currentPage={experiences?.page || 1}
+              totalPages={experiences?.total_pages || 1}
+              onPageChange={handlePageChange}
+            />
           </div>
         </div>
       </div>

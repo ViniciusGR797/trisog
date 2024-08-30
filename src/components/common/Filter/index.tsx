@@ -54,6 +54,12 @@ const Filter: React.FC = () => {
   };
 
   const handleSearchClick = () => {
+    dispatch({
+      type: "SET_PAGE",
+      payload: "1",
+    });
+
+    state.page = "1";
     fetchDataExperiences(state);
   };
 
@@ -62,6 +68,12 @@ const Filter: React.FC = () => {
   };
 
   const handleSliderSubmit = () => {
+    dispatch({
+      type: "SET_PAGE",
+      payload: "1",
+    });
+
+    state.page = "1";
     fetchDataExperiences(state);
   };
 
@@ -78,6 +90,13 @@ const Filter: React.FC = () => {
       type: "SET_CATEGORIES_ID",
       payload: updatedcategoriesIdList.join(","),
     });
+
+    dispatch({
+      type: "SET_PAGE",
+      payload: "1",
+    });
+
+    state.page = "1";
     state.categoriesId = updatedcategoriesIdList.join(",");
     fetchDataExperiences(state);
   };
@@ -95,6 +114,13 @@ const Filter: React.FC = () => {
       type: "SET_DESTINATIONS_ID",
       payload: updateddestinationIdList.join(","),
     });
+
+    dispatch({
+      type: "SET_PAGE",
+      payload: "1",
+    });
+
+    state.page = "1";
     state.destinationsId = updateddestinationIdList.join(",");
     fetchDataExperiences(state);
   };
@@ -115,6 +141,12 @@ const Filter: React.FC = () => {
       payload: rating,
     });
 
+    dispatch({
+      type: "SET_PAGE",
+      payload: "1",
+    });
+
+    state.page = "1";
     state.rating = rating;
     fetchDataExperiences(state);
   };

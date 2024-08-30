@@ -17,7 +17,7 @@ export type QueryAction =
 
 export const initialQueryOption: QueryOption = {
   page: '1',
-  limit: '10',
+  limit: '9',
   title: undefined,
   price: undefined,
   categoriesId: undefined,

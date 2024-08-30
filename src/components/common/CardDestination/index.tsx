@@ -21,24 +21,26 @@ const CardDestination: React.FC<CardDestinationProps> = ({
   className = styles.defaultCard,
 }) => {
   return (
-    <div className={`${styles.card} ${className}`}>
-      <Link href={`/destinations/${id}`}>
-        <Image
-          src={image}
-          alt={destination}
-          fill={true}
-          style={{ objectFit: "cover" }}
-          className={styles.image}
-        />
-        <div className={styles.overlay}></div>
+    <Link
+      href={`/destinations/${id}`}
+      className={`${styles.card} ${className}`}
+    >
+      <Image
+        src={image}
+        alt={destination}
+        fill={true}
+        sizes="(max-width: 600px) 85vw, (max-width: 1200px) 50vw, 33vw"
+        style={{ objectFit: "cover" }}
+        className={styles.image}
+      />
+      <div className={styles.overlay}></div>
 
-        <div className={styles.content}>
-          <p className={styles.travels}>{travels} Travels</p>
-          <h3 className={styles.destination}>{destination}</h3>
-          <p className={styles.about}>{about}</p>
-        </div>
-      </Link>
-    </div>
+      <div className={styles.content}>
+        <p className={styles.travels}>{travels} Travels</p>
+        <h3 className={styles.destination}>{destination}</h3>
+        <p className={styles.about}>{about}</p>
+      </div>
+    </Link>
   );
 };
 

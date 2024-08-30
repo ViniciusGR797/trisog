@@ -4,6 +4,8 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 interface ExperienceContextType {
   experiences: PaginatedExperiences | undefined;
   setExperiences: (paginatedExperiences: PaginatedExperiences) => void;
+  isLoading: boolean;
+  setLoading: (loading: boolean) => void;
 }
 
 const ExperienceContext = createContext<ExperienceContextType | undefined>(
@@ -14,6 +16,7 @@ export const ExperienceProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [experiences, setExperiences] = useState<PaginatedExperiences | undefined>();
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const updateExperiences = (newPaginatedExperiences: PaginatedExperiences) => {
     setExperiences(newPaginatedExperiences);
@@ -21,7 +24,7 @@ export const ExperienceProvider: React.FC<{ children: ReactNode }> = ({
 
   return (
     <ExperienceContext.Provider
-      value={{ experiences, setExperiences: updateExperiences }}
+      value={{ experiences, setExperiences: updateExperiences, isLoading, setLoading }}
     >
       {children}
     </ExperienceContext.Provider>

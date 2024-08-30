@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import InputSearch from "../InputSearch";
 import { PiPaperPlaneTilt } from "react-icons/pi";
@@ -23,12 +23,6 @@ const SearchBar: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const { setExperiences } = useExperienceContext();
   const { searchState, setSearchState } = useSearch();
-  // const [formData, setFormData] = useState({
-  //   destination: "",
-  //   activity: "",
-  //   when: "",
-  //   guess: "",
-  // });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,6 +45,15 @@ const SearchBar: React.FC = () => {
 
     fetchData();
   }, [setCategories]);
+
+  useEffect(() => {
+    setSearchState(prevState => ({
+      ...prevState,
+      destination: destinations.find(item => item.id === state.destinationsId?.split(",")[0])?.name || "",
+      activity: categories.find(item => item.id === state.categoriesId?.split(",")[0])?.name || "",
+    }));
+
+  }, [state.destinationsId, state.categoriesId]);
 
   const handleChange = (data: { id?: string; value: string; name: string }) => {
     setSearchState(prevState => ({
@@ -84,6 +87,12 @@ const SearchBar: React.FC = () => {
   const handleClick = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    dispatch({
+      type: "SET_PAGE",
+      payload: "1",
+    });
+
+    state.page = "1";
     fetchDataExperiences(state);
     setSearchState(prevState => ({
       ...prevState,
