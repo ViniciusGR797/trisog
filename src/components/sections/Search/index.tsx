@@ -14,21 +14,24 @@ import { useSearch } from "@/contexts/SearchContext";
 import { QueryOption } from "@/types/queryOption";
 import { useQueryContext } from "@/contexts/QueryOptionsContext";
 import Pagination from "@/components/common/Pagination";
+import CardExperienceSkeleton from "@/components/common/CardExperienceSkeleton";
 
 const Search: React.FC = () => {
   const router = useRouter();
   const { state, dispatch } = useQueryContext();
-  const { experiences, setExperiences } = useExperienceContext();
+  const { experiences, setExperiences, isLoading, setLoading } = useExperienceContext();
   const { favorites, setFavorites } = useFavoriteContext();
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const { searchState, setSearchState } = useSearch();
 
   const fetchDataExperiences = async (queryOption: QueryOption) => {
+    setLoading(true);
     const response = await ExperienceService.getExperiences(queryOption);
     if (response?.status === 200) {
       setExperiences(response.data);
     }
+    setLoading(false);
   };
 
   const fetchDataFavorites = async () => {
@@ -48,7 +51,7 @@ const Search: React.FC = () => {
         type: "SET_PAGE",
         payload: "1",
       });
-  
+
       state.page = "1";
       fetchDataExperiences(state);
     }
@@ -172,42 +175,53 @@ const Search: React.FC = () => {
             />
           </div>
 
-          <div
-            className={`${
-              experiences &&
+          {isLoading ? (
+            <div className={styles.skeletonWrapper}>
+              <CardExperienceSkeleton />
+              <CardExperienceSkeleton />
+              <CardExperienceSkeleton />
+              <CardExperienceSkeleton />
+              <CardExperienceSkeleton />
+              <CardExperienceSkeleton />
+            </div>
+          ) : (
+            <div
+              className={`${
+                experiences &&
+                experiences.experiences &&
+                experiences.experiences.length > 0
+                  ? styles.resultsList
+                  : styles.noResultsList
+              }`}
+            >
+              {experiences &&
               experiences.experiences &&
-              experiences.experiences.length > 0
-                ? styles.resultsList
-                : styles.noResultsList
-            }`}
-          >
-            {experiences &&
-            experiences.experiences &&
-            experiences.experiences.length > 0 ? (
-              experiences.experiences.map((result, index) => (
-                <div key={index} className={styles.resultItem}>
-                  <CardExperience
-                    id={result.id}
-                    image={result.image}
-                    location={{
-                      country: result.destination.name,
-                      city: result.city,
-                    }}
-                    name={result.title}
-                    rating={result.rating}
-                    reviews={result.review_count}
-                    duration={result.duration}
-                    price={result.default_price}
-                    isActivity={result.is_activity}
-                    isFavorite={favoriteIds.has(result.id)}
-                    onFavoriteToggle={handleFavoriteToggle}
-                  />
-                </div>
-              ))
-            ) : (
-              <div className={styles.noResults}>No tours available</div>
-            )}
-          </div>
+              experiences.experiences.length > 0 ? (
+                experiences.experiences.map((result, index) => (
+                  <div key={index} className={styles.resultItem}>
+                    <CardExperience
+                      id={result.id}
+                      image={result.image}
+                      location={{
+                        country: result.destination.name,
+                        city: result.city,
+                      }}
+                      name={result.title}
+                      rating={result.rating}
+                      reviews={result.review_count}
+                      duration={result.duration}
+                      price={result.default_price}
+                      isActivity={result.is_activity}
+                      isFavorite={favoriteIds.has(result.id)}
+                      onFavoriteToggle={handleFavoriteToggle}
+                    />
+                  </div>
+                ))
+              ) : (
+                <div className={styles.noResults}>No tours available</div>
+              )}
+            </div>
+          )}
           <div className={styles.pagination}>
             <Pagination
               currentPage={experiences?.page || 1}

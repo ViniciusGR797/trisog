@@ -12,22 +12,31 @@ import FavoriteService from "@/services/api/favoriteService";
 import { useFavoriteContext } from "@/contexts/FavoriteContext";
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
-import { initialQueryOption, useQueryContext } from "@/contexts/QueryOptionsContext";
+import {
+  initialQueryOption,
+  useQueryContext,
+} from "@/contexts/QueryOptionsContext";
 import { QueryOption } from "@/types/queryOption";
 import { PaginatedExperiences } from "@/types/experience";
+import CardExperienceSkeleton from "@/components/common/CardExperienceSkeleton";
 
 const TourMostPopular: React.FC = () => {
-  const router = useRouter();  
-  const [experiences, setExperiences] = useState<PaginatedExperiences | undefined>(undefined);
+  const router = useRouter();
+  const [experiences, setExperiences] = useState<
+    PaginatedExperiences | undefined
+  >(undefined);
   const { favorites, setFavorites } = useFavoriteContext();
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchDataExperiences = async (queryOption: QueryOption) => {
+    setLoading(true);
     const response = await ExperienceService.getExperiences(queryOption);
     if (response?.status === 200) {
       setExperiences(response.data);
     }
+    setLoading(false);
   };
 
   const fetchDataFavorites = async () => {
@@ -94,9 +103,24 @@ const TourMostPopular: React.FC = () => {
       <SectionHeader title="Most Popular Tours" subtitle="Tours" />
 
       <div className={styles.carousel}>
-        {experiences &&
-        experiences.experiences &&
-        experiences.experiences.length > 0 ? (
+        {loading ? (
+          <div className={styles.skeletonWrapper}>
+            <div className={`${styles.skeletonItem} ${styles.skeletonOne}`}>
+              <CardExperienceSkeleton />
+            </div>
+            <div className={`${styles.skeletonItem} ${styles.skeletonTwo}`}>
+              <CardExperienceSkeleton />
+            </div>
+            <div className={`${styles.skeletonItem} ${styles.skeletonThree}`}>
+              <CardExperienceSkeleton />
+            </div>
+            <div className={`${styles.skeletonItem} ${styles.skeletonFour}`}>
+              <CardExperienceSkeleton />
+            </div>
+          </div>
+        ) : experiences &&
+          experiences.experiences &&
+          experiences.experiences.length > 0 ? (
           <Swiper
             pagination={{
               clickable: true,

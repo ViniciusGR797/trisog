@@ -37,6 +37,12 @@
     gap: 1rem;
   }
 
+  .skeletonWrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
   .noResultsList {
     display: flex;
     align-items: center;
@@ -63,6 +69,10 @@
     .resultsList {
       grid-template-columns: repeat(2, 1fr);
     }
+
+    .skeletonWrapper {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 }
 
@@ -75,6 +85,10 @@
 @media screen and (max-width: 1070px) {
   .results {
     .resultsList {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    .skeletonWrapper {
       grid-template-columns: repeat(1, 1fr);
     }
   }

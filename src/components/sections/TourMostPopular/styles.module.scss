@@ -19,6 +19,17 @@
   }
 }
 
+.skeletonWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 30px;
+
+  .skeletonItem {
+    width: 100%;
+  }
+}
+
 .noToursMessage {
   text-align: center;
   font-size: 1.2rem;
@@ -27,8 +38,28 @@
 }
 
 @media screen and (max-width: 1000px) {
+  .skeletonFour {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1000px) {
   .tourMostPopular {
     padding: 13rem 0 4rem 0;
+  }
+
+  .skeletonThree {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .skeletonWrapper {
+    gap: 20px;
+  }
+
+  .skeletonTwo {
+    display: none;
   }
 }
 
