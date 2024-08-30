@@ -26,7 +26,6 @@ const SliderFilter: React.FC<SliderFilterProps> = ({ maxPrice, value, onChange, 
     <div className={styles.filter}>
       <label className={styles.label}>Filter By</label>
       <Slider
-        defaultValue={20}
         min={0}
         max={maxPrice}
         value={value}

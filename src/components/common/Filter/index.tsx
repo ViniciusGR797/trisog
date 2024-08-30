@@ -6,15 +6,18 @@ import { useQueryContext } from "@/contexts/QueryOptionsContext";
 import ContinentFilter from "../ContinentFilter";
 import { Destination } from "@/types/destination";
 import DestinationService from "@/services/api/destinationService";
-
-interface Country {
-  id: string;
-  name: string;
-  continent: string;
-}
+import ExperienceService from "@/services/api/experienceService";
+import { useExperienceContext } from "@/contexts/ExperienceContext";
+import { QueryOption } from "@/types/queryOption";
+import CategoryFilter from "../CategoryFilter";
+import { Category } from "@/types/category";
+import categoryService from "@/services/api/categoryService";
+import RatingFilter from "../RatingFilter";
 
 const Filter: React.FC = () => {
   const { state, dispatch } = useQueryContext();
+  const { setExperiences } = useExperienceContext();
+  const [categories, setCategories] = useState<Category[]>([]);
   const [destinations, setDestinations] = useState<Destination[]>([]);
 
   useEffect(() => {
@@ -28,14 +31,30 @@ const Filter: React.FC = () => {
     fetchData();
   }, [setDestinations]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await categoryService.getCategories();
+      if (response?.status === 200) {
+        setCategories(response.data);
+      }
+    };
 
+    fetchData();
+  }, [setCategories]);
+
+  const fetchDataExperiences = async (queryOption: QueryOption) => {
+    const response = await ExperienceService.getExperiences(queryOption);
+    if (response?.status === 200) {
+      setExperiences(response.data);
+    }
+  };
 
   const handleSearchChange = (term: string) => {
     dispatch({ type: "SET_TITLE", payload: term });
   };
 
   const handleSearchClick = () => {
-    console.log("Search clicked with term:", state.title);
+    fetchDataExperiences(state);
   };
 
   const handleSliderChange = (price: number) => {
@@ -43,19 +62,61 @@ const Filter: React.FC = () => {
   };
 
   const handleSliderSubmit = () => {
-    console.log("Filtered price:", state.price);
+    fetchDataExperiences(state);
+  };
+
+  const handleToggleCategory = (id: string) => {
+    const categoriesIdList = state.categoriesId
+      ? state.categoriesId.split(",")
+      : [];
+
+    const updatedcategoriesIdList = categoriesIdList.includes(id)
+      ? categoriesIdList.filter((countryId) => countryId !== id)
+      : [...categoriesIdList, id];
+
+    dispatch({
+      type: "SET_CATEGORIES_ID",
+      payload: updatedcategoriesIdList.join(","),
+    });
+    state.categoriesId = updatedcategoriesIdList.join(",");
+    fetchDataExperiences(state);
   };
 
   const handleToggleCountry = (id: string) => {
-    const destinationIdList = state.destinationsId ? state.destinationsId.split(",") : [];
+    const destinationIdList = state.destinationsId
+      ? state.destinationsId.split(",")
+      : [];
 
     const updateddestinationIdList = destinationIdList.includes(id)
-      ? destinationIdList.filter((countryId) => countryId !== id) 
+      ? destinationIdList.filter((countryId) => countryId !== id)
       : [...destinationIdList, id];
 
-    dispatch({ type: "SET_DESTINATIONS_ID", payload: updateddestinationIdList.join(",") });
+    dispatch({
+      type: "SET_DESTINATIONS_ID",
+      payload: updateddestinationIdList.join(","),
+    });
+    state.destinationsId = updateddestinationIdList.join(",");
+    fetchDataExperiences(state);
+  };
 
-    // fazer getExperiense
+  const rating = [
+    { id: "5", name: "5 Stars" },
+    { id: "4", name: "4 Stars & Up" },
+    { id: "3", name: "3 Stars & Up" },
+    { id: "2", name: "2 Stars & Up" },
+    { id: "1", name: "1 Stars & Up" },
+  ];
+
+  const handleToggleRating = (id: string) => {
+    const rating = state.rating === id ? "" : id;
+
+    dispatch({
+      type: "SET_RATING",
+      payload: rating,
+    });
+
+    state.rating = rating;
+    fetchDataExperiences(state);
   };
 
   return (
@@ -76,14 +137,13 @@ const Filter: React.FC = () => {
         />
       </div>
       <div className={styles.filter}>
-        <h4>Categories</h4>
-        <label>
-          <input type="checkbox" /> Category 1
-        </label>
-        <label>
-          <input type="checkbox" /> Category 2
-        </label>
-        {/* Add more categories */}
+        <CategoryFilter
+          categories={categories}
+          selectedCategories={
+            state.categoriesId ? state.categoriesId.split(",") : []
+          }
+          onToggleCategory={handleToggleCategory}
+        />
       </div>
       <div className={styles.filter}>
         <ContinentFilter
@@ -95,13 +155,11 @@ const Filter: React.FC = () => {
         />
       </div>
       <div className={styles.filter}>
-        <h4>Reviews</h4>
-        <label>
-          <input type="checkbox" /> 4 Stars & Up
-        </label>
-        <label>
-          <input type="checkbox" /> 3 Stars & Up
-        </label>
+        <RatingFilter
+          rating={rating}
+          selectedRating={state.rating ? state.rating.split(",") : []}
+          onToggleRating={handleToggleRating}
+        />
       </div>
     </div>
   );

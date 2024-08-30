@@ -1,0 +1,12 @@
+.categoryFilter {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.label {
+  font-family: "Work Sans";
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--primary-font-color);
+}

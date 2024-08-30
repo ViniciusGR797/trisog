@@ -14,6 +14,7 @@ import { Category } from "@/types/category";
 import { useRouter } from "next/router";
 import { useExperienceContext } from "@/contexts/ExperienceContext";
 import { useSearch } from "@/contexts/SearchContext";
+import { QueryOption } from "@/types/queryOption";
 
 const SearchBar: React.FC = () => {
   const router = useRouter();
@@ -56,7 +57,6 @@ const SearchBar: React.FC = () => {
       ...prevState,
       [data.name]: data.value,
     }));
-    // setFormData({ ...formData, [data.name]: data.value });
 
     const actionMap: { [key: string]: QueryAction } = {
       destination: { type: "SET_DESTINATIONS_ID", payload: data.id },
@@ -74,8 +74,8 @@ const SearchBar: React.FC = () => {
     return regex.test(date);
   };
 
-  const fetchDataExperiences = async () => {
-    const response = await ExperienceService.getExperiences(state);
+  const fetchDataExperiences = async (queryOption: QueryOption) => {
+    const response = await ExperienceService.getExperiences(queryOption);
     if (response?.status === 200) {
       setExperiences(response.data);
     }
@@ -83,32 +83,8 @@ const SearchBar: React.FC = () => {
 
   const handleClick = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { destination, activity, when, guess } = searchState;
 
-    // if (
-    //   !destinations.map((destination) => destination.name).includes(destination)
-    // ) {
-    //   toast.warn("Please select a valid destination");
-    //   return;
-    // }
-
-    // if (!categories.map((category) => category.name).includes(activity)) {
-    //   toast.warn("Please select a valid activity");
-    //   return;
-    // }
-
-    // if (!validateDate(when)) {
-    //   toast.warn("Date must be in the format YYYY-MM-DD");
-    //   return;
-    // }
-
-    // const guessNumber = parseInt(guess, 10);
-    // if (isNaN(guessNumber) || guessNumber <= 0) {
-    //   toast.warn("Guess must be a positive integer greater than 0");
-    //   return;
-    // }
-
-    fetchDataExperiences();
+    fetchDataExperiences(state);
     setSearchState(prevState => ({
       ...prevState,
       isSearchActive: true,
