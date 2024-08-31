@@ -5,6 +5,7 @@ import styles from "./styles.module.scss";
 import { AiFillStar, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { CiClock2 } from "react-icons/ci";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { formatDuration } from "@/utils/time";
 
 interface CardExperienceProps {
   id: string;
@@ -37,25 +38,6 @@ const CardExperience: React.FC<CardExperienceProps> = ({
   onFavoriteToggle
 }) => {
   const { symbol, exchangeRate } = useCurrency();
-
-  const formatDuration = (hours: number): string => {
-    if (hours >= 24) {
-      const days = Math.floor(hours / 24);
-      return `${days} day${days > 1 ? "s" : ""}`;
-    } else if (hours >= 1) {
-      const formattedHours = hours % 1 === 0 ? Math.floor(hours) : hours;
-      const displayHours =
-        formattedHours % 1 === 0
-          ? formattedHours.toString()
-          : formattedHours.toFixed(1);
-      return `${displayHours} hour${formattedHours > 1 ? "s" : ""}`;
-    } else if (hours > 0) {
-      const minutes = Math.round(hours * 60);
-      return `${minutes} min${minutes > 1 ? "s" : ""}`;
-    } else {
-      return "0 min";
-    }
-  };
 
   return (
     <div

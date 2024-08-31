@@ -15,6 +15,11 @@ const TourInfo: React.FC<TourInfoProps> = ({ experienceId }) => {
   const router = useRouter();
   const [experience, setExperience] = useState<Experience>();
   const [loading, setLoading] = useState<boolean>(true);
+  const [formData, setFormData] = useState({
+    date: "",
+    time: 0,
+    ticket: "",
+  });
 
   const fetchDataExperienceById = async (experience_id: string) => {
     setLoading(true);
@@ -31,8 +36,15 @@ const TourInfo: React.FC<TourInfoProps> = ({ experienceId }) => {
   };
 
   useEffect(() => {
-    fetchDataExperienceById(experienceId);
+    if (experienceId) fetchDataExperienceById(experienceId);
   }, [router]);
+
+  const handleTimeChange = (selectedOption: number) => {
+    setFormData({
+      ...formData,
+      time: selectedOption,
+    });
+  };
 
   return (
     <section className={styles.tourInfoSection}>
@@ -45,7 +57,15 @@ const TourInfo: React.FC<TourInfoProps> = ({ experienceId }) => {
           ) : null}
         </div>
         <div className={styles.booking}>
-          <Booking />
+          {loading ? (
+            "<Skeleton height={200} count={1} /> "
+          ) : experience ? (
+            <Booking
+              experience={experience}
+              selectedOption={formData.time}
+              onTimeChange={handleTimeChange}
+            />
+          ) : null}
         </div>
       </div>
     </section>

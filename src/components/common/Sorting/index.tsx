@@ -22,9 +22,6 @@ interface SortingProps {
 }
 
 const Sorting: React.FC<SortingProps> = ({ selectedOption, isAscending, onSortChange }) => {
-  // const [selectedOption, setSelectedOption] =
-  //   useState<SortingOption["value"]>("title");
-  // const [isAscending, setIsAscending] = useState<boolean>(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
   const sortingOptions: SortingOption[] = [

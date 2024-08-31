@@ -15,6 +15,8 @@ import { GrShareOption } from "react-icons/gr";
 import ExperienceItemDetails from "../ExperienceItemDetails";
 import { FiVideo } from "react-icons/fi";
 import { MdOutlinePhotoLibrary } from "react-icons/md";
+import { parseCookies } from "nookies";
+import { formatDuration } from "@/utils/time";
 
 interface CardExperienceProps {
   experience: Experience;
@@ -24,30 +26,14 @@ const CardExperienceInfo: React.FC<CardExperienceProps> = ({ experience }) => {
   const { symbol, exchangeRate } = useCurrency();
   const { favorites, setFavorites } = useFavoriteContext();
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  const formatDuration = (hours: number): string => {
-    if (hours >= 24) {
-      const days = Math.floor(hours / 24);
-      return `${days} day${days > 1 ? "s" : ""}`;
-    } else if (hours >= 1) {
-      const formattedHours = hours % 1 === 0 ? Math.floor(hours) : hours;
-      const displayHours =
-        formattedHours % 1 === 0
-          ? formattedHours.toString()
-          : formattedHours.toFixed(1);
-      return `${displayHours} hour${formattedHours > 1 ? "s" : ""}`;
-    } else if (hours > 0) {
-      const minutes = Math.round(hours * 60);
-      return `${minutes} min${minutes > 1 ? "s" : ""}`;
-    } else {
-      return "0 min";
-    }
-  };
 
   const onFavoriteToggle = async (id: string) => {
-    if (!isLoggedIn) {
+    const cookies = parseCookies();
+    const userCookie = cookies["@auth.user"]
+      ? JSON.parse(cookies["@auth.user"])
+      : null;
+
+    if (userCookie === null) {
       toast.warning("You need to be logged in to add to favorites");
       return;
     }
@@ -83,8 +69,6 @@ const CardExperienceInfo: React.FC<CardExperienceProps> = ({ experience }) => {
     }
   };
 
-  console.log(experience);
-
   return (
     <div className={styles.card}>
       <div className={styles.imageContainer}>
@@ -93,6 +77,7 @@ const CardExperienceInfo: React.FC<CardExperienceProps> = ({ experience }) => {
           alt={experience.title}
           width={1000}
           height={1000}
+          priority={true}
           className={styles.image}
         />
         <div className={styles.links}>
