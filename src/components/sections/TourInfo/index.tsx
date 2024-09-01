@@ -11,6 +11,7 @@ import { Booking } from "@/types/booking";
 import handler from "@/pages/api/sendEmail";
 import CardExperienceInfoSkeleton from "@/components/common/CardExperienceInfoSkeleton";
 import BookingExperienceSkeleton from "@/components/common/BookingExperienceSkeleton";
+import dayjs from "dayjs";
 
 interface TourInfoProps {
   experienceId: string;
@@ -53,6 +54,33 @@ const TourInfo: React.FC<TourInfoProps> = ({ experienceId }) => {
   };
 
   const handlerClick = async () => {
+    const { date, time, ticket } = formData;
+
+    const validateDate = (date: string) => {
+      const regex = /^\d{4}-\d{2}-\d{2}$/;
+      return regex.test(date);
+    };
+
+    console.log(date);
+
+    if (
+      dayjs() > dayjs(date) ||
+      !/^\d{4}-\d{2}-\d{2}(?=T|$)/.test(date)
+    ) {
+      toast.warn("Please select a valid date");
+      return;
+    }
+
+    if (!/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(time)) {
+      toast.warn("Please select a valid time in the format HH:MM");
+      return;
+    }
+
+    if (ticket.adults === 0 && ticket.kids === 0 && ticket.children === 0) {
+      toast.warn("Please select at least one ticket");
+      return;
+    }
+
     const response = await BookingService.createBooking(
       formData.date,
       formData.time,

@@ -1,17 +1,16 @@
 .filters {
-    flex: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  gap: 2rem;
+
+  .filter {
     display: flex;
     flex-direction: column;
-    align-self: flex-start;
-    gap: 2rem;
-  
-    .filter {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      background: var(--secondary-background-color);
-      padding: 1.8rem;
-      border-radius: 5px;
-    }
+    width: 100%;
+    background: var(--secondary-background-color);
+    padding: 1.8rem;
+    border-radius: 5px;
   }
-  
+}

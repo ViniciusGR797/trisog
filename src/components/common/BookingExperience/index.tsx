@@ -63,6 +63,7 @@ const BookingExperience: React.FC<CardExperienceProps> = ({
   const handleOptionClickTime = (option: string) => {
     if (values.time !== option) {
       onChange(option, "time");
+      setTime(option);
     }
     setIsDropdownOpen(true);
   };
