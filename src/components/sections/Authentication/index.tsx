@@ -80,6 +80,7 @@ const Authentication: React.FC<AuthenticationProps> = ({
       toast.warn(firebaseError);
       return;
     }
+    console.log(user);
     toast.success(`Welcome, ${user.displayName?.split(" ")[0]}!`);
     router.push("/home");
   };

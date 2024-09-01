@@ -1,0 +1,197 @@
+.booking {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+  background: var(--secondary-background-color);
+  gap: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.expired {
+  position: absolute;
+  top: 45px;
+  right: -45px;
+  width: 200px;
+  transform: rotate(45deg);
+  background: var(--details-color);
+  color: var(--background-color);
+  font-weight: bold;
+  text-align: center;
+}
+
+.perPerson {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary-font-color);
+  font-size: 1.1rem;
+
+  .pricePerPerson {
+    font-size: 1.7rem;
+    font-weight: 800;
+  }
+}
+
+.separator {
+  border: none;
+  border-top: 1px solid var(--fourth-details-color);
+}
+
+.label {
+  font-size: 1.1rem;
+  font-family: "Work Sans";
+  font-weight: bold;
+  color: var(--primary-font-color);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputDate {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.inputWrapperDate {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--background-color);
+  border-radius: 8px;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.7rem 1rem;
+}
+
+.dateInput {
+  flex: 1;
+}
+
+.dateIcon {
+  font-size: 1.4rem;
+  color: var(--fourth-font-color);
+}
+
+.inputTime {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--background-color);
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: border 0.3s ease;
+  position: relative;
+  width: 100%;
+
+  .selectedOption {
+    width: 100%;
+    color: var(--fourth-font-color);
+
+    font-size: 1rem;
+    width: 100%;
+    border: none;
+    outline: none;
+    position: relative;
+
+    &::placeholder {
+      color: var(--fourth-font-color);
+    }
+  }
+
+  .icon {
+    font-size: 1.4rem;
+    color: var(--fourth-font-color);
+    position: relative;
+    transition: transform 0.3s ease;
+
+    &.open {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: var(--background-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+  margin-top: 0.5rem;
+}
+
+.dropdownItem {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: var(--fourth-font-color);
+
+  &:hover {
+    color: var(--details-color);
+  }
+}
+
+.ticket {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.inputTickets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.total {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--fourth-font-color);
+
+  span {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--details-color);
+  }
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.7rem 1rem;
+  background-color: var(--details-color);
+  color: var(--background-color);
+  border-radius: 8px;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--secondary-details-color);
+  }
+}

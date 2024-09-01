@@ -1,6 +1,9 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IconType } from "react-icons";
+import dayjs from "dayjs";
 import styles from "./styles.module.scss";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { Popper, TextField } from "@mui/material";
 
 interface Option {
   id: string;
@@ -45,6 +48,10 @@ const InputSearch: React.FC<InputSearchProps> = ({
     }
   };
 
+  const onDateChange = (dateValue: string) => {
+    onChange({ value: dateValue, name });
+  };
+
   useEffect(() => {
     if (options.length > 0 && value === "") setFilteredOptions(options);
   }, [options]);
@@ -81,18 +88,53 @@ const InputSearch: React.FC<InputSearchProps> = ({
       </label>
       <div className={styles.inputWrapper}>
         <Icon className={styles.icon} />
-        <input
-          id={name}
-          type={type !== "select" ? type : "text"}
-          name={name}
-          value={value}
-          min={type === "number" ? 0 : undefined}
-          placeholder={placeholder}
-          onChange={handleInputChange}
-          className={styles.input}
-          onFocus={() => type === "select" && setIsDropdownOpen(true)}
-          onBlur={handleBlur}
-        />
+        {type === "date" ? (
+          <DatePicker
+            value={dayjs(value)}
+            onChange={(newValue) => onDateChange(newValue?.toISOString() || "")}
+            slots={{
+              popper: props => <Popper {...props} style={{ zIndex: 4}} />,
+            }}
+            sx={{
+              "& .MuiInputBase-root": {
+                padding: "0",
+                fontSize: "1rem",
+                color: "#646a82",
+              },
+              "& .MuiInputBase-input": {
+                padding: "0",
+                width: "100%",
+                position: "relative",
+              },
+              "& .MuiButtonBase-root": {
+                color: "transparent",
+                position: "absolute",
+                right: "0",
+                width: "100%",
+
+                "&:hover": {
+                  backgroundColor: "transparent",
+                },
+              },
+              "& .MuiOutlinedInput-notchedOutline": {
+                border: "none",
+              },
+            }}
+          />
+        ) : (
+          <input
+            id={name}
+            type={type !== "select" ? type : "text"}
+            name={name}
+            value={value}
+            min={type === "number" ? 0 : undefined}
+            placeholder={placeholder}
+            onChange={handleInputChange}
+            className={styles.input}
+            onFocus={() => type === "select" && setIsDropdownOpen(true)}
+            onBlur={handleBlur}
+          />
+        )}
         {type === "select" && isDropdownOpen && (
           <div className={styles.dropdown}>
             {filteredOptions.length > 0 ? (

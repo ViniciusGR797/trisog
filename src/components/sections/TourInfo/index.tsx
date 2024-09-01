@@ -1,11 +1,14 @@
 import CardExperienceInfo from "@/components/common/CardExperienceInfo";
-import Booking from "@/components/common/Booking";
+import BookingExperience from "@/components/common/BookingExperience";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { Experience } from "@/types/experience";
 import ExperienceService from "@/services/api/experienceService";
+import BookingService from "@/services/api/bookingService";
 import { toast } from "react-toastify";
 import styles from "./styles.module.scss";
+import { Booking } from "@/types/booking";
+import handler from "@/pages/api/sendEmail";
 
 interface TourInfoProps {
   experienceId: string;
@@ -17,8 +20,12 @@ const TourInfo: React.FC<TourInfoProps> = ({ experienceId }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [formData, setFormData] = useState({
     date: "",
-    time: 0,
-    ticket: "",
+    time: "",
+    ticket: {
+      adults: 0,
+      kids: 0,
+      children: 0,
+    },
   });
 
   const fetchDataExperienceById = async (experience_id: string) => {
@@ -39,11 +46,24 @@ const TourInfo: React.FC<TourInfoProps> = ({ experienceId }) => {
     if (experienceId) fetchDataExperienceById(experienceId);
   }, [router]);
 
-  const handleTimeChange = (selectedOption: number) => {
-    setFormData({
-      ...formData,
-      time: selectedOption,
-    });
+  const handleChange = (newValue: string | object, name: string) => {
+    setFormData({ ...formData, [name]: newValue });
+  };
+
+  const handlerClick = async () => {
+    const response = await BookingService.createBooking(
+      formData.date,
+      formData.time,
+      formData.ticket,
+      experienceId
+    );
+    if (response?.status === 201) {
+      setExperience(response.data);
+      toast.success("Booking successful!");
+      router.push("/bookings");
+    } else {
+      toast.warning("Booking failed. Please try again.");
+    }
   };
 
   return (
@@ -60,10 +80,11 @@ const TourInfo: React.FC<TourInfoProps> = ({ experienceId }) => {
           {loading ? (
             "<Skeleton height={200} count={1} /> "
           ) : experience ? (
-            <Booking
+            <BookingExperience
               experience={experience}
-              selectedOption={formData.time}
-              onTimeChange={handleTimeChange}
+              values={formData}
+              onChange={handleChange}
+              onClick={handlerClick}
             />
           ) : null}
         </div>

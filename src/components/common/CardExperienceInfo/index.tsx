@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./styles.module.scss";
@@ -17,12 +17,14 @@ import { FiVideo } from "react-icons/fi";
 import { MdOutlinePhotoLibrary } from "react-icons/md";
 import { parseCookies } from "nookies";
 import { formatDuration } from "@/utils/time";
+import { useRouter } from "next/router";
 
 interface CardExperienceProps {
   experience: Experience;
 }
 
 const CardExperienceInfo: React.FC<CardExperienceProps> = ({ experience }) => {
+  const router = useRouter();
   const { symbol, exchangeRate } = useCurrency();
   const { favorites, setFavorites } = useFavoriteContext();
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
@@ -67,6 +69,44 @@ const CardExperienceInfo: React.FC<CardExperienceProps> = ({ experience }) => {
         toast.success("Added to favorites");
       }
     }
+  };
+
+  const fetchDataFavorites = async () => {
+    const response = await FavoriteService.getFavorite();
+    if (response?.status === 200) {
+      setFavorites(response.data);
+      const ids: Set<string> = new Set(
+        response.data.map((fav: { experience_id: string }) => fav.experience_id)
+      );
+      setFavoriteIds(ids);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataFavorites();
+  }, [router]);
+
+  const handleButtonCopyLinkClick = (): void => {
+    if (typeof window === "undefined") return;
+
+    const baseURL = `${window.location.protocol}//${window.location.host}`;
+    const completeURL = `${baseURL}${router.asPath}`;
+
+    console.log(completeURL);
+
+    if (!navigator.clipboard) {
+      toast.warning("The browser does not support copy link");
+      return;
+    }
+
+    navigator.clipboard
+      .writeText(completeURL)
+      .then(() => {
+        toast.success("Copy Link");
+      })
+      .catch((err) => {
+        toast.error("Copying Error");
+      });
   };
 
   return (
@@ -118,7 +158,10 @@ const CardExperienceInfo: React.FC<CardExperienceProps> = ({ experience }) => {
             </a>
           </div>
           <div className={styles.shareFavorite}>
-            <GrShareOption className={styles.shareFavoriteIcon} />
+            <GrShareOption
+              className={styles.shareFavoriteIcon}
+              onClick={() => handleButtonCopyLinkClick()}
+            />
             {favoriteIds.has(experience.id) ? (
               <AiFillHeart
                 className={styles.shareFavoriteIcon}
@@ -159,7 +202,7 @@ const CardExperienceInfo: React.FC<CardExperienceProps> = ({ experience }) => {
           />
           <ExperienceItemDetails
             detailTitle="Min Age"
-            detailContent={<>{experience.min_age}</>}
+            detailContent={<>{experience.min_age}+</>}
             contentClassName={styles.priceContent}
           />
           <ExperienceItemDetails
@@ -181,7 +224,9 @@ const CardExperienceInfo: React.FC<CardExperienceProps> = ({ experience }) => {
               <p className={styles.review}>
                 <AiFillStar className={styles.starIcon} />
                 {experience.rating}
-                <span className={styles.reviewCount} >{`(${experience.review_count} ${
+                <span className={styles.reviewCount}>{`(${
+                  experience.review_count
+                } ${
                   experience.review_count > 1 ? "reviews" : "review"
                 })`}</span>
               </p>

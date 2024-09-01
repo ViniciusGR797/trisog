@@ -10,6 +10,9 @@ import { FavoriteProvider } from "@/contexts/FavoriteContext";
 import { QueryProvider } from "@/contexts/QueryOptionsContext";
 import { SearchProvider } from "@/contexts/SearchContext";
 
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <CurrencyProvider>
@@ -17,10 +20,12 @@ export default function App({ Component, pageProps }: AppProps) {
         <ExperienceProvider>
           <SearchProvider>
             <QueryProvider>
-              <Component {...pageProps} />
-              <ToastContainer />
-              <Analytics />
-              <SpeedInsights />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <Component {...pageProps} />
+                <ToastContainer />
+                <Analytics />
+                <SpeedInsights />
+              </LocalizationProvider>
             </QueryProvider>
           </SearchProvider>
         </ExperienceProvider>
