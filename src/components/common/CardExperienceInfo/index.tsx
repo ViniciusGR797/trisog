@@ -222,8 +222,10 @@ const CardExperienceInfo: React.FC<CardExperienceProps> = ({ experience }) => {
             detailTitle="Reviews"
             detailContent={
               <p className={styles.review}>
-                <AiFillStar className={styles.starIcon} />
-                {experience.rating}
+                <div className={styles.rating}>
+                  <AiFillStar className={styles.starIcon} />
+                  {experience.rating}
+                </div>
                 <span className={styles.reviewCount}>{`(${
                   experience.review_count
                 } ${

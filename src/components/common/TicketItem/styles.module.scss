@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  gap: 1rem;
 }
 
 .text {
@@ -55,4 +56,10 @@
   border-radius: 10px;
   border: 1px solid var(--fourth-background-color);
   font-size: 1.1rem;
+}
+
+@media screen and (max-width: 400px) {
+  .container {
+    flex-direction: column;
+  }
 }

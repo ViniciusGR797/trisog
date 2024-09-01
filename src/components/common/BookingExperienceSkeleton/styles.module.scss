@@ -1,0 +1,131 @@
+.booking {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+  background: var(--secondary-background-color);
+  gap: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeletonText {
+  width: 100%;
+  border-radius: 8px;
+  background-color: var(--fourth-background-color);
+  animation: pulse 1.5s infinite;
+}
+
+.perPerson {
+  width: 30%;
+  height: 45px;
+  margin-bottom: 1rem;
+}
+
+.label {
+  width: 20%;
+  height: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputDate {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.inputWrapper {
+  height: 45px;
+}
+
+.inputTime {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ticket {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.inputTickets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.inputTicket {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1rem;
+  margin-bottom: 0.2rem;
+
+  .age {
+    width: 30%;
+    height: 18px;
+  }
+
+  .controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+
+    .buttonControl {
+      width: 35px;
+      height: 35px;
+      border-radius: 10px;
+    }
+  }
+}
+
+.total {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+
+  .totalText {
+    width: 15%;
+    height: 20px;
+  }
+
+  .totalPrice {
+    width: 20%;
+    height: 40px;
+  }
+}
+
+.button {
+  height: 45px;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .inputTicket {
+    flex-direction: column;
+  }
+}

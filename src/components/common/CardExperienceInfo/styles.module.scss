@@ -135,8 +135,15 @@
     align-items: center;
     gap: 0.2rem;
 
-    .starIcon {
-      color: var(--details-color);
+    .rating {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.2rem;
+
+      .starIcon {
+        color: var(--details-color);
+      }
     }
 
     .reviewCount {
@@ -149,7 +156,7 @@
   .headerInfo {
     flex-direction: column;
     align-items: center;
-  
+
     .location {
       flex-direction: column;
       font-size: 1rem;
@@ -165,7 +172,7 @@
   .links {
     display: flex;
     flex-direction: column;
-  
+
     .link {
       font-size: 0.9rem;
 
@@ -176,3 +183,11 @@
   }
 }
 
+@media screen and (max-width: 210px) {
+  .detail {
+    .review {
+      flex-direction: column;
+      align-items: self-start;
+    }
+  }
+}

@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 import styles from "./styles.module.scss";
 import { Booking } from "@/types/booking";
 import handler from "@/pages/api/sendEmail";
+import CardExperienceInfoSkeleton from "@/components/common/CardExperienceInfoSkeleton";
+import BookingExperienceSkeleton from "@/components/common/BookingExperienceSkeleton";
 
 interface TourInfoProps {
   experienceId: string;
@@ -71,14 +73,14 @@ const TourInfo: React.FC<TourInfoProps> = ({ experienceId }) => {
       <div className={styles.tourInfoContainer}>
         <div className={styles.experience}>
           {loading ? (
-            "<Skeleton height={200} count={1} /> "
+            <CardExperienceInfoSkeleton />
           ) : experience ? (
             <CardExperienceInfo experience={experience} />
           ) : null}
         </div>
         <div className={styles.booking}>
           {loading ? (
-            "<Skeleton height={200} count={1} /> "
+            <BookingExperienceSkeleton />
           ) : experience ? (
             <BookingExperience
               experience={experience}

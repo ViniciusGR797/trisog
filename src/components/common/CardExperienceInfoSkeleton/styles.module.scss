@@ -1,0 +1,166 @@
+.skeletonCard {
+  width: 100%;
+  border-radius: 5px;
+  background-color: var(--secondary-background-color);
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 450px;
+}
+
+.skeletonImage {
+  width: 100%;
+  height: 100%;
+  background-color: var(--fourth-background-color);
+  animation: pulse 1.5s infinite;
+}
+
+.links {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  gap: 1rem;
+  z-index: 2;
+
+  .link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 95px;
+    height: 28px;
+    background-color: var(--background-color);
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.skeletonInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  // height: 220px;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.headerInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--fourth-font-color);
+  flex-wrap: wrap;
+
+  .location {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    width: 40%;
+    height: 20px;
+    border-radius: 8px;
+    background-color: var(--fourth-background-color);
+    animation: pulse 1.5s infinite;
+  }
+
+  .shareFavorite {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.7rem;
+
+    .shareFavoriteIcon {
+      width: 25px;
+      height: 25px;
+      border-radius: 8px;
+      background-color: var(--fourth-background-color);
+      animation: pulse 1.5s infinite;
+    }
+  }
+}
+
+.skeletonText {
+  width: 100%;
+  border-radius: 8px;
+  background-color: var(--fourth-background-color);
+  animation: pulse 1.5s infinite;
+}
+
+.name {
+  height: 45px;
+}
+
+.detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+
+  .from {
+    width: 45px;
+    height: 50px;
+  }
+  
+  .duration {
+    width: 70px;
+    height: 50px;
+  }
+
+  .maxPeople {
+    width: 96px;
+    height: 50px;
+  }
+
+  .minAge {
+    width: 67px;
+    height: 50px;
+  }
+
+  .tourType {
+    width: 90px;
+    height: 50px;
+  }
+
+  .reviews {
+    width: 117px;
+    height: 50px;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .headerInfo {
+    flex-direction: column;
+    align-items: center;
+
+    .location {
+      flex-direction: column;
+    }
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .links {
+    display: flex;
+    flex-direction: column;
+  }
+}
