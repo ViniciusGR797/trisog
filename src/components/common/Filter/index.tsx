@@ -13,12 +13,14 @@ import CategoryFilter from "../CategoryFilter";
 import { Category } from "@/types/category";
 import categoryService from "@/services/api/categoryService";
 import RatingFilter from "../RatingFilter";
+import { BsSliders } from "react-icons/bs";
 
 const Filter: React.FC = () => {
   const { state, dispatch } = useQueryContext();
   const { setExperiences } = useExperienceContext();
   const [categories, setCategories] = useState<Category[]>([]);
   const [destinations, setDestinations] = useState<Destination[]>([]);
+  const [filtersVisible, setFiltersVisible] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -151,49 +153,74 @@ const Filter: React.FC = () => {
     fetchDataExperiences(state);
   };
 
+  const toggleFilters = () => {
+    setFiltersVisible(!filtersVisible);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 700 && !filtersVisible) setFiltersVisible(true);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <div className={styles.filters}>
-      <div className={styles.filter}>
-        <SearchFilter
-          searchTerm={state.title || ""}
-          onChange={handleSearchChange}
-          onClick={handleSearchClick}
-        />
-      </div>
-      <div className={styles.filter}>
-        <SliderFilter
-          maxPrice={1000}
-          value={Number(state.price) || 0}
-          onChange={handleSliderChange}
-          onClick={handleSliderSubmit}
-        />
-      </div>
-      <div className={styles.filter}>
-        <CategoryFilter
-          categories={categories}
-          selectedCategories={
-            state.categoriesId ? state.categoriesId.split(",") : []
-          }
-          onToggleCategory={handleToggleCategory}
-        />
-      </div>
-      <div className={styles.filter}>
-        <ContinentFilter
-          countries={destinations}
-          selectedCountries={
-            state.destinationsId ? state.destinationsId.split(",") : []
-          }
-          onToggleCountry={handleToggleCountry}
-        />
-      </div>
-      <div className={styles.filter}>
-        <RatingFilter
-          rating={rating}
-          selectedRating={state.rating ? state.rating.split(",") : []}
-          onToggleRating={handleToggleRating}
-        />
-      </div>
-    </div>
+    <>
+      <button className={styles.button} onClick={toggleFilters}>
+        <span>Filters</span>
+        <BsSliders className={styles.filterIcon} />
+      </button>
+      {filtersVisible && (
+        <div
+          className={`${styles.filters} ${
+            filtersVisible ? styles.filtersVisible : ""
+          }`}
+        >
+          <div className={styles.filter}>
+            <SearchFilter
+              searchTerm={state.title || ""}
+              onChange={handleSearchChange}
+              onClick={handleSearchClick}
+            />
+          </div>
+          <div className={styles.filter}>
+            <SliderFilter
+              maxPrice={1000}
+              value={Number(state.price) || 0}
+              onChange={handleSliderChange}
+              onClick={handleSliderSubmit}
+            />
+          </div>
+          <div className={styles.filter}>
+            <CategoryFilter
+              categories={categories}
+              selectedCategories={
+                state.categoriesId ? state.categoriesId.split(",") : []
+              }
+              onToggleCategory={handleToggleCategory}
+            />
+          </div>
+          <div className={styles.filter}>
+            <ContinentFilter
+              countries={destinations}
+              selectedCountries={
+                state.destinationsId ? state.destinationsId.split(",") : []
+              }
+              onToggleCountry={handleToggleCountry}
+            />
+          </div>
+          <div className={styles.filter}>
+            <RatingFilter
+              rating={rating}
+              selectedRating={state.rating ? state.rating.split(",") : []}
+              onToggleRating={handleToggleRating}
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
