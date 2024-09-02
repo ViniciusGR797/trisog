@@ -31,7 +31,18 @@ const CardReview: React.FC<CardReviewProps> = ({ review }) => {
             <AiFillStar className={styles.starIcon} />
             <span>{calculateAverageRating(review.ratings)}</span>
           </div>
-          <span className={styles.reviews}>10 reviews</span>
+          <span className={styles.reviews}>
+            {`${
+              review && review.user_review_count
+                ? review.user_review_count + " "
+                : "0 "
+            }`}
+            {`${
+              review && review.user_review_count && review.user_review_count > 1
+                ? "reviews"
+                : "review"
+            }`}
+          </span>
         </div>
         <p className={styles.comment}>{review.comment}</p>
       </div>

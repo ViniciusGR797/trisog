@@ -47,7 +47,7 @@ const Header: React.FC = () => {
     const cookies = parseCookies();
     const userCookie = cookies['@auth.user'] ? JSON.parse(cookies['@auth.user']) : null;
     setUser(userCookie);
-  }, []);
+  }, [router]);
 
   return (
     <>

@@ -4,18 +4,23 @@ import Footer from "@/components/sections/Footer";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import TourDetail from "@/components/sections/TourDetail";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Experience } from "@/types/experience";
 import ExperienceService from "@/services/api/experienceService";
 import { toast } from "react-toastify";
 import TourMap from "@/components/sections/TuorMap";
 import ReviewAverage from "@/components/sections/ReviewAverage";
 import ReviewSection from "@/components/sections/Review";
+import ReviewForm from "@/components/sections/ReviewForm";
+import { Review } from "@/types/review";
+import ReviewService from "@/services/api/reviewService";
+import TourMore from "@/components/sections/TourMore";
 
 export default function ExperienceName() {
   const router = useRouter();
   const { experienceId } = router.query;
   const [experience, setExperience] = useState<Experience>();
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchDataExperienceById = async (experience_id: string) => {
@@ -32,10 +37,28 @@ export default function ExperienceName() {
     setLoading(false);
   };
 
+  const fetchDataReviews = async () => {
+    const response = await ReviewService.getReviewsByExperience(
+      experienceId && typeof experienceId === "string" ? experienceId : ""
+    );
+    if (response?.status === 200) {
+      setReviews(response.data);
+    }
+  };
+
   useEffect(() => {
-    if (experienceId && typeof experienceId === "string")
+    if (experienceId && typeof experienceId === "string") {
       fetchDataExperienceById(experienceId);
+      fetchDataReviews();
+    }
   }, [router, experienceId]);
+
+  const handleChangeReview = () => {
+    if (experienceId && typeof experienceId === "string") {
+      fetchDataExperienceById(experienceId);
+      fetchDataReviews();
+    }
+  };
 
   return (
     <>
@@ -54,11 +77,9 @@ export default function ExperienceName() {
         <TourDetail overview={experience ? experience.over_view : ""} />
         <TourMap mapLink={experience ? experience.map_link : ""} />
         <ReviewAverage ratings={experience?.ratings} />
-        <ReviewSection
-          experienceId={
-            experienceId && typeof experienceId === "string" ? experienceId : ""
-          }
-        />
+        <ReviewSection reviews={reviews} />
+        <ReviewForm experience={experience} onChange={handleChangeReview} />
+        <TourMore />
         <Footer />
       </main>
     </>
