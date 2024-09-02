@@ -21,6 +21,7 @@ const Filter: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [filtersVisible, setFiltersVisible] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 700);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -159,12 +160,20 @@ const Filter: React.FC = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 700 && !filtersVisible) setFiltersVisible(true);
+      setIsMobile(window.innerWidth <= 700);
     };
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    if (!isMobile) {
+      setFiltersVisible(true); 
+    } else {
+      setFiltersVisible(false); 
+    }
+  }, [isMobile]);
 
   return (
     <>
