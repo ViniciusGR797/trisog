@@ -158,7 +158,7 @@ const Search: React.FC = () => {
             <span>
               {`${
                 experiences && experiences.experiences
-                  ? experiences.experiences.length + " "
+                  ? experiences.total_experiences + " "
                   : "0 "
               }`}
               {`${

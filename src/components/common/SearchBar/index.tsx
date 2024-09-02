@@ -21,7 +21,7 @@ const SearchBar: React.FC = () => {
   const { state, dispatch } = useQueryContext();
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const { setExperiences } = useExperienceContext();
+  const { setExperiences, setLoading } = useExperienceContext();
   const { searchState, setSearchState } = useSearch();
 
   useEffect(() => {
@@ -78,10 +78,12 @@ const SearchBar: React.FC = () => {
   };
 
   const fetchDataExperiences = async (queryOption: QueryOption) => {
+    setLoading(true);
     const response = await ExperienceService.getExperiences(queryOption);
     if (response?.status === 200) {
       setExperiences(response.data);
     }
+    setLoading(false);
   };
 
   const handleClick = async (e: React.FormEvent) => {

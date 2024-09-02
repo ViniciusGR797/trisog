@@ -1,37 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/scss";
 import "swiper/scss/pagination";
 import { Pagination } from "swiper/modules";
 import styles from "./styles.module.scss";
-import Testimonial from "@/components/common/Testimonial";
 import SectionHeader from "@/components/common/SectionHeader";
-
-const testimonials = [
-  {
-    id: 1,
-    text: "The UI designs he crafted are top-notch, and the design system he integrated allows for straight forward fixes and bulk updates throughout almost every area of the app.",
-    author: "By Molie Rosa, Photographer",
-  },
-  {
-    id: 2,
-    text: "This service is fantastic! Highly recommend it.",
-    author: "By John Doe, Doctor",
-  },
-  {
-    id: 3,
-    text: "This service is fantastic! Highly recommend it.",
-    author: "By John Doe, Doctor",
-  },
-  {
-    id: 4,
-    text: "This service is fantastic! Highly recommend it.",
-    author: "By John Doe, Doctor",
-  },
-];
+import TestimonialService from "@/services/api/testimonialService";
+import { Testimonial } from "@/types/testimonial";
+import TestimonialItem from "@/components/common/TestimonialItem";
 
 const Testimonials: React.FC = () => {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await TestimonialService.getTestimonials();
+      if (response?.status === 200) {
+        setTestimonials(response.data);
+      }
+    };
+
+    fetchData();
+  }, [setTestimonials]);
+
   return (
     <section className={styles.testimonials}>
       <div className={styles.testimonialContainer}>
@@ -58,8 +50,8 @@ const Testimonials: React.FC = () => {
             >
               {testimonials.map((testimonial) => (
                 <SwiperSlide key={testimonial.id}>
-                  <Testimonial
-                    message={testimonial.text}
+                  <TestimonialItem
+                    message={testimonial.message}
                     author={testimonial.author}
                   />
                 </SwiperSlide>

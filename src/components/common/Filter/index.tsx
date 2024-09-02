@@ -17,11 +17,11 @@ import { BsSliders } from "react-icons/bs";
 
 const Filter: React.FC = () => {
   const { state, dispatch } = useQueryContext();
-  const { setExperiences } = useExperienceContext();
+  const { setExperiences, setLoading } = useExperienceContext();
   const [categories, setCategories] = useState<Category[]>([]);
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [filtersVisible, setFiltersVisible] = useState(true);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 700);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,10 +46,12 @@ const Filter: React.FC = () => {
   }, [setCategories]);
 
   const fetchDataExperiences = async (queryOption: QueryOption) => {
+    setLoading(true);
     const response = await ExperienceService.getExperiences(queryOption);
     if (response?.status === 200) {
       setExperiences(response.data);
     }
+    setLoading(false);
   };
 
   const handleSearchChange = (term: string) => {
@@ -160,7 +162,7 @@ const Filter: React.FC = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 700);
+      setIsMobile(window?.innerWidth <= 700);
     };
 
     window.addEventListener("resize", handleResize);

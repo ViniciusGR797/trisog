@@ -2,12 +2,12 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { RiDoubleQuotesR } from "react-icons/ri";
 
-interface TestimonialProps {
+interface TestimonialItemProps {
   message: string;
   author: string;
 }
 
-const Testimonial: React.FC<TestimonialProps> = ({ message, author }) => {
+const TestimonialItem: React.FC<TestimonialItemProps> = ({ message, author }) => {
   return (
     <div
       className={styles.testimonial}
@@ -19,4 +19,4 @@ const Testimonial: React.FC<TestimonialProps> = ({ message, author }) => {
   );
 };
 
-export default Testimonial;
+export default TestimonialItem;
