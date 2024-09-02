@@ -1,4 +1,4 @@
-export type Scores = {
+export type Ratings = {
   services: number;
   location: number;
   amenities: number;
@@ -7,13 +7,13 @@ export type Scores = {
   room_comfort_and_quality: number;
 };
 
-export type Booking = {
+export type Review = {
   id: string;
   name: string;
   email: string;
-  comment: Scores;
+  comment: string;
   image: number;
-  score: Scores;
+  ratings: Ratings;
   created_at: string;
   experience_id: string;
 };

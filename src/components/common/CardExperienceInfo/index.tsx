@@ -18,6 +18,7 @@ import { MdOutlinePhotoLibrary } from "react-icons/md";
 import { parseCookies } from "nookies";
 import { formatDuration } from "@/utils/time";
 import { useRouter } from "next/router";
+import { calculateAverageRating } from "@/utils/average";
 
 interface CardExperienceProps {
   experience: Experience;
@@ -224,7 +225,7 @@ const CardExperienceInfo: React.FC<CardExperienceProps> = ({ experience }) => {
               <div className={styles.review}>
                 <div className={styles.rating}>
                   <AiFillStar className={styles.starIcon} />
-                  {experience.rating}
+                  {calculateAverageRating(experience.ratings)}
                 </div>
                 <span className={styles.reviewCount}>{`(${
                   experience.review_count

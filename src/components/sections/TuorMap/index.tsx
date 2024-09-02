@@ -6,8 +6,6 @@ interface TourMapProps {
 }
 
 const TourMap: React.FC<TourMapProps> = ({ mapLink }) => {
-    console.log(mapLink);
-
   return (
     <section className={styles.tourMapSection}>
       <div className={styles.tourMapContainer}>

@@ -74,7 +74,7 @@ const Statistics = () => {
         />
         <StatisticalData
           data={`${
-            experiences && experiences.experiences
+            experiences && experiences.experiences && experiences.experiences.length > 0
               ? experiences.total_experiences - 1 + "+"
               : "0"
           }`}

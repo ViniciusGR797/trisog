@@ -1,0 +1,39 @@
+.reviewCriteria {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.criteriaText {
+  color: var(--primary-font-color);
+}
+
+.criteriaContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.progressContainer {
+  width: 100%;
+  position: relative;
+  background-color: var(--fourth-background-color);
+  border-radius: 5px;
+  height: 10px;
+}
+
+.progressBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: var(--details-color);
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+.averageScore {
+  color: var(--primary-font-color);
+}

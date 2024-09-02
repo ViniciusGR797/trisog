@@ -1,6 +1,7 @@
 import { Category } from "./category";
 import { Destination } from "./destination";
 import { Plan } from "./plan";
+import { Ratings } from "./review";
 
 export type CustomPrice = {
   date: Date;
@@ -24,7 +25,7 @@ export type Experience = {
   over_view: string;
   include: string[];
   exclude: string[];
-  rating: number;
+  ratings: Ratings;
   review_count: number;
   default_price: number;
   custom_prices?: CustomPrice[];
