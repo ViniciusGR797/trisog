@@ -221,7 +221,7 @@ const CardExperienceInfo: React.FC<CardExperienceProps> = ({ experience }) => {
           <ExperienceItemDetails
             detailTitle="Reviews"
             detailContent={
-              <p className={styles.review}>
+              <div className={styles.review}>
                 <div className={styles.rating}>
                   <AiFillStar className={styles.starIcon} />
                   {experience.rating}
@@ -231,7 +231,7 @@ const CardExperienceInfo: React.FC<CardExperienceProps> = ({ experience }) => {
                 } ${
                   experience.review_count > 1 ? "reviews" : "review"
                 })`}</span>
-              </p>
+              </div>
             }
             contentClassName={styles.priceContent}
           />

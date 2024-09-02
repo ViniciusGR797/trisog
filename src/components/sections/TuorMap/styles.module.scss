@@ -1,0 +1,37 @@
+.tourMapSection {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0 1rem 0;
+  width: 100%;
+
+  .tourMapContainer {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    gap: 1rem;
+  }
+}
+
+.title {
+  font-size: 1.8rem;
+  font-family: "Work Sans";
+  font-weight: bold;
+  width: 65%;
+}
+
+.map {
+  width: 65%;
+  height: 450px;
+  border: none;
+  margin-bottom: 2rem;
+}
+
+@media screen and (max-width: 800px) {
+  .title {
+    width: 100%;
+  }
+
+  .map {
+    width: 100%;
+  }
+}

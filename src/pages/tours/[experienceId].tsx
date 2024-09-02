@@ -3,10 +3,36 @@ import TourInfo from "@/components/sections/TourInfo";
 import Footer from "@/components/sections/Footer";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import TourDetail from "@/components/sections/TourDetail";
+import { useEffect, useState } from "react";
+import { Experience } from "@/types/experience";
+import ExperienceService from "@/services/api/experienceService";
+import { toast } from "react-toastify";
+import TourMap from "@/components/sections/TuorMap";
 
 export default function ExperienceName() {
   const router = useRouter();
   const { experienceId } = router.query;
+  const [experience, setExperience] = useState<Experience>();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const fetchDataExperienceById = async (experience_id: string) => {
+    setLoading(true);
+    const response = await ExperienceService.getExperienceById(experience_id);
+    if (response?.status === 200) {
+      setExperience(response.data);
+    } else {
+      router.push("/404");
+      toast.warning(
+        "Oops! The experience you are looking for could not be found"
+      );
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (experienceId && typeof experienceId === "string") fetchDataExperienceById(experienceId);
+  }, [router, experienceId]);
 
   return (
     <>
@@ -22,9 +48,14 @@ export default function ExperienceName() {
       <main>
         <Header />
         <TourInfo
-          experienceId={
-            experienceId && typeof experienceId === "string" ? experienceId : ""
-          }
+          experience={experience}           
+          loading={loading}
+        />
+        <TourDetail
+          overview={experience ? experience.over_view : ""}
+        />
+        <TourMap
+          mapLink={experience ? experience.map_link : ""}
         />
         <Footer />
       </main>

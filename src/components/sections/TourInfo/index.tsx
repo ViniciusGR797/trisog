@@ -12,15 +12,15 @@ import handler from "@/pages/api/sendEmail";
 import CardExperienceInfoSkeleton from "@/components/common/CardExperienceInfoSkeleton";
 import BookingExperienceSkeleton from "@/components/common/BookingExperienceSkeleton";
 import dayjs from "dayjs";
+import exp from "constants";
 
 interface TourInfoProps {
-  experienceId: string;
+  experience: Experience | undefined;
+  loading: boolean;
 }
 
-const TourInfo: React.FC<TourInfoProps> = ({ experienceId }) => {
+const TourInfo: React.FC<TourInfoProps> = ({ experience, loading }) => {
   const router = useRouter();
-  const [experience, setExperience] = useState<Experience>();
-  const [loading, setLoading] = useState<boolean>(true);
   const [formData, setFormData] = useState({
     date: "",
     time: "",
@@ -31,24 +31,6 @@ const TourInfo: React.FC<TourInfoProps> = ({ experienceId }) => {
     },
   });
 
-  const fetchDataExperienceById = async (experience_id: string) => {
-    setLoading(true);
-    const response = await ExperienceService.getExperienceById(experience_id);
-    if (response?.status === 200) {
-      setExperience(response.data);
-    } else {
-      router.push("/404");
-      toast.warning(
-        "Oops! The experience you are looking for could not be found"
-      );
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    if (experienceId) fetchDataExperienceById(experienceId);
-  }, [router]);
-
   const handleChange = (newValue: string | object, name: string) => {
     setFormData({ ...formData, [name]: newValue });
   };
@@ -56,12 +38,10 @@ const TourInfo: React.FC<TourInfoProps> = ({ experienceId }) => {
   const handlerClick = async () => {
     const { date, time, ticket } = formData;
 
-    const validateDate = (date: string) => {
-      const regex = /^\d{4}-\d{2}-\d{2}$/;
-      return regex.test(date);
-    };
-
-    console.log(date);
+    if (experience === undefined) {
+      toast.warn("Experience not found");
+      return;
+    }
 
     if (
       dayjs() > dayjs(date) ||
@@ -85,10 +65,9 @@ const TourInfo: React.FC<TourInfoProps> = ({ experienceId }) => {
       formData.date,
       formData.time,
       formData.ticket,
-      experienceId
+      experience.id
     );
     if (response?.status === 201) {
-      setExperience(response.data);
       toast.success("Booking successful!");
       router.push("/bookings");
     } else {
