@@ -5,8 +5,9 @@
   align-items: center;
   gap: 1rem;
   flex: 1;
-  
-  .sortBy{
+
+  .sortBy {
+    min-width: 54px;
     color: var(--fourth-font-color);
   }
 
@@ -28,7 +29,7 @@
   gap: 0.5rem;
   cursor: pointer;
   transition: border 0.3s ease;
-  position: relative; 
+  position: relative;
   max-width: 180px;
   width: 100%;
 
@@ -76,5 +77,22 @@
 
   &:hover {
     color: var(--details-color);
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .ordination {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .inputWrapper {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 280px) {
+  .ordination {
+    flex-wrap: wrap;
   }
 }
