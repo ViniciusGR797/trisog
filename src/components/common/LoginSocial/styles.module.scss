@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  border: 1px solid var(--primary-font-color);
+  border: 1px solid var(--fourth-details-color);
   border-radius: 0.5rem;
   cursor: pointer;
   padding: 8px;
@@ -14,7 +14,7 @@
     background-color: var(--secondary-background-color);
   }
 }
-  
+
 .text {
   font-size: 1.1rem;
   color: var(--primary-font-color);
@@ -23,5 +23,20 @@
 @media (max-height: 700px) {
   .text {
     font-size: 1rem;
+  }
+}
+
+@media (max-width: 230px) {
+  .loginSocial {
+    gap: 0.5rem;
+  }
+
+  .icon {
+    width: 20px;
+    height: auto;
+  }
+
+  .text {
+    font-size: 0.9rem;
   }
 }

@@ -1,0 +1,13 @@
+.checkboxList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.checkboxItem {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    color: var(--fourth-font-color);
+    font-size: 1.1rem;
+}

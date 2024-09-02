@@ -1,0 +1,13 @@
+.swiperContainer {
+  padding-bottom: 60px;
+
+  :global(.swiper-pagination-bullet-active) {
+    background-color: var(--details-color);
+  }
+}
+
+@media screen and (max-width: 210px) {
+  .swiperContainer {
+    padding-bottom: 80px;
+  }
+}

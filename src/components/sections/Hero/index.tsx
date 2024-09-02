@@ -12,6 +12,8 @@ const Hero: React.FC = () => {
         fill={true}
         style={{ objectFit: "cover" }}
         priority={true}
+        placeholder="blur"
+        blurDataURL="/images/hero.svg"
       />
       <div className={styles.textContainer}>
         <h2 className={styles.subtitle}>Save 15% off in Worldwide</h2>

@@ -14,6 +14,13 @@
   }
 }
 
+.noDestinationsMessage {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--secondary-font-color);
+  padding: 2rem;
+}
+
 @media screen and (max-width: 1000px) {
   .destinationGalley {
     padding: 13rem 0 4rem 0;

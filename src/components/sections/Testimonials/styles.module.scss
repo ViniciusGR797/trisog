@@ -21,43 +21,6 @@
   flex: 1;
   gap: 2rem;
 
-  .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1rem;
-    width: 100%;
-
-    .subtitle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      max-width: 270px;
-      width: 100%;
-
-      .line {
-        width: 100%;
-        height: 1px;
-        background-color: var(--fourth-details-color);
-      }
-
-      .text {
-        padding: 0 1rem;
-        font-family: "Kaushan Script";
-        font-size: 1.8rem;
-        color: var(--details-color);
-      }
-    }
-
-    .title {
-      font-size: 2.5rem;
-      font-family: "Work Sans";
-      font-weight: bold;
-      color: var(--primary-font-color);
-    }
-  }
-
   .carousel {
     .swiperContainer {
       padding-bottom: 60px;
@@ -72,57 +35,5 @@
 @media screen and (max-width: 1200px) {
   .testimonialImage {
     display: none;
-  }
-}
-
-@media screen and (max-width: 520px) {
-  .testimonialDetail {
-    .content {
-      .subtitle {
-        max-width: 220px;
-
-        .text {
-          font-size: 1.5rem;
-        }
-      }
-
-      .title {
-        font-size: 2rem;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 350px) {
-  .testimonialDetail {
-    .content {
-      .subtitle {
-        max-width: 200px;
-
-        .text {
-          font-size: 1.3rem;
-        }
-      }
-
-      .title {
-        font-size: 1.7rem;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 220px) {
-  .testimonialDetail {
-    .content {
-      .subtitle {
-        .text {
-          font-size: 1.1rem;
-        }
-      }
-
-      .title {
-        font-size: 1.3rem;
-      }
-    }
   }
 }

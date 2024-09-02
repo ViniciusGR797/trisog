@@ -1,93 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import Galley from "@/components/common/Gallery";
+import DestinationService from "@/services/api/destinationService";
+import { toast } from "react-toastify";
+import { Destination } from "@/types/destination";
 
 const DestinationGalley: React.FC = () => {
-  const [destinations, setDestinations] = useState([
-    {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-      travels: 150,
-      destination: "France",
-    },
-    {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-      travels: 100,
-      destination: "Italy",
-    },
-    {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-      travels: 200,
-      destination: "Spain",
-    },
-    {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-      travels: 250,
-      destination: "Portugal",
-    },
-    {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-      travels: 300,
-      destination: "Germany",
-    },
-    {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-      travels: 350,
-      destination: "Netherlands",
-    },
-    {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-      travels: 150,
-      destination: "France",
-    },
-    {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-      travels: 100,
-      destination: "Italy",
-    },
-    {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-      travels: 200,
-      destination: "Spain",
-    },
-    {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-      travels: 250,
-      destination: "Portugal",
-    },
-    {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-      travels: 300,
-      destination: "Germany",
-    },
-    {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6",
-      travels: 350,
-      destination: "Netherlands",
-    },
-  ]);
+  const [destinations, setDestinations] = useState<Destination[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await DestinationService.getDestinations();
+      if (response?.status === 200) {
+        setDestinations(response.data);
+      }
+    };
+
+    fetchData();
+  }, [setDestinations]);
+
+  const chunkDestinations = (destinations: any[], size: number) => {
+    const result: any[][] = [];
+    for (let i = 0; i < destinations.length; i += size) {
+      result.push(destinations.slice(i, i + size));
+    }
+    return result;
+  };
+
+  const destinationChunks = chunkDestinations(destinations, 6);
 
   return (
     <section className={styles.destinationGalley}>
       <div className={styles.destinationContainer}>
-        <Galley
-          cards={destinations.slice(0, 6)}
-        />
-        <Galley
-          cards={destinations.slice(-6)}
-          reverse={true}
-        />
+        {destinations.length === 0 ? (
+          <p className={styles.noDestinationsMessage}>
+            No destinations available at the moment
+          </p>
+        ) : (
+          destinationChunks.map((chunk, index) => (
+            <Galley
+              key={index}
+              destinations={chunk}
+              reverse={index % 2 === 1}
+            />
+          ))
+        )}
       </div>
     </section>
   );

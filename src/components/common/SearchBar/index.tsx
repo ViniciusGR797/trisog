@@ -1,58 +1,75 @@
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import InputSearch from "../InputSearch";
 import { PiPaperPlaneTilt } from "react-icons/pi";
 import { CiFlag1, CiCalendar } from "react-icons/ci";
 import { GoPeople } from "react-icons/go";
 import { toast } from "react-toastify";
+import { Destination } from "@/types/destination";
+import DestinationService from "@/services/api/destinationService";
+import CategoryService from "@/services/api/categoryService";
+import ExperienceService from "@/services/api/experienceService";
+import { QueryAction, useQueryContext } from "@/contexts/QueryOptionsContext";
+import { Category } from "@/types/category";
+import { useRouter } from "next/router";
+import { useExperienceContext } from "@/contexts/ExperienceContext";
+import { useSearch } from "@/contexts/SearchContext";
+import { QueryOption } from "@/types/queryOption";
 
 const SearchBar: React.FC = () => {
-  const [formData, setFormData] = useState({
-    destination: "",
-    activity: "",
-    when: "",
-    guess: "",
-  });
+  const router = useRouter();
+  const { state, dispatch } = useQueryContext();
+  const [destinations, setDestinations] = useState<Destination[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const { setExperiences, setLoading } = useExperienceContext();
+  const { searchState, setSearchState } = useSearch();
 
-  const destinationOptions = [
-    "New York",
-    "Los Angeles",
-    "Paris",
-    "Tokyo",
-    "Rome",
-    "London",
-    "Barcelona",
-    "Dubai",
-    "Sydney",
-    "Bangkok",
-    "Istanbul",
-    "Rio de Janeiro",
-    "Cape Town",
-    "Cairo",
-    "Hong Kong",
-    "Singapore",
-    "Amsterdam",
-    "Venice",
-    "Florence",
-    "Vienna",
-    "Prague",
-    "Lisbon",
-    "Moscow",
-    "Berlin",
-    "San Francisco",
-    "Mexico City",
-    "Toronto",
-    "Seoul",
-    "Buenos Aires",
-    "Marrakech",
-  ];
-  const activityOptions = ["Hiking", "Skiing", "Swimming", "Cycling"];
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await DestinationService.getDestinations();
+      if (response?.status === 200) {
+        setDestinations(response.data);
+      }
+    };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    fetchData();
+  }, [setDestinations]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await CategoryService.getCategories();
+      if (response?.status === 200) {
+        setCategories(response.data);
+      }
+    };
+
+    fetchData();
+  }, [setCategories]);
+
+  useEffect(() => {
+    setSearchState(prevState => ({
+      ...prevState,
+      destination: destinations.find(item => item.id === state.destinationsId?.split(",")[0])?.name || "",
+      activity: categories.find(item => item.id === state.categoriesId?.split(",")[0])?.name || "",
+    }));
+
+  }, [state.destinationsId, state.categoriesId]);
+
+  const handleChange = (data: { id?: string; value: string; name: string }) => {
+    setSearchState(prevState => ({
+      ...prevState,
+      [data.name]: data.value,
+    }));
+
+    const actionMap: { [key: string]: QueryAction } = {
+      destination: { type: "SET_DESTINATIONS_ID", payload: data.id },
+      activity: { type: "SET_CATEGORIES_ID", payload: data.id },
+      when: { type: "SET_DATE", payload: data.value },
+      guess: { type: "SET_GUESTS", payload: data.value },
+    };
+
+    const action = actionMap[data.name];
+    if (action) dispatch(action);
   };
 
   const validateDate = (date: string) => {
@@ -60,32 +77,31 @@ const SearchBar: React.FC = () => {
     return regex.test(date);
   };
 
+  const fetchDataExperiences = async (queryOption: QueryOption) => {
+    setLoading(true);
+    const response = await ExperienceService.getExperiences(queryOption);
+    if (response?.status === 200) {
+      setExperiences(response.data);
+    }
+    setLoading(false);
+  };
+
   const handleClick = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const { destination, activity, when, guess } = formData;
+    dispatch({
+      type: "SET_PAGE",
+      payload: "1",
+    });
 
-    if (!destinationOptions.includes(destination)) {
-      toast.warn("Please select a valid destination");
-      return;
-    }
+    state.page = "1";
+    fetchDataExperiences(state);
+    setSearchState(prevState => ({
+      ...prevState,
+      isSearchActive: true,
+    }));
 
-    if (!activityOptions.includes(activity)) {
-      toast.warn("Please select a valid activity");
-      return;
-    }
-
-    if (!validateDate(when)) {
-      toast.warn("Date must be in the format YYYY-MM-DD");
-      return;
-    }
-
-    const guessNumber = parseInt(guess, 10);
-    if (isNaN(guessNumber) || guessNumber <= 0) {
-      toast.warn("Guess must be a positive integer greater than 0");
-      return;
-    }
-
+    router.push("/tours");
     toast.success("Your search was successfully completed!");
   };
 
@@ -97,21 +113,25 @@ const SearchBar: React.FC = () => {
             label="Destination"
             type="select"
             name="destination"
-            value={formData.destination}
+            value={searchState.destination}
             placeholder="Where to go?"
             onChange={handleChange}
             Icon={PiPaperPlaneTilt}
-            options={destinationOptions}
+            options={Array.from(
+              new Map(destinations.map((item) => [item.name, item])).values()
+            )}
           />
           <InputSearch
             label="Type"
             type="select"
             name="activity"
-            value={formData.activity}
+            value={searchState.activity}
             placeholder="Activity"
             onChange={handleChange}
             Icon={CiFlag1}
-            options={activityOptions}
+            options={Array.from(
+              new Map(categories.map((item) => [item.name, item])).values()
+            )}
           />
         </div>
         <div className={styles.inputs}>
@@ -119,7 +139,7 @@ const SearchBar: React.FC = () => {
             label="When"
             type="date"
             name="when"
-            value={formData.when}
+            value={searchState.when}
             placeholder="Date"
             onChange={handleChange}
             Icon={CiCalendar}
@@ -128,7 +148,7 @@ const SearchBar: React.FC = () => {
             label="Guess"
             type="number"
             name="guess"
-            value={formData.guess}
+            value={searchState.guess}
             placeholder="0"
             onChange={handleChange}
             Icon={GoPeople}

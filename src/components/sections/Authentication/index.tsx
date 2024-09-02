@@ -80,6 +80,7 @@ const Authentication: React.FC<AuthenticationProps> = ({
       toast.warn(firebaseError);
       return;
     }
+    console.log(user);
     toast.success(`Welcome, ${user.displayName?.split(" ")[0]}!`);
     router.push("/home");
   };
@@ -139,7 +140,13 @@ const Authentication: React.FC<AuthenticationProps> = ({
             onClick={handleGithubLogIn}
           />
         </div>
-        <div className={styles.orDivider}>Or</div>
+
+        <div className={styles.orDivider}>
+          <span className={styles.line}></span>
+          <span className={styles.text}>Or</span>
+          <span className={styles.line}></span>
+        </div>
+
         <form onSubmit={handleSubmit} className={styles.form}>
           <InputAuth
             label="Email *"

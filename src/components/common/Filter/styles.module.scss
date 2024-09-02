@@ -1,0 +1,80 @@
+.filters {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  gap: 2rem;
+  width: 100%;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.filtersVisible {
+  max-height: 100%;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--secondary-background-color);
+  padding: 1.8rem;
+  border-radius: 5px;
+}
+
+.button {
+  display: none;
+}
+
+@media screen and (max-width: 700px) {
+  .button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0.65rem 1.2rem;
+    gap: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--details-color);
+    color: var(--background-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: var(--secondary-details-color);
+    }
+
+    span {
+      font-size: 1.1rem;
+    }
+
+    .filterIcon {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 280px) {
+  .filters {
+    .filter {
+      padding: 1.2rem;
+    }
+  }
+}
+
+@media screen and (max-width: 180px) {
+  .button {
+    padding: 0.65rem 1rem;
+
+    span {
+      font-size: 1rem;
+    }
+
+    .filterIcon {
+      font-size: 1.2rem;
+    }
+  }
+}

@@ -62,7 +62,9 @@ const PageHeader: React.FC<PageHeaderProps> = ({
         style={{ objectFit: "cover" }}
         priority={true}
       />
-      <div className={styles.textContainer}>
+      <div
+        className={styles.textContainer}
+      >
         <h1 className={styles.title}>{title}</h1>
         <p className={`${styles.path} ${styles.listItems}`}>
           {pathLinks}

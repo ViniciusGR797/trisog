@@ -9,58 +9,54 @@
     flex-direction: row;
     align-items: center;
     width: 85%;
-    gap: 3rem;
-  }
-}
-
-.filters {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-self: flex-start;
-  gap: 1rem;
-
-  .filter {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    border: 1px solid #ddd;
-    padding: 1rem;
-    border-radius: 5px;
+    gap: 2rem;
   }
 }
 
 .results {
-  flex: 4;
+  flex: 3;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   height: 100%;
+}
 
-  .resultsHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.resultsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 
-    span {
-      flex: 1;
-      color: var(--fourth-font-color);
-    }
+  span {
+    color: var(--fourth-font-color);
   }
+}
+
+.resultsContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
 
   .resultsList {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-    height: 100%;
   }
-
+  
+  .skeletonWrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
   .noResultsList {
     display: flex;
     align-items: center;
     flex: 1;
-
+  
     .noResults {
       flex: 1;
       text-align: center;
@@ -68,26 +64,33 @@
       color: var(--secondary-font-color);
     }
   }
-
-  .pagination {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-  }
 }
 
 @media screen and (max-width: 1440px) {
-  .results {
+  .resultsContent {
     .resultsList {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .skeletonWrapper {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 }
 
-@media screen and (max-width: 1070px) {
+@media screen and (max-width: 1200px) {
   .results {
+    flex: 2;
+  }
+}
+
+@media screen and (max-width: 1070px) {
+  .resultsContent {
     .resultsList {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    .skeletonWrapper {
       grid-template-columns: repeat(1, 1fr);
     }
   }
@@ -114,5 +117,10 @@
 @media screen and (max-width: 520px) {
   .searchSection {
     padding: 17rem 0 4rem 0;
+  }
+
+  .resultsHeader {
+    flex-direction: column;
+    align-items: self-start;
   }
 }

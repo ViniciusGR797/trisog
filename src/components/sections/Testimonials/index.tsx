@@ -1,56 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/scss";
 import "swiper/scss/pagination";
 import { Pagination } from "swiper/modules";
 import styles from "./styles.module.scss";
-import Testimonial from "@/components/common/Testimonial";
-
-const testimonials = [
-  {
-    id: 1,
-    text: "The UI designs he crafted are top-notch, and the design system he integrated allows for straight forward fixes and bulk updates throughout almost every area of the app.",
-    author: "By Molie Rosa, Photographer",
-  },
-  {
-    id: 2,
-    text: "This service is fantastic! Highly recommend it.",
-    author: "By John Doe, Doctor",
-  },
-  {
-    id: 3,
-    text: "This service is fantastic! Highly recommend it.",
-    author: "By John Doe, Doctor",
-  },
-  {
-    id: 4,
-    text: "This service is fantastic! Highly recommend it.",
-    author: "By John Doe, Doctor",
-  },
-];
+import SectionHeader from "@/components/common/SectionHeader";
+import TestimonialService from "@/services/api/testimonialService";
+import { Testimonial } from "@/types/testimonial";
+import TestimonialItem from "@/components/common/TestimonialItem";
 
 const Testimonials: React.FC = () => {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await TestimonialService.getTestimonials();
+      if (response?.status === 200) {
+        setTestimonials(response.data);
+      }
+    };
+
+    fetchData();
+  }, [setTestimonials]);
+
   return (
     <section className={styles.testimonials}>
       <div className={styles.testimonialContainer}>
-        <Image
-          src="/images/testimonial.svg"
-          alt="Testimonial"
-          width={555}
-          height={660}
-          priority={true}
+        <div
           className={styles.testimonialImage}
-        />
+        >
+          <Image
+            src="/images/testimonial.svg"
+            alt="Testimonial"
+            width={555}
+            height={660}
+            priority={true}
+          />
+        </div>
         <div className={styles.testimonialDetail}>
-          <div className={styles.content}>
-            <div className={styles.subtitle}>
-              <span className={styles.line}></span>
-              <span className={styles.text}>Testimonial</span>
-              <span className={styles.line}></span>
-            </div>
-            <h2 className={styles.title}>What Travelers Say</h2>
-          </div>
+          <SectionHeader title="What Travelers Say" subtitle="Testimonial" />
           <div className={styles.carousel}>
             <Swiper
               slidesPerView={1}
@@ -61,8 +50,8 @@ const Testimonials: React.FC = () => {
             >
               {testimonials.map((testimonial) => (
                 <SwiperSlide key={testimonial.id}>
-                  <Testimonial
-                    message={testimonial.text}
+                  <TestimonialItem
+                    message={testimonial.message}
                     author={testimonial.author}
                   />
                 </SwiperSlide>

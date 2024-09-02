@@ -1,0 +1,106 @@
+.cardReview {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid var(--fourth-background-color);
+  padding: 2rem;
+  background: transparent;
+  width: 100%;
+  gap: 1.5rem;
+}
+
+.imageContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+
+  .image {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+}
+
+.content {
+  flex: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.date {
+  color: var(--fourth-font-color);
+}
+
+.name {
+  font-family: "Work Sans";
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.review {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+
+  .ratingStar {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 0.7rem 0.5rem 0.5rem;
+    border-radius: 4px;
+    background: var(--details-color);
+    gap: 0.2rem;
+
+    .starIcon {
+      font-size: 1.2rem;
+      color: var(--background-color);
+    }
+
+    span {
+      color: var(--background-color);
+      font-weight: 400;
+      font-size: 1.1rem;
+    }
+  }
+
+  .reviews {
+    font-size: 1.1rem;
+    color: var(--fourth-font-color);
+  }
+}
+
+.comment {
+  text-align: justify;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--fourth-font-color);
+}
+
+@media screen and (max-width: 600px) {
+  .cardReview {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .name {
+    font-size: 1.4rem;
+  }
+
+  .review {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 250px) {
+  .imageContainer {
+    .image {
+      width: 80px;
+      height: 80px;
+    }
+  }
+}

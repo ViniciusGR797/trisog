@@ -1,9 +1,9 @@
 import { ReactNode, useState } from "react";
 import {
-  LuArrowDownAZ,
-  LuArrowUpAZ,
-  LuArrowDown10,
+  LuArrowUpZA,
+  LuArrowDownZA,
   LuArrowUp10,
+  LuArrowDown10,
 } from "react-icons/lu";
 import { IoIosArrowDown } from "react-icons/io";
 import styles from "./styles.module.scss"; 
@@ -16,33 +16,32 @@ interface SortingOption {
 }
 
 interface SortingProps {
+  selectedOption: string;
+  isAscending: boolean;
   onSortChange: (selectedOption: string, isAscending: boolean) => void;
 }
 
-const Sorting: React.FC<SortingProps> = ({ onSortChange }) => {
-  const [selectedOption, setSelectedOption] =
-    useState<SortingOption["value"]>("name");
-  const [isAscending, setIsAscending] = useState<boolean>(true);
+const Sorting: React.FC<SortingProps> = ({ selectedOption, isAscending, onSortChange }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
   const sortingOptions: SortingOption[] = [
     {
-      value: "name",
-      label: "Name",
-      iconAsc: <LuArrowUpAZ className={styles.iconSort} />,
-      iconDesc: <LuArrowDownAZ className={styles.iconSort} />,
-    },
-    {
-      value: "country",
-      label: "Country",
-      iconAsc: <LuArrowUpAZ className={styles.iconSort} />,
-      iconDesc: <LuArrowDownAZ className={styles.iconSort} />,
+      value: "title",
+      label: "Title",
+      iconAsc: <LuArrowUpZA className={styles.iconSort} />,
+      iconDesc: <LuArrowDownZA className={styles.iconSort} />,
     },
     {
       value: "city",
       label: "City",
-      iconAsc: <LuArrowUpAZ className={styles.iconSort} />,
-      iconDesc: <LuArrowDownAZ className={styles.iconSort} />,
+      iconAsc: <LuArrowUpZA className={styles.iconSort} />,
+      iconDesc: <LuArrowDownZA className={styles.iconSort} />,
+    },
+    {
+      value: "default_price",
+      label: "Price",
+      iconAsc: <LuArrowUp10 className={styles.iconSort} />,
+      iconDesc: <LuArrowDown10 className={styles.iconSort} />,
     },
     {
       value: "rating",
@@ -51,7 +50,7 @@ const Sorting: React.FC<SortingProps> = ({ onSortChange }) => {
       iconDesc: <LuArrowDown10 className={styles.iconSort} />,
     },
     {
-      value: "reviews",
+      value: "review_count",
       label: "Reviews",
       iconAsc: <LuArrowUp10 className={styles.iconSort} />,
       iconDesc: <LuArrowDown10 className={styles.iconSort} />,
@@ -63,8 +62,14 @@ const Sorting: React.FC<SortingProps> = ({ onSortChange }) => {
       iconDesc: <LuArrowDown10 className={styles.iconSort} />,
     },
     {
-      value: "price",
-      label: "Price",
+      value: "start_date",
+      label: "Start Date",
+      iconAsc: <LuArrowUp10 className={styles.iconSort} />,
+      iconDesc: <LuArrowDown10 className={styles.iconSort} />,
+    },
+    {
+      value: "end_date",
+      label: "End Date",
       iconAsc: <LuArrowUp10 className={styles.iconSort} />,
       iconDesc: <LuArrowDown10 className={styles.iconSort} />,
     },
@@ -72,16 +77,14 @@ const Sorting: React.FC<SortingProps> = ({ onSortChange }) => {
 
   const handleOptionClick = (option: SortingOption) => {
     if (selectedOption !== option.value) {
-      setSelectedOption(option.value);
-      setIsAscending(true);
-      onSortChange(option.value, true); 
+      onSortChange(option.value, isAscending); 
     }
     setIsDropdownOpen(false);
   };
 
+
   const handleIconClick = () => {
     const newIsAscending = !isAscending;
-    setIsAscending(!isAscending);
     onSortChange(selectedOption, newIsAscending);
   };
 

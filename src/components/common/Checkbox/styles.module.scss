@@ -1,0 +1,12 @@
+.checkbox {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.checked {
+  color: var(--details-color);
+}
+
+.unchecked {
+  color: var(--fourth-font-color);
+}

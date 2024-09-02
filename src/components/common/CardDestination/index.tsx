@@ -4,35 +4,41 @@ import Link from "next/link";
 import styles from "./styles.module.scss";
 
 interface CardDestinationProps {
+  id: string;
   image: string;
   travels: number;
   destination: string;
+  about: string;
   className?: string;
 }
 
 const CardDestination: React.FC<CardDestinationProps> = ({
+  id,
   image,
   travels,
   destination,
-  className =  styles.defaultCard, 
+  about,
+  className = styles.defaultCard,
 }) => {
   return (
     <Link
-      href={`/destination/${destination.toLowerCase().replace(" ", "-")}`}
+      href={`/destinations/${id}`}
       className={`${styles.card} ${className}`}
     >
-      <div className={styles.imageContainer}>
-        <Image
-          src={image}
-          alt={destination}
-          fill={true}
-          style={{ objectFit: "cover" }}
-          className={styles.image}
-        />
-      </div>
+      <Image
+        src={image}
+        alt={destination}
+        fill={true}
+        sizes="(max-width: 600px) 85vw, (max-width: 1200px) 50vw, 33vw"
+        style={{ objectFit: "cover" }}
+        className={styles.image}
+      />
+      <div className={styles.overlay}></div>
+
       <div className={styles.content}>
         <p className={styles.travels}>{travels} Travels</p>
         <h3 className={styles.destination}>{destination}</h3>
+        <p className={styles.about}>{about}</p>
       </div>
     </Link>
   );
