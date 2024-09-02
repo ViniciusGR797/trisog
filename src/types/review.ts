@@ -12,7 +12,7 @@ export type Review = {
   name: string;
   email: string;
   comment: string;
-  image: number;
+  image: string;
   ratings: Ratings;
   created_at: string;
   experience_id: string;

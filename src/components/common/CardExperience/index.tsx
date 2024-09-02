@@ -15,7 +15,7 @@ interface CardExperienceProps {
     city?: string;
   };
   name: string;
-  rating: number;
+  rating: string;
   reviews: number;
   duration: number;
   price: number;
@@ -66,7 +66,7 @@ const CardExperience: React.FC<CardExperienceProps> = ({
           </div>
           <h3 className={styles.name}>{name}</h3>
           <div className={styles.ratingTime}>
-            <div className={styles.reviews}>
+            <div className={styles.review}>
               <div className={styles.ratingStar}>
                 <AiFillStar className={styles.starIcon} />
                 <span>{rating}</span>

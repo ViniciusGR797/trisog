@@ -15,6 +15,7 @@ import { QueryOption } from "@/types/queryOption";
 import { useQueryContext } from "@/contexts/QueryOptionsContext";
 import Pagination from "@/components/common/Pagination";
 import CardExperienceSkeleton from "@/components/common/CardExperienceSkeleton";
+import { calculateAverageRating } from "@/utils/average";
 
 const Search: React.FC = () => {
   const router = useRouter();
@@ -212,7 +213,7 @@ const Search: React.FC = () => {
                           city: result.city,
                         }}
                         name={result.title}
-                        rating={result.rating}
+                        rating={calculateAverageRating(result.ratings)}
                         reviews={result.review_count}
                         duration={result.duration}
                         price={result.default_price}

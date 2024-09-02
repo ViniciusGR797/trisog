@@ -35,3 +35,13 @@ export const formatDuration = (minutes: number): string => {
     return "0 min";
   }
 };
+
+export const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit',
+  };
+  return date.toLocaleDateString('en-US', options);
+}

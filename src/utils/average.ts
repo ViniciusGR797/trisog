@@ -13,19 +13,9 @@ const ratingDescriptions: RatingDescription = {
   5: "Excellent",
 };
 
-const normalizeRating = (rating: number): number => {
+export const normalizeRating = (rating: number): number => {
   if (typeof rating !== "number") return 0;
   return Math.max(0, Math.min(rating, 5));
-};
-
-const formatRating = (rating: number): string => {
-  let formatted = rating.toFixed(1);
-
-  if (formatted.endsWith(".0")) {
-    formatted = formatted.slice(0, -2);
-  }
-
-  return formatted;
 };
 
 export const calculateAverageRating = (
@@ -55,7 +45,7 @@ export const calculateAverageRating = (
 
   const averageRating =
     numberOfRatings > 0 ? totalRatings / numberOfRatings : 0;
-  return formatRating(averageRating);
+  return averageRating.toFixed(1);
 };
 
 export const getRatingDescription = (averageRating: number): string => {

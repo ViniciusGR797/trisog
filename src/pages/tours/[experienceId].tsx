@@ -10,6 +10,7 @@ import ExperienceService from "@/services/api/experienceService";
 import { toast } from "react-toastify";
 import TourMap from "@/components/sections/TuorMap";
 import ReviewAverage from "@/components/sections/ReviewAverage";
+import ReviewSection from "@/components/sections/Review";
 
 export default function ExperienceName() {
   const router = useRouter();
@@ -52,7 +53,12 @@ export default function ExperienceName() {
         <TourInfo experience={experience} loading={loading} />
         <TourDetail overview={experience ? experience.over_view : ""} />
         <TourMap mapLink={experience ? experience.map_link : ""} />
-        <ReviewAverage ratings={experience?.ratings}/>
+        <ReviewAverage ratings={experience?.ratings} />
+        <ReviewSection
+          experienceId={
+            experienceId && typeof experienceId === "string" ? experienceId : ""
+          }
+        />
         <Footer />
       </main>
     </>

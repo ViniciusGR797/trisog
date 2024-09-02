@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { Ratings } from "@/types/review";
 import ReviewCriteria from "@/components/common/ReviewCriteria";
-import { calculateAverageRating, getRatingDescription } from "@/utils/average";
+import { calculateAverageRating, getRatingDescription, normalizeRating } from "@/utils/average";
 import { AiFillStar } from "react-icons/ai";
 
 interface ReviewAverageProps {
@@ -29,29 +29,29 @@ const ReviewAverage: React.FC<ReviewAverageProps> = ({ ratings }) => {
             <div className={styles.criteriaColumn}>
               <ReviewCriteria
                 criteria="Services"
-                average={ratings ? ratings.services : 0}
+                average={ratings ? normalizeRating(ratings.services) : 0}
               />
               <ReviewCriteria
                 criteria="Location"
-                average={ratings ? ratings.location : 0}
+                average={ratings ? normalizeRating(ratings.location) : 0}
               />
               <ReviewCriteria
                 criteria="Amenities"
-                average={ratings ? ratings.amenities : 0}
+                average={ratings ? normalizeRating(ratings.amenities) : 0}
               />
             </div>
             <div className={styles.criteriaColumn}>
               <ReviewCriteria
                 criteria="Prices"
-                average={ratings ? ratings.prices : 0}
+                average={ratings ? normalizeRating(ratings.prices) : 0}
               />
               <ReviewCriteria
                 criteria="Food"
-                average={ratings ? ratings.food : 0}
+                average={ratings ? normalizeRating(ratings.food) : 0}
               />
               <ReviewCriteria
                 criteria="Room comfort and quality"
-                average={ratings ? ratings.room_comfort_and_quality : 0}
+                average={ratings ? normalizeRating(ratings.room_comfort_and_quality) : 0}
               />
             </div>
           </div>

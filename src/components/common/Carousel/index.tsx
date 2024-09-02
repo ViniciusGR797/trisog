@@ -6,6 +6,7 @@ import { Pagination } from "swiper/modules";
 import styles from "./styles.module.scss";
 import CardExperience from "../CardExperience";
 import { Experience } from "@/types/experience";
+import { calculateAverageRating } from "@/utils/average";
 
 interface CarouselProps {
   experiences: Experience[];
@@ -55,7 +56,7 @@ const Carousel: React.FC<CarouselProps> = ({
               city: experience.city,
             }}
             name={experience.title}
-            rating={experience.rating}
+            rating={calculateAverageRating(experience.ratings)}
             reviews={experience.review_count}
             duration={experience.duration}
             price={experience.default_price}

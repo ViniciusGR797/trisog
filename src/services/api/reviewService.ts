@@ -1,6 +1,6 @@
 import axios from "axios";
 import { api } from "./api";
-import { Scores } from "@/types/review";
+import { Ratings } from "@/types/review";
 
 class ReviewService {
   async getReviews(): Promise<any> {
@@ -27,13 +27,25 @@ class ReviewService {
     }
   }
 
+  async getReviewsByExperience(experience_id: string): Promise<any> {
+    try {
+      const response = await api.get(`/reviews/experience/${experience_id}`);
+      return response;
+    } catch (error: any) {
+      if (axios.isAxiosError(error)) {
+        return error.response;
+      }
+      return null;
+    }
+  }
+
   async createReview(
     name: string,
     email: string,
     comment: string,
     image: string,
-    scores: string,
-    experience_id: Scores,
+    ratings: Ratings,
+    experience_id: string,
   ): Promise<any> {
     try {
       const response = await api.post("/reviews", {
@@ -41,7 +53,7 @@ class ReviewService {
         email,
         comment,
         image,
-        scores,
+        ratings,
         experience_id,
       });
       return response;
@@ -58,8 +70,8 @@ class ReviewService {
     email: string,
     comment: string,
     image: string,
-    scores: string,
-    experience_id: Scores,
+    ratings: Ratings,
+    experience_id: string,
     review_id: string
   ): Promise<any> {
     try {
@@ -68,7 +80,7 @@ class ReviewService {
         email,
         comment,
         image,
-        scores,
+        ratings,
         experience_id,
       });
       return response;
