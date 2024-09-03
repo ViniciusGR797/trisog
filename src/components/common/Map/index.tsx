@@ -1,14 +1,14 @@
 import React from "react";
 import styles from "./styles.module.scss";
 
-interface CityMapProps {
+interface MapProps {
   mapLink: string;
 }
 
-const CityMap: React.FC<CityMapProps> = ({ mapLink }) => {
+const Map: React.FC<MapProps> = ({ mapLink }) => {
   return (
     <section className={styles.tourMapSection}>
-        <h2 className={styles.title}>City Map</h2>
+        <h2 className={styles.title}>Map</h2>
         <iframe
           src={mapLink}
           width="600"
@@ -23,4 +23,4 @@ const CityMap: React.FC<CityMapProps> = ({ mapLink }) => {
   );
 };
 
-export default CityMap;
+export default Map;
