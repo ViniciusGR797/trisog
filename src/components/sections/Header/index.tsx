@@ -13,6 +13,12 @@ import { useRouter } from "next/router";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { destroyCookie, parseCookies } from "nookies";
+import { set } from "date-fns";
+import { FiSearch } from "react-icons/fi";
+import { useExperienceContext } from "@/contexts/ExperienceContext";
+import { useQueryContext } from "@/contexts/QueryOptionsContext";
+import { QueryOption } from "@/types/queryOption";
+import ExperienceService from "@/services/api/experienceService";
 
 interface User {
   firstName: string;
@@ -23,10 +29,13 @@ interface User {
 const Header: React.FC = () => {
   const router = useRouter();
   const { currency, setCurrency } = useCurrency();
-
+  const { state, dispatch } = useQueryContext();
   const [user, setUser] = useState<User | null>(null);
   const [showLogout, setShowLogout] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const { setExperiences, setLoading } = useExperienceContext();
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrency(event.target.value as "USD" | "EUR" | "BRL");
@@ -39,7 +48,7 @@ const Header: React.FC = () => {
   const handleFavorites = () => {
     router.push("/favorites");
   };
-  
+
   const handleBookings = () => {
     router.push("/bookings");
   };
@@ -49,6 +58,30 @@ const Header: React.FC = () => {
       path: "/",
     });
     router.push("/");
+  };
+
+  const fetchDataExperiences = async (queryOption: QueryOption) => {
+    setLoading(true);
+    const response = await ExperienceService.getExperiences(queryOption);
+    if (response?.status === 200) {
+      setExperiences(response.data);
+    }
+    setLoading(false);
+  };
+
+  const handleSearch = () => {
+    setSearchOpen(!searchOpen);
+  };
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchClick = () => {
+    dispatch({ type: "SET_TITLE", payload: searchTerm });
+    state.title = searchTerm;
+    fetchDataExperiences(state);
+    router.push("/tours");
   };
 
   useEffect(() => {
@@ -154,9 +187,27 @@ const Header: React.FC = () => {
             </ul>
 
             <div className={styles.rightIcons}>
-              <Link href="/tours">
-                <GoSearch className={styles.iconMenu} />
-              </Link>
+              <div className={styles.searchIcon}>
+                <GoSearch className={styles.iconMenu} onClick={handleSearch}/>
+                {searchOpen && (
+                  <div className={styles.inputWrapper}>
+                    <input
+                      id="searchFilter"
+                      type="text"
+                      name="searchFilter"
+                      value={searchTerm}
+                      placeholder="Type anything..."
+                      onChange={handleSearchChange}
+                      className={styles.input}
+                    />
+                    <FiSearch
+                      title="Clique para buscar"
+                      onClick={handleSearchClick}
+                      className={styles.icon}
+                    />
+                  </div>
+                )}
+              </div>
 
               {user ? (
                 <div

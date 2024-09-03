@@ -11,30 +11,30 @@ const Updates: React.FC = () => {
       <div className={styles.updatesContainer}>
         <div className={styles.updatesColumn}>
           <News
-            image="https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6"
-            date="June 12, 2021"
+            image="https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/blogs%2Fblog-3.png?alt=media&token=b534976f-6bce-4521-a1fa-6dcdf5d1d2fc"
+            date="July 13, 2023"
             author="Admin"
-            title="The Best Travel Destination in 2021"
+            title="The Impact of Covid-19 on travel & tourism industry"
           />
           <News
-            image="https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6"
-            date="June 12, 2021"
+            image="https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/blogs%2Fblog-4.png?alt=media&token=a9bc7e77-2b6d-4b05-b59c-6e54ac4d46f9"
+            date="October 9, 2021"
             author="Admin"
-            title="The Best Travel Destination in 2021"
+            title="Sustainable Travel: The New Trend"
           />
         </div>
         <div className={styles.updatesColumn}>
           <News
-            image="https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6"
-            date="June 12, 2021"
+            image="https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/blogs%2Fblog-1.png?alt=media&token=bb5f91d6-153e-49b2-ad5d-bc9ddd5f2df5"
+            date="June 20, 2024"
             author="Admin"
-            title="The Best Travel Destination in 2021 The Best Travel Destination in 2021 The Best Travel Destination in 2021"
+            title="Top Destinations for 2024 Revealed"
           />
           <News
-            image="https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/archipelago.jpg?alt=media&token=23326e87-8571-4103-868c-2ad8797879a6"
-            date="June 12, 2021"
+            image="https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/blogs%2Fblog-2.png?alt=media&token=1f721f63-74f7-4b92-aaea-f08fec0146bc"
+            date="January 5, 2023"
             author="Admin"
-            title="The Best Travel Destination in 2021"
+            title="Tourism Industry Sees Record Growth"
           />
         </div>
       </div>
