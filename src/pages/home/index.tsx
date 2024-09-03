@@ -8,6 +8,7 @@ import DestinationPopular from "@/components/sections/DestinationPopular";
 import Testimonials from "@/components/sections/Testimonials";
 import Updates from "@/components/sections/Updates";
 import Footer from "@/components/sections/Footer";
+import CategoryCarousel from "@/components/sections/CategoryCarousel";
 
 export default function Home() {
   return (
@@ -24,8 +25,8 @@ export default function Home() {
         <TourMostPopular />
         <Statistics />
         <DestinationPopular />
-        {/* <ChooseUs />
-        <Category /> */}
+        {/* <ChooseUs /> */}
+        <CategoryCarousel />
         <Testimonials />
         <Updates />
         {/* <Partnerships /> */}

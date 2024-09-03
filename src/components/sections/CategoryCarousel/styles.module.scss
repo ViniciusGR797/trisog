@@ -1,0 +1,76 @@
+.categorySection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--background-color);
+  padding: 4rem 0 4rem 0;
+  gap: 3rem;
+}
+
+.carousel {
+  width: 85%;
+}
+
+.swiperContainer {
+  padding-bottom: 60px;
+
+  :global(.swiper-pagination-bullet-active) {
+    background-color: var(--details-color);
+  }
+}
+
+.skeletonWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 30px;
+
+  .skeletonItem {
+    width: 100%;
+  }
+}
+
+.noToursMessage {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--secondary-font-color);
+  padding: 2rem;
+}
+
+@media screen and (max-width: 1000px) {
+  .skeletonFour {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .categorySection {
+    padding: 13rem 0 4rem 0;
+  }
+
+  .skeletonThree {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .skeletonWrapper {
+    gap: 20px;
+  }
+
+  .skeletonTwo {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .categorySection {
+    padding: 17rem 0 4rem 0;
+  }
+}
+
+@media screen and (max-width: 210px) {
+  .swiperContainer {
+    padding-bottom: 80px;
+  }
+}
