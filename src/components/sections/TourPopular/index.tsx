@@ -60,6 +60,7 @@ const TourPopular: React.FC<TourPopularProps> = ({ destinationId }) => {
     if (destinationId) {
       const destinationOption = initialQueryOption;
       destinationOption.destinationsId = destinationId;
+      destinationOption.isActivity = false;
       fetchDataExperiences(destinationOption);
     }
     const cookies = parseCookies();
@@ -111,6 +112,7 @@ const TourPopular: React.FC<TourPopularProps> = ({ destinationId }) => {
     if (destinationId) {
       const destinationOption = initialQueryOption;
       destinationOption.destinationsId = destinationId;
+      destinationOption.isActivity = false;
       setLoading(true);
       const response = await ExperienceService.getExperiences(destinationOption);
       if (response?.status === 200) {

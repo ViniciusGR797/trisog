@@ -1,3 +1,4 @@
+import Activities from "@/components/sections/Activities";
 import BasicInfo from "@/components/sections/BasicInfo";
 import Description from "@/components/sections/Description";
 import DestinationInfo from "@/components/sections/DestinationInfo";
@@ -69,6 +70,7 @@ export default function DestinationById() {
         <Description title={`About ${destination?.name}`} description={destination ? destination.about : ""} />
         <BasicInfo destination={destination} />
         <TourPopular destinationId={destination?.id || ""} />
+        <Activities destinationId={destination?.id || ""} />
         <Footer />
       </main>
     </>

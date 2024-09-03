@@ -19,11 +19,11 @@ import Carousel from "@/components/common/Carousel";
 import { IoMdArrowRoundForward } from "react-icons/io";
 import { useExperienceContext } from "@/contexts/ExperienceContext";
 
-interface TourPopularProps {
+interface ActivitiesProps {
   destinationId: string;
 }
 
-const TourPopular: React.FC<TourPopularProps> = ({ destinationId }) => {
+const Activities: React.FC<ActivitiesProps> = ({ destinationId }) => {
   const router = useRouter();
   const [experiencesByDestination, setExperiencesByDestination] = useState<
     PaginatedExperiences | undefined
@@ -60,6 +60,7 @@ const TourPopular: React.FC<TourPopularProps> = ({ destinationId }) => {
     if (destinationId) {
       const destinationOption = initialQueryOption;
       destinationOption.destinationsId = destinationId;
+      destinationOption.isActivity = true;
       fetchDataExperiences(destinationOption);
     }
     const cookies = parseCookies();
@@ -111,6 +112,7 @@ const TourPopular: React.FC<TourPopularProps> = ({ destinationId }) => {
     if (destinationId) {
       const destinationOption = initialQueryOption;
       destinationOption.destinationsId = destinationId;
+      destinationOption.isActivity = true;
       setLoading(true);
       const response = await ExperienceService.getExperiences(destinationOption);
       if (response?.status === 200) {
@@ -122,10 +124,10 @@ const TourPopular: React.FC<TourPopularProps> = ({ destinationId }) => {
   };
 
   return (
-    <section className={styles.tourPopular}>
+    <section className={styles.activities}>
       <div className={styles.header}>
         <p className={styles.title}>
-          Popular Tours in{" "}
+          Activities in{" "}
           {experiencesByDestination?.experiences[0].destination.name}
         </p>
         <div className={styles.seeAll} onClick={handleClickSeeAll}>
@@ -167,4 +169,4 @@ const TourPopular: React.FC<TourPopularProps> = ({ destinationId }) => {
   );
 };
 
-export default TourPopular;
+export default Activities;
