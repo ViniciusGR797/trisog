@@ -42,13 +42,13 @@ const Footer: React.FC = () => {
       });
 
       if (response.ok) {
-        toast.success("Successfully subscribed! Check your inbox for updates.");
+        toast.success("Successfully subscribed! Check your inbox for updates");
         setEmail("");
       } else {
-        toast.error("Something went wrong. Please try again later.");
+        toast.error("Something went wrong. Please try again later");
       }
     } catch (error) {
-      toast.error("Something went wrong. Please try again later.");
+      toast.error("Something went wrong. Please try again later");
     }
   };
 

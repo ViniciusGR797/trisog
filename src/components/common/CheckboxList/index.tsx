@@ -11,7 +11,7 @@ interface CheckboxListProps {
   items: Item[];
   selectedItems: string[];
   onToggleItem: (id: string) => void;
-  shouldSort?: boolean; // Adiciona a nova prop booleana
+  shouldSort?: boolean; 
 }
 
 const CheckboxList: React.FC<CheckboxListProps> = ({

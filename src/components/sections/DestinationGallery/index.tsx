@@ -19,8 +19,8 @@ const DestinationGalley: React.FC = () => {
     fetchData();
   }, [setDestinations]);
 
-  const chunkDestinations = (destinations: any[], size: number) => {
-    const result: any[][] = [];
+  const chunkDestinations = (destinations: Destination[], size: number) => {
+    const result: Destination[][] = [];
     for (let i = 0; i < destinations.length; i += size) {
       result.push(destinations.slice(i, i + size));
     }
