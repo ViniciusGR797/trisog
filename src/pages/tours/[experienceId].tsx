@@ -16,7 +16,7 @@ import { Review } from "@/types/review";
 import ReviewService from "@/services/api/reviewService";
 import TourMore from "@/components/sections/TourMore";
 
-export default function ExperienceName() {
+export default function ExperienceById() {
   const router = useRouter();
   const { experienceId } = router.query;
   const [experience, setExperience] = useState<Experience>();
@@ -63,7 +63,7 @@ export default function ExperienceName() {
   return (
     <>
       <Head>
-        <title>ExperienceName - Trisog</title>
+        <title>{experience ? experience.title : "Tour"}</title>
         <meta
           name="description"
           content="Discover immersive experiences and honest reviews of destinations worldwide. Explore travel tips, insights, and the best activities tailored to your interests. Plan your next adventure with confidence and create unforgettable memories."
