@@ -72,11 +72,6 @@ const SearchBar: React.FC = () => {
     if (action) dispatch(action);
   };
 
-  const validateDate = (date: string) => {
-    const regex = /^\d{4}-\d{2}-\d{2}$/;
-    return regex.test(date);
-  };
-
   const fetchDataExperiences = async (queryOption: QueryOption) => {
     setLoading(true);
     const response = await ExperienceService.getExperiences(queryOption);

@@ -4,6 +4,7 @@ import DestinationInfo from "@/components/sections/DestinationInfo";
 import Footer from "@/components/sections/Footer";
 import Header from "@/components/sections/Header";
 import PageHeader from "@/components/sections/PageHeader";
+import TourPopular from "@/components/sections/TourPopular";
 import DestinationService from "@/services/api/destinationService";
 import { Destination } from "@/types/destination";
 import { getRandomImage } from "@/utils/image";
@@ -67,6 +68,7 @@ export default function DestinationById() {
         <DestinationInfo destination={destination} loading={loading} />        
         <Description title={`About ${destination?.name}`} description={destination ? destination.about : ""} />
         <BasicInfo destination={destination} />
+        <TourPopular destinationId={destination?.id || ""} />
         <Footer />
       </main>
     </>
