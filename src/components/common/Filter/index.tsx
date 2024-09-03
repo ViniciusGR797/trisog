@@ -14,14 +14,17 @@ import { Category } from "@/types/category";
 import categoryService from "@/services/api/categoryService";
 import RatingFilter from "../RatingFilter";
 import { BsSliders } from "react-icons/bs";
+import { PaginatedExperiences } from "@/types/experience";
 
 interface FilterProps {
   isFavorites?: boolean;
+  onChange: (experience: PaginatedExperiences) => void;
 }
 
-const Filter: React.FC<FilterProps> = ({ isFavorites = false }) => {
+const Filter: React.FC<FilterProps> = ({ isFavorites = false, onChange }) => {
   const { state, dispatch } = useQueryContext();
-  const { setExperiences, setLoading } = useExperienceContext();
+  const { setLoading } = useExperienceContext();
+  const [isLoadingByFavorites, setLoadingByFavorites] = useState<boolean>(true);
   const [categories, setCategories] = useState<Category[]>([]);
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [filtersVisible, setFiltersVisible] = useState(true);
@@ -50,14 +53,14 @@ const Filter: React.FC<FilterProps> = ({ isFavorites = false }) => {
   }, [setCategories]);
 
   const fetchDataExperiences = async (queryOption: QueryOption) => {
-    setLoading(true);
+    isFavorites ? setLoadingByFavorites(true) : setLoading(true);
     const response = isFavorites
       ? await ExperienceService.getExperiencesUserFavorites(queryOption)
       : await ExperienceService.getExperiences(queryOption);
     if (response?.status === 200) {
-      setExperiences(response.data);
+      onChange(response.data);
     }
-    setLoading(false);
+    isFavorites ? setLoadingByFavorites(false) : setLoading(false);
   };
 
   const handleSearchChange = (term: string) => {

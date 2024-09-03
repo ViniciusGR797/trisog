@@ -28,7 +28,7 @@ const TourPopular: React.FC<TourPopularProps> = ({ destinationId }) => {
   const [experiencesByDestination, setExperiencesByDestination] = useState<
     PaginatedExperiences | undefined
   >(undefined);
-  const { experiences, setExperiences, isLoading, setLoading } =
+  const { setExperiences, setLoading } =
     useExperienceContext();
   const { favorites, setFavorites } = useFavoriteContext();
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
@@ -128,7 +128,7 @@ const TourPopular: React.FC<TourPopularProps> = ({ destinationId }) => {
       <div className={styles.header}>
         <p className={styles.title}>
           Popular Tours in{" "}
-          {experiencesByDestination?.experiences[0].destination.name}
+          {experiencesByDestination?.experiences[0]?.destination.name || ''}
         </p>
         <div className={styles.seeAll} onClick={handleClickSeeAll}>
           <p>See all</p>

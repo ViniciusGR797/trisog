@@ -1,3 +1,5 @@
+import { Experience } from "./experience";
+
 export type Ticket = {
   adults: number;
   kids: number;
@@ -10,5 +12,6 @@ export type Booking = {
   time: string;
   ticket: Ticket;
   total_price: number;
-  experience_id: string;
+  experience: Experience;
+  user_id: string;
 };

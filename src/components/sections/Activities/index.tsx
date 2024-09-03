@@ -128,7 +128,7 @@ const Activities: React.FC<ActivitiesProps> = ({ destinationId }) => {
       <div className={styles.header}>
         <p className={styles.title}>
           Activities in{" "}
-          {experiencesByDestination?.experiences[0].destination.name}
+          {experiencesByDestination?.experiences[0]?.destination.name || ""}
         </p>
         <div className={styles.seeAll} onClick={handleClickSeeAll}>
           <p>See all</p>

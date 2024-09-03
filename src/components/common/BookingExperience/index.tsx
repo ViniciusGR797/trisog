@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { Experience } from "@/types/experience";
-import { Booking, Ticket } from "@/types/booking";
+import { Ticket } from "@/types/booking";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { IoIosArrowDown } from "react-icons/io";
 import { generateTimeOptionList } from "@/utils/time";
@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 import TicketItem from "../TicketItem";
 import { toast } from "react-toastify";
 
-interface CardExperienceProps {
+interface BookingExperienceProps {
   experience: Experience;
   values: {
     date: string;
@@ -24,7 +24,7 @@ interface CardExperienceProps {
   onClick: () => void;
 }
 
-const BookingExperience: React.FC<CardExperienceProps> = ({
+const BookingExperience: React.FC<BookingExperienceProps> = ({
   experience,
   values,
   onChange,
