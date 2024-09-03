@@ -35,6 +35,38 @@ class ExperienceService {
     }
   }
 
+  async getExperiencesUserFavorites(query?: QueryOption): Promise<any> {
+    try {
+      let queryOption = '';
+      if (query && Object.keys(query).length > 0) {
+        const queryParams = new URLSearchParams();
+  
+        if (query.page) queryParams.append('page', query.page);
+        if (query.limit) queryParams.append('limit', query.limit);
+        if (query.title) queryParams.append('title', query.title);
+        if (query.price) queryParams.append('price', query.price);
+        if (query.categoriesId) queryParams.append('categoriesId', query.categoriesId);
+        if (query.destinationsId) queryParams.append('destinationsId', query.destinationsId);
+        if (query.rating) queryParams.append('rating', query.rating);
+        if (query.date) queryParams.append('date', query.date);
+        if (query.guests) queryParams.append('guests', query.guests);
+        if (query.isActivity !== undefined) queryParams.append('isActivity', String(query.isActivity));
+        if (query.sortBy) queryParams.append('sortBy', query.sortBy);
+        if (query.order) queryParams.append('order', query.order);
+  
+        queryOption += `?${queryParams.toString()}`;
+      }
+
+      const response = await api.get(`/experiences/user/favorites${queryOption}`);
+      return response;
+    } catch (error: any) {
+      if (axios.isAxiosError(error)) {
+        return error.response;
+      }
+      return null;
+    }
+  }
+
   async getExperienceById(experience_id: string): Promise<any> {
     try {
       const response = await api.get(`/experiences/${experience_id}`);

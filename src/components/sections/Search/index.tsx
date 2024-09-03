@@ -16,12 +16,19 @@ import { useQueryContext } from "@/contexts/QueryOptionsContext";
 import Pagination from "@/components/common/Pagination";
 import CardExperienceSkeleton from "@/components/common/CardExperienceSkeleton";
 import { calculateAverageRating } from "@/utils/average";
+import { PaginatedExperiences } from "@/types/experience";
 
-const Search: React.FC = () => {
+interface SearchProps {
+  isFavorites?: boolean;
+}
+
+const Search: React.FC<SearchProps> = ({ isFavorites = false }) => {
   const router = useRouter();
   const { state, dispatch } = useQueryContext();
-  const { experiences, setExperiences, isLoading, setLoading } =
-    useExperienceContext();
+  const [experiences, setExperiences] = useState<
+    PaginatedExperiences | undefined
+  >(undefined);
+  const [isLoading, setLoading] = useState<boolean>(true);
   const { favorites, setFavorites } = useFavoriteContext();
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -29,7 +36,9 @@ const Search: React.FC = () => {
 
   const fetchDataExperiences = async (queryOption: QueryOption) => {
     setLoading(true);
-    const response = await ExperienceService.getExperiences(queryOption);
+    const response = isFavorites
+      ? await ExperienceService.getExperiencesUserFavorites(queryOption)
+      : await ExperienceService.getExperiences(queryOption);
     if (response?.status === 200) {
       setExperiences(response.data);
     }
@@ -151,9 +160,9 @@ const Search: React.FC = () => {
   };
 
   return (
-    <section className={styles.searchSection}>
+    <section className={`${styles.searchSection} ${styles.noSearchBar}`}>
       <div className={styles.searchContainer}>
-        <Filter />
+        <Filter isFavorites={isFavorites} />
         <div className={styles.results}>
           <div className={styles.resultsHeader}>
             <span>

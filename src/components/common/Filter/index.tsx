@@ -15,7 +15,11 @@ import categoryService from "@/services/api/categoryService";
 import RatingFilter from "../RatingFilter";
 import { BsSliders } from "react-icons/bs";
 
-const Filter: React.FC = () => {
+interface FilterProps {
+  isFavorites?: boolean;
+}
+
+const Filter: React.FC<FilterProps> = ({ isFavorites = false }) => {
   const { state, dispatch } = useQueryContext();
   const { setExperiences, setLoading } = useExperienceContext();
   const [categories, setCategories] = useState<Category[]>([]);
@@ -47,7 +51,9 @@ const Filter: React.FC = () => {
 
   const fetchDataExperiences = async (queryOption: QueryOption) => {
     setLoading(true);
-    const response = await ExperienceService.getExperiences(queryOption);
+    const response = isFavorites
+      ? await ExperienceService.getExperiencesUserFavorites(queryOption)
+      : await ExperienceService.getExperiences(queryOption);
     if (response?.status === 200) {
       setExperiences(response.data);
     }

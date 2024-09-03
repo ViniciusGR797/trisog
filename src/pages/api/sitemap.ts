@@ -13,6 +13,7 @@ const Sitemap = (req: NextApiRequest) => {
   const pages = [
     "",
     "/create-account",
+    "/favorites",
     "/home",
     "/destination",
     "/destination/{destinationId}",

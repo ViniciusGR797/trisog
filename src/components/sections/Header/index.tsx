@@ -12,7 +12,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useCurrency } from "@/contexts/CurrencyContext";
-import { destroyCookie, parseCookies } from 'nookies';
+import { destroyCookie, parseCookies } from "nookies";
 
 interface User {
   firstName: string;
@@ -36,6 +36,14 @@ const Header: React.FC = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const handleFavorites = () => {
+    router.push("/favorites");
+  };
+  
+  const handleBookings = () => {
+    router.push("/bookings");
+  };
+
   const handleLogout = () => {
     destroyCookie(null, "@auth.user", {
       path: "/",
@@ -45,7 +53,9 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const cookies = parseCookies();
-    const userCookie = cookies['@auth.user'] ? JSON.parse(cookies['@auth.user']) : null;
+    const userCookie = cookies["@auth.user"]
+      ? JSON.parse(cookies["@auth.user"])
+      : null;
     setUser(userCookie);
   }, [router]);
 
@@ -170,12 +180,26 @@ const Header: React.FC = () => {
                       : user.email?.split("@")[0]}
                   </span>
                   {showLogout && (
-                    <button
-                      onClick={handleLogout}
-                      className={styles.logoutButton}
-                    >
-                      Logout
-                    </button>
+                    <div className={styles.dropdown}>
+                      <div
+                        className={styles.dropdownItem}
+                        onMouseDown={() => handleFavorites()}
+                      >
+                        Favorites
+                      </div>
+                      <div
+                        className={styles.dropdownItem}
+                        onMouseDown={() => handleBookings()}
+                      >
+                        Bookings
+                      </div>
+                      <div
+                        className={styles.dropdownItem}
+                        onMouseDown={() => handleLogout()}
+                      >
+                        Logout
+                      </div>
+                    </div>
                   )}
                 </div>
               ) : (
