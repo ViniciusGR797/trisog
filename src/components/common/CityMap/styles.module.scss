@@ -1,0 +1,21 @@
+.tourMapSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  gap: 1rem;
+  width: 100%;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-family: "Work Sans";
+  font-weight: bold;
+  color: var(--primary-font-color);
+}
+
+.map {
+  height: 300px;
+  border: none;
+  width: 100%;
+}

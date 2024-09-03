@@ -24,7 +24,7 @@
   flex-direction: column;
   text-align: center;
   padding: 6rem 3rem;
-  gap: 0.5rem;
+  gap: 1rem;
   color: var(--background-color);
   z-index: 1;
   transform: translateY(-35px);
@@ -38,7 +38,7 @@
   .path {
     font-family: "Work Sans";
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.2rem;
 
     .finalPath {
       color: var(--details-color);
@@ -131,7 +131,7 @@
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 600px) {
   .textContainer {
     .title {
       font-size: 2.5rem;
@@ -158,7 +158,6 @@
 @media screen and (max-width: 350px) {
   .textContainer {
     padding: 9rem 1.5rem;
-    gap: 1rem;
 
     .title {
       font-size: 1.5rem;

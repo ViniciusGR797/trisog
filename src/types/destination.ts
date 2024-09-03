@@ -1,10 +1,15 @@
+type WeatherPeriod = {
+  min: number;
+  max: number;
+};
+
 export type Weather = {
-  jan_fev: number[];
-  mar_apr: number[];
-  may_jun: number[];
-  jul_ago: number[];
-  sep_oct: number[];
-  nov_dec: number[];
+  jan_feb: WeatherPeriod;
+  mar_apr: WeatherPeriod;
+  may_jun: WeatherPeriod;
+  jul_aug: WeatherPeriod;
+  sep_oct: WeatherPeriod;
+  nov_dec: WeatherPeriod;
 };
 
 export type Destination = {

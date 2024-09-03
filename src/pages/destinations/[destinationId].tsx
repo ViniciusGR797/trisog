@@ -1,3 +1,4 @@
+import Description from "@/components/sections/Description";
 import DestinationInfo from "@/components/sections/DestinationInfo";
 import Footer from "@/components/sections/Footer";
 import Header from "@/components/sections/Header";
@@ -62,7 +63,8 @@ export default function DestinationById() {
           pathSuffix={destination ? destination.id : ""}
           showSearchBar={false}
         />
-        <DestinationInfo destination={destination} loading={loading} />
+        <DestinationInfo destination={destination} loading={loading} />        
+        <Description title={`About ${destination?.name}`} description={destination ? destination.about : ""} />
         <Footer />
       </main>
     </>

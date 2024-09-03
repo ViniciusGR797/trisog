@@ -3,7 +3,7 @@ import TourInfo from "@/components/sections/TourInfo";
 import Footer from "@/components/sections/Footer";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import TourDetail from "@/components/sections/TourDetail";
+import Description from "@/components/sections/Description";
 import { use, useEffect, useState } from "react";
 import { Experience } from "@/types/experience";
 import ExperienceService from "@/services/api/experienceService";
@@ -74,7 +74,7 @@ export default function ExperienceById() {
       <main>
         <Header />
         <TourInfo experience={experience} loading={loading} />
-        <TourDetail overview={experience ? experience.over_view : ""} />
+        <Description title="Overview" description={experience ? experience.over_view : ""} />
         <TourMap mapLink={experience ? experience.map_link : ""} />
         <ReviewAverage ratings={experience?.ratings} />
         <ReviewSection reviews={reviews} />

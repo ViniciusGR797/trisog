@@ -1,0 +1,36 @@
+.weather {
+  width: 100%;
+  border-bottom: 1px solid var(--fourth-background-color);
+
+  &:hover {
+    border-bottom: 1px solid var(--details-color);
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.weatherPeriod {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  padding-bottom: 0.5rem;
+}
+
+.label {
+  font-size: 1.1rem;
+  color: var(--primary-font-color);
+}
+
+.temperature {
+  color: var(--fourth-font-color);
+}
+
+@media screen and (max-width: 1200px) {
+  .weatherPeriod {
+    width: 100%;
+  }
+}

@@ -10,6 +10,8 @@ import BookingExperienceSkeleton from "@/components/common/BookingExperienceSkel
 import dayjs from "dayjs";
 import { Destination } from "@/types/destination";
 import CardDestinationInfo from "@/components/common/CardDestinationInfo";
+import CityMap from "@/components/common/CityMap";
+import WeatherAnnual from "@/components/common/WeatherAnnual";
 
 interface DestinationInfoProps {
   destination: Destination | undefined;
@@ -37,12 +39,8 @@ const DestinationInfo: React.FC<DestinationInfoProps> = ({
           <BookingExperienceSkeleton />
         ) : destination ? (
           <div className={styles.mapWeather}>
-            {/* // <DestinationMap
-            //   map={destinatio}
-            // /> */}
-            {/* <Weather
-                weather={destination?.weather}
-            /> */}
+            <CityMap mapLink={destination ? destination.map_link : ""} />
+            <WeatherAnnual weather={destination?.weather} />
           </div>
         ) : null}
       </div>
