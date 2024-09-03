@@ -1,3 +1,4 @@
+import BasicInfo from "@/components/sections/BasicInfo";
 import Description from "@/components/sections/Description";
 import DestinationInfo from "@/components/sections/DestinationInfo";
 import Footer from "@/components/sections/Footer";
@@ -65,6 +66,7 @@ export default function DestinationById() {
         />
         <DestinationInfo destination={destination} loading={loading} />        
         <Description title={`About ${destination?.name}`} description={destination ? destination.about : ""} />
+        <BasicInfo destination={destination} />
         <Footer />
       </main>
     </>

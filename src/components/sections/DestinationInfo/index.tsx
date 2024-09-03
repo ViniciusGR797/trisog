@@ -35,14 +35,14 @@ const DestinationInfo: React.FC<DestinationInfoProps> = ({
           <CardDestinationInfo images={destination?.images || []} />
         </div>
 
-        {loading ? (
+        {/* {loading ? (
           <BookingExperienceSkeleton />
-        ) : destination ? (
-          <div className={styles.mapWeather}>
-            <CityMap mapLink={destination ? destination.map_link : ""} />
-            <WeatherAnnual weather={destination?.weather} />
-          </div>
-        ) : null}
+        ) : destination ? ( */}
+        <div className={styles.mapWeather}>
+          <CityMap mapLink={destination ? destination.map_link : ""} />
+          <WeatherAnnual weather={destination?.weather} />
+        </div>
+        {/* ) : null} */}
       </div>
     </section>
   );
