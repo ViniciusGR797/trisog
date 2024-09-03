@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>CreateAccount - Trisog</title>
+        <title>Create Account</title>
         <meta
           name="description"
           content="Discover immersive experiences and honest reviews of destinations worldwide. Explore travel tips, insights, and the best activities tailored to your interests. Plan your next adventure with confidence and create unforgettable memories."

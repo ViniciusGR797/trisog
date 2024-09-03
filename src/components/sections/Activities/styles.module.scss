@@ -1,0 +1,101 @@
+.activities {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--secondary-background-color);
+  padding: 3rem 0 3rem 0;
+  gap: 2rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 85%;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+
+  .title {
+    font-family: "Work Sans";
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-font-color);
+  }
+
+  .seeAll {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    color: var(--primary-font-color);
+    cursor: pointer;
+
+    .icon {
+      font-size: 1.5rem;
+    }
+
+    &:hover {
+      color: var(--details-color);
+    }
+  }
+}
+
+.carousel {
+  width: 85%;
+}
+
+.skeletonWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 30px;
+
+  .skeletonItem {
+    width: 100%;
+  }
+}
+
+.noToursMessage {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--secondary-font-color);
+  padding: 2rem;
+}
+
+@media screen and (max-width: 1000px) {
+  .skeletonFour {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .skeletonThree {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .skeletonWrapper {
+    gap: 20px;
+  }
+
+  .skeletonTwo {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .title {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .header {
+    .title {
+      font-size: 1.8rem;
+    }
+  }
+}

@@ -8,7 +8,7 @@ export default function Destination() {
   return (
     <>
       <Head>
-        <title>Destination - Trisog</title>
+        <title>Destination</title>
         <meta name="description" content="Discover immersive experiences and honest reviews of destinations worldwide. Explore travel tips, insights, and the best activities tailored to your interests. Plan your next adventure with confidence and create unforgettable memories." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -18,7 +18,8 @@ export default function Destination() {
         <PageHeader
           imageSrc="/images/tour.svg"
           title="Destination"
-          pathPrefix={"Home"}
+          pathPrefix="Home"
+          pathSuffix="destinations"
         />
         <DestinationGalley />
         <Footer />

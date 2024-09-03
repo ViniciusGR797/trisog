@@ -41,14 +41,14 @@
 
   .content {
     position: absolute;
-    top: calc(100% - 54.4px - 20px); /* Posição inicial do conteúdo */
+    top: calc(100% - 54.4px - 20px); 
     bottom: 20px;
     left: 20px;
     right: 20px;
     color: var(--background-color);
     
     overflow: hidden;
-    transition: top 0.3s ease; /* Transição para 'top' e 'opacity' */
+    transition: top 0.3s ease; 
 
     .travels {
       font-size: 1rem;

@@ -4,12 +4,27 @@
   position: relative;
 }
 
+.gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(40, 38, 62, 0.7),
+    rgba(8, 4, 51, 0.8)
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
 .textContainer {
   display: flex;
   flex-direction: column;
   text-align: center;
   padding: 6rem 3rem;
-  gap: 0.5rem;
+  gap: 1rem;
   color: var(--background-color);
   z-index: 1;
   transform: translateY(-35px);
@@ -23,12 +38,16 @@
   .path {
     font-family: "Work Sans";
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.2rem;
 
     .finalPath {
       color: var(--details-color);
     }
   }
+}
+
+.noSearchBar {
+  transform: translateY(0);
 }
 
 .listItems {
@@ -91,6 +110,11 @@
     padding: 7rem 3rem;
     transform: translateY(-70px);
   }
+
+  .noSearchBar {
+    padding: 6rem 3rem;
+    transform: translateY(0);
+  }
 }
 
 @media screen and (max-width: 700px) {
@@ -107,7 +131,7 @@
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 600px) {
   .textContainer {
     .title {
       font-size: 2.5rem;
@@ -124,12 +148,16 @@
     padding: 9rem 2rem;
     transform: translateY(-110px);
   }
+
+  .noSearchBar {
+    padding: 6rem 3rem;
+    transform: translateY(0);
+  }
 }
 
 @media screen and (max-width: 350px) {
   .textContainer {
     padding: 9rem 1.5rem;
-    gap: 1rem;
 
     .title {
       font-size: 1.5rem;
@@ -138,5 +166,9 @@
     .path {
       font-size: 0.8rem;
     }
+  }
+
+  .noSearchBar {
+    padding: 4rem 3rem;
   }
 }

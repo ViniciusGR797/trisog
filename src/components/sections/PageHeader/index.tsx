@@ -8,50 +8,30 @@ interface PageHeaderProps {
   imageSrc: string;
   title: string;
   pathPrefix: string;
+  pathSuffix: string;
+  showSearchBar?: boolean;
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({
   imageSrc,
   title,
   pathPrefix,
+  pathSuffix,
+  showSearchBar = true,
 }) => {
   const createSlug = (text: string) => text.toLowerCase().replace(/\s+/g, "-");
   const pathParts = pathPrefix.split(" / ").filter(Boolean);
 
   const pathLinks = pathParts.map((part, index) => {
     const slug = createSlug(part);
-    const href = "/" + slug;
+    const href = part === "Home" ? "/" + slug : "/" + slug + "s";
 
     return (
       <span key={index}>
-        <Link
-          href={
-            pathParts.length > 0 &&
-            pathParts[pathParts.length - 1] === part &&
-            slug !== "home"
-              ? href + "s"
-              : href
-          }
-        >
-          {part}
-        </Link>{" "}
-        /{" "}
+        <Link href={href}>{part}</Link> /{" "}
       </span>
     );
   });
-
-  const finalPath =
-    pathParts.length > 1
-      ? pathParts
-          .slice(1)
-          .map((part, index) => {
-            const slug = createSlug(part);
-            return index === pathParts.length - 2 ? `${slug}s` : slug;
-          })
-          .join("/") +
-        "/" +
-        createSlug(title)
-      : createSlug(title.split(" ")[0] + "s");
 
   return (
     <section className={styles.pageHeader}>
@@ -62,20 +42,19 @@ const PageHeader: React.FC<PageHeaderProps> = ({
         style={{ objectFit: "cover" }}
         priority={true}
       />
-      <div
-        className={styles.textContainer}
-      >
+      <div className={styles.gradient}/>
+      <div className={`${styles.textContainer} ${!showSearchBar ? styles.noSearchBar  : ""}`}>
         <h1 className={styles.title}>{title}</h1>
         <p className={`${styles.path} ${styles.listItems}`}>
           {pathLinks}
           <span>
-            <Link href={`/${finalPath}`} className={styles.finalPath}>
+            <Link href={`/${pathSuffix}`} className={styles.finalPath}>
               {title}
             </Link>
           </span>
         </p>
       </div>
-      <SearchBar />
+      {showSearchBar && <SearchBar />}
     </section>
   );
 };

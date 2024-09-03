@@ -52,7 +52,9 @@ const TourMostPopular: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchDataExperiences(initialQueryOption);
+    const tuorPopularQueryOption = initialQueryOption;
+    tuorPopularQueryOption.limit = "8";
+    fetchDataExperiences(tuorPopularQueryOption);
 
     const cookies = parseCookies();
     const userCookie = cookies["@auth.user"]

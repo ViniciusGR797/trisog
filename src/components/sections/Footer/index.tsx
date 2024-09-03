@@ -5,11 +5,25 @@ import styles from "./styles.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import { QueryOption } from "@/types/queryOption";
+import ExperienceService from "@/services/api/experienceService";
+import { initialQueryOption } from "@/contexts/QueryOptionsContext";
+import { useExperienceContext } from "@/contexts/ExperienceContext";
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
+  const { setExperiences, setLoading } = useExperienceContext();
+
+  const fetchDataExperiences = async (queryOption: QueryOption) => {
+    setLoading(true);
+    const response = await ExperienceService.getExperiences(queryOption);
+    if (response?.status === 200) {
+      setExperiences(response.data);
+    }
+    setLoading(false);
+  };
 
   const validateField = (value: string) => {
     return !/^\S+@\S+\.\S+$/.test(value) ? "Invalid email" : "";
@@ -42,21 +56,25 @@ const Footer: React.FC = () => {
       });
 
       if (response.ok) {
-        toast.success("Successfully subscribed! Check your inbox for updates.");
+        toast.success("Successfully subscribed! Check your inbox for updates");
         setEmail("");
       } else {
-        toast.error("Something went wrong. Please try again later.");
+        toast.error("Something went wrong. Please try again later");
       }
     } catch (error) {
-      toast.error("Something went wrong. Please try again later.");
+      toast.error("Something went wrong. Please try again later");
     }
+  };
+
+  const handleClickExperience = (city: string): void => {
+    const queryOption = initialQueryOption;
+    queryOption.title = city;
+    fetchDataExperiences(queryOption);
   };
 
   return (
     <footer className={styles.footer}>
-      <div
-        className={styles.footerContainer}
-      >
+      <div className={styles.footerContainer}>
         <div className={styles.contact}>
           <Link href="/home">
             <Image
@@ -147,31 +165,71 @@ const Footer: React.FC = () => {
             <div className={styles.column}>
               <ul className={styles.listItems}>
                 <li>
-                  <Link href="/tours/las-vegas">Las Vegas</Link>
+                  <Link
+                    href="/tours"
+                    onClick={() => handleClickExperience("Las Vegas")}
+                  >
+                    Las Vegas
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/tours/new-york-city">New York City</Link>
+                  <Link
+                    href="/tours"
+                    onClick={() => handleClickExperience("New York City")}
+                  >
+                    New York City
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/tours/san-francisco">San Francisco</Link>
+                  <Link
+                    href="/tours"
+                    onClick={() => handleClickExperience("San Francisco")}
+                  >
+                    San Francisco
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/tours/hawaii">Hawaii</Link>
+                  <Link
+                    href="/tours"
+                    onClick={() => handleClickExperience("Hawaii")}
+                  >
+                    Hawaii
+                  </Link>
                 </li>
               </ul>
 
               <ul className={styles.listItems}>
                 <li>
-                  <Link href="/tours/tokyo">Tokyo</Link>
+                  <Link
+                    href="/tours"
+                    onClick={() => handleClickExperience("Tokyo")}
+                  >
+                    Tokyo
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/tours/sydney">Sydney</Link>
+                  <Link
+                    href="/tours"
+                    onClick={() => handleClickExperience("Sydney")}
+                  >
+                    Sydney
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/tours/melbourne">Melbourne</Link>
+                  <Link
+                    href="/tours"
+                    onClick={() => handleClickExperience("Melbourne")}
+                  >
+                    Melbourne
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/tours/dubai">Dubai</Link>
+                  <Link
+                    href="/tours"
+                    onClick={() => handleClickExperience("Dubai")}
+                  >
+                    Dubai
+                  </Link>
                 </li>
               </ul>
             </div>

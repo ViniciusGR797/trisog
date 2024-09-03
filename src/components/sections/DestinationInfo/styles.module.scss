@@ -1,0 +1,43 @@
+.destinationInfoSection {
+  display: flex;
+  justify-content: center;
+  padding: 5rem 0 1rem 0;
+  width: 100%;
+
+  .destinationInfoContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 85%;
+    gap: 2rem;
+  }
+}
+
+.gallery {
+  width: 65%;
+  height: 100%;
+}
+
+.mapWeather {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  height: 100%;
+  gap: 2rem;
+}
+
+@media screen and (max-width: 800px) {
+  .destinationInfoSection {
+    .destinationInfoContainer {
+      flex-direction: column;
+    }
+  }
+
+  .gallery {
+    width: 100%;
+  }
+
+  .mapWeather {
+    width: 100%;
+  }
+}

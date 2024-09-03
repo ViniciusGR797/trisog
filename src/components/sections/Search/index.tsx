@@ -16,12 +16,21 @@ import { useQueryContext } from "@/contexts/QueryOptionsContext";
 import Pagination from "@/components/common/Pagination";
 import CardExperienceSkeleton from "@/components/common/CardExperienceSkeleton";
 import { calculateAverageRating } from "@/utils/average";
+import { PaginatedExperiences } from "@/types/experience";
 
-const Search: React.FC = () => {
+interface SearchProps {
+  isFavorites?: boolean;
+}
+
+const Search: React.FC<SearchProps> = ({ isFavorites = false }) => {
   const router = useRouter();
   const { state, dispatch } = useQueryContext();
+  const [experiencesByFavorites, setExperiencesByFavorites] = useState<
+    PaginatedExperiences | undefined
+  >(undefined);
   const { experiences, setExperiences, isLoading, setLoading } =
     useExperienceContext();
+  const [isLoadingByFavorites, setLoadingByFavorites] = useState<boolean>(true);
   const { favorites, setFavorites } = useFavoriteContext();
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -36,6 +45,17 @@ const Search: React.FC = () => {
     setLoading(false);
   };
 
+  const fetchDataExperiencesByFavorites = async (queryOption: QueryOption) => {
+    setLoadingByFavorites(true);
+    const response = await ExperienceService.getExperiencesUserFavorites(
+      queryOption
+    );
+    if (response?.status === 200) {
+      setExperiencesByFavorites(response.data);
+    }
+    isFavorites ? setLoadingByFavorites(false) : setLoading(false);
+  };
+
   const fetchDataFavorites = async () => {
     const response = await FavoriteService.getFavorite();
     if (response?.status === 200) {
@@ -48,7 +68,7 @@ const Search: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!searchState.isSearchActive && experiences === undefined) {
+    if (!searchState.isSearchActive && experiences === undefined && !isFavorites) {
       dispatch({
         type: "SET_PAGE",
         payload: "1",
@@ -56,6 +76,16 @@ const Search: React.FC = () => {
 
       state.page = "1";
       fetchDataExperiences(state);
+    }
+
+    if (isFavorites && experiencesByFavorites === undefined) {
+      dispatch({
+        type: "SET_PAGE",
+        payload: "1",
+      });
+
+      state.page = "1";
+      fetchDataExperiencesByFavorites(state);
     }
 
     if (
@@ -76,7 +106,7 @@ const Search: React.FC = () => {
       : null;
     setIsLoggedIn(userCookie !== null);
     if (userCookie) fetchDataFavorites();
-  }, [router]);
+  }, [router, isFavorites]);
 
   const handleFavoriteToggle = async (id: string) => {
     if (!isLoggedIn) {
@@ -150,22 +180,30 @@ const Search: React.FC = () => {
     fetchDataExperiences(state);
   };
 
+  const handleChangeExperiences = (experiences: PaginatedExperiences) => {
+    isFavorites
+      ? setExperiencesByFavorites(experiences)
+      : setExperiences(experiences);
+  }
+
+  const experiencesWorking = isFavorites ? experiencesByFavorites : experiences;
+
   return (
-    <section className={styles.searchSection}>
+    <section className={`${styles.searchSection} ${styles.noSearchBar}`}>
       <div className={styles.searchContainer}>
-        <Filter />
+        <Filter isFavorites={isFavorites} onChange={handleChangeExperiences} />
         <div className={styles.results}>
           <div className={styles.resultsHeader}>
             <span>
               {`${
-                experiences && experiences.experiences
-                  ? experiences.total_experiences + " "
+                experiencesWorking && experiencesWorking.experiences
+                  ? experiencesWorking.total_experiences + " "
                   : "0 "
               }`}
               {`${
-                experiences &&
-                experiences.experiences &&
-                experiences.experiences.length > 1
+                experiencesWorking &&
+                experiencesWorking.experiences &&
+                experiencesWorking.experiences.length > 1
                   ? "Tours"
                   : "Tour"
               }`}
@@ -178,7 +216,7 @@ const Search: React.FC = () => {
           </div>
 
           <div className={styles.resultsContent}>
-            {isLoading ? (
+            {isLoading || (isFavorites && isLoadingByFavorites) ? (
               <div className={styles.skeletonWrapper}>
                 <CardExperienceSkeleton />
                 <CardExperienceSkeleton />
@@ -193,17 +231,17 @@ const Search: React.FC = () => {
             ) : (
               <div
                 className={`${
-                  experiences &&
-                  experiences.experiences &&
-                  experiences.experiences.length > 0
+                  experiencesWorking &&
+                  experiencesWorking.experiences &&
+                  experiencesWorking.experiences.length > 0
                     ? styles.resultsList
                     : styles.noResultsList
                 }`}
               >
-                {experiences &&
-                experiences.experiences &&
-                experiences.experiences.length > 0 ? (
-                  experiences.experiences.map((result, index) => (
+                {experiencesWorking &&
+                experiencesWorking.experiences &&
+                experiencesWorking.experiences.length > 0 ? (
+                  experiencesWorking.experiences.map((result, index) => (
                     <div key={index} className={styles.resultItem}>
                       <CardExperience
                         id={result.id}
@@ -229,8 +267,8 @@ const Search: React.FC = () => {
               </div>
             )}
             <Pagination
-              currentPage={experiences?.page || 1}
-              totalPages={experiences?.total_pages || 1}
+              currentPage={experiencesWorking?.page || 1}
+              totalPages={experiencesWorking?.total_pages || 1}
               onPageChange={handlePageChange}
             />
           </div>

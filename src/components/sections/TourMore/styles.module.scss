@@ -1,0 +1,66 @@
+.tourMore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--background-color);
+  padding: 3rem 0 3rem 0;
+  gap: 3rem;
+}
+
+.title {
+  font-family: "Work Sans";
+  font-size: 2rem;
+  font-weight: bold;
+  width: 85%;
+  text-align: center;
+}
+
+.carousel {
+  width: 85%;
+}
+
+.skeletonWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 30px;
+
+  .skeletonItem {
+    width: 100%;
+  }
+}
+
+.noToursMessage {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--secondary-font-color);
+  padding: 2rem;
+}
+
+@media screen and (max-width: 1000px) {
+  .skeletonFour {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .skeletonThree {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .skeletonWrapper {
+    gap: 20px;
+  }
+
+  .skeletonTwo {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .title {
+    font-size: 1.5rem;
+  }
+}

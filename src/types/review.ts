@@ -15,5 +15,6 @@ export type Review = {
   image: string;
   ratings: Ratings;
   created_at: string;
+  user_review_count: number;
   experience_id: string;
 };

@@ -5,26 +5,10 @@ import ReviewService from "@/services/api/reviewService";
 import CardReview from "@/components/common/CardReview";
 
 interface ReviewSectionProps {
-  experienceId: string;
+  reviews: Review[];
 }
 
-const ReviewSection: React.FC<ReviewSectionProps> = ({ experienceId }) => {
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchDataReviews = async () => {
-    setLoading(true);
-    const response = await ReviewService.getReviewsByExperience(experienceId);
-    if (response?.status === 200) {
-      setReviews(response.data);
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchDataReviews();
-  }, [experienceId]);
-
+const ReviewSection: React.FC<ReviewSectionProps> = ({ reviews }) => {
   return (
     <section className={styles.reviewSection}>
       <div className={styles.reviewContainer}>

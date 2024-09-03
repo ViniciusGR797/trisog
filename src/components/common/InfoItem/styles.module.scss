@@ -1,0 +1,35 @@
+.infoItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  font-size: 1.1rem;
+  gap: 1rem;
+}
+
+.label {
+  width: 40%;
+  color: var(--fourth-font-color);
+}
+
+.value {
+  width: 60%;
+  font-weight: bold;
+  color: var(--primary-font-color);
+}
+
+@media (max-width: 500px) {
+  .infoItem {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .label {
+    width: 100%;
+  }
+
+  .value {
+    width: 100%;
+  }
+}
