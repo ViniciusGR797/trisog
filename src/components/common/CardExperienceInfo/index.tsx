@@ -123,7 +123,7 @@ const CardExperienceInfo: React.FC<CardExperienceProps> = ({ experience }) => {
         />
         <div className={styles.links}>
           <a
-            href={experience.map_link}
+            href={experience.video}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.link}
@@ -132,7 +132,7 @@ const CardExperienceInfo: React.FC<CardExperienceProps> = ({ experience }) => {
             <FiVideo className={styles.linkIcon} />
           </a>
           <a
-            href={experience.map_link}
+            href={experience.gallery}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.link}
