@@ -215,7 +215,7 @@ const Header: React.FC = () => {
                   onClick={() => setShowLogout(!showLogout)}
                 >
                   <Image
-                    src={user.photoUrl ? user.photoUrl : "/images/user.svg"}
+                    src={user.photoUrl ? user.photoUrl : "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/user.jpg?alt=media&token=a987b2c0-72b9-4b5e-957b-544554b0dc9a"}
                     alt={
                       user.firstName
                         ? user.firstName
