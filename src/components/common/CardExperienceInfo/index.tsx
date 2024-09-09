@@ -30,6 +30,12 @@ const CardExperienceInfo: React.FC<CardExperienceProps> = ({ experience }) => {
   const { favorites, setFavorites } = useFavoriteContext();
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
 
+  const getGoogleMapsLink = (city: string): string => {
+    const baseUrl = "https://www.google.com/maps/search/";
+    const query = encodeURIComponent(city);
+    return `${baseUrl}?q=${query}`;
+  }
+
   const onFavoriteToggle = async (id: string) => {
     const cookies = parseCookies();
     const userCookie = cookies["@auth.user"]
@@ -150,7 +156,7 @@ const CardExperienceInfo: React.FC<CardExperienceProps> = ({ experience }) => {
               ? `${experience.city}, ${experience.destination?.name}`
               : experience.destination?.name}
             <a
-              href={experience.map_link}
+              href={getGoogleMapsLink(experience.city)}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.mapLink}
