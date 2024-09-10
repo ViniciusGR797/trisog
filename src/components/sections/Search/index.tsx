@@ -189,7 +189,7 @@ const Search: React.FC<SearchProps> = ({ isFavorites = false }) => {
   const experiencesWorking = isFavorites ? experiencesByFavorites : experiences;
 
   return (
-    <section className={`${styles.searchSection} ${styles.noSearchBar}`}>
+    <section className={`${styles.searchSection} ${isFavorites ? styles.noSearchBar : ""}`}>
       <div className={styles.searchContainer}>
         <Filter isFavorites={isFavorites} onChange={handleChangeExperiences} />
         <div className={styles.results}>
@@ -197,16 +197,16 @@ const Search: React.FC<SearchProps> = ({ isFavorites = false }) => {
             <span>
               {`${
                 experiencesWorking && experiencesWorking.experiences
-                  ? experiencesWorking.total_experiences + " "
-                  : "0 "
-              }`}
+                ? experiencesWorking.total_experiences + " "
+                : "0 "
+                }`}
               {`${
                 experiencesWorking &&
                 experiencesWorking.experiences &&
                 experiencesWorking.experiences.length > 1
-                  ? "Tours"
-                  : "Tour"
-              }`}
+                ? "Tours"
+                : "Tour"
+                }`}
             </span>
             <Sorting
               selectedOption={state.sortBy}
@@ -234,13 +234,13 @@ const Search: React.FC<SearchProps> = ({ isFavorites = false }) => {
                   experiencesWorking &&
                   experiencesWorking.experiences &&
                   experiencesWorking.experiences.length > 0
-                    ? styles.resultsList
-                    : styles.noResultsList
-                }`}
+                  ? styles.resultsList
+                  : styles.noResultsList
+                  }`}
               >
                 {experiencesWorking &&
-                experiencesWorking.experiences &&
-                experiencesWorking.experiences.length > 0 ? (
+                  experiencesWorking.experiences &&
+                  experiencesWorking.experiences.length > 0 ? (
                   experiencesWorking.experiences.map((result, index) => (
                     <div key={index} className={styles.resultItem}>
                       <CardExperience
