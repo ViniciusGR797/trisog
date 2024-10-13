@@ -9,7 +9,7 @@ export default function middleware(request: NextRequest){
     if (!user) {
         if (request.nextUrl.pathname === '/') {
             return NextResponse.next()
-        }
+        } 
 
         const response = NextResponse.redirect(signInURL);
         response.cookies.set('loginToast', 'Log in to access this page');

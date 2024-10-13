@@ -28,7 +28,12 @@ const CardDestinationInfo: React.FC<CardDestinationInfoProps> = ({
 
   return (
     <div className={styles.cardDestinationInfo}>
-      <div className={styles.mainImage} onClick={() => handleImageClick(0)}>
+      <div
+        className={`${styles.mainImage} ${
+          images.length === 1 ? styles.fullHeightImage : ""
+        }`}
+        onClick={() => handleImageClick(0)}
+      >
         <Image
           src={images[0]}
           alt="Destination Main"
@@ -37,40 +42,43 @@ const CardDestinationInfo: React.FC<CardDestinationInfoProps> = ({
           priority={true}
         />
       </div>
-      <div className={styles.smallImages}>
-        {images.slice(1, 4).map((image, index) => (
-          <div
-            key={index}
-            className={styles.smallImage}
-            onClick={() => handleImageClick(index + 1)}
-          >
-            <Image
-              src={image}
-              alt={`Destination ${index + 1}`}
-              fill={true}
-              style={{ objectFit: "cover" }}
-              priority={true}
-            />
-          </div>
-        ))}
-        {images.length > 3 && (
-          <div className={styles.smallImage}>
-            <Image
-              src={images[4]}
-              alt="Destination 4"
-              fill={true}
-              style={{ objectFit: "cover" }}
-              priority={true}
-            />
-            {images.length > 5 && (
-              <div className={styles.morePhotos} onClick={handleModalToggle}>
-                <span>{images.length - 4}+</span>
-                <p>More photo</p>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+
+      {images.length > 1 && (
+        <div className={styles.smallImages}>
+          {images.slice(1, 4).map((image, index) => (
+            <div
+              key={index}
+              className={styles.smallImage}
+              onClick={() => handleImageClick(index + 1)}
+            >
+              <Image
+                src={image}
+                alt={`Destination ${index + 1}`}
+                fill={true}
+                style={{ objectFit: "cover" }}
+                priority={true}
+              />
+            </div>
+          ))}
+          {images.length > 3 && (
+            <div className={styles.smallImage}>
+              <Image
+                src={images[4]}
+                alt="Destination 4"
+                fill={true}
+                style={{ objectFit: "cover" }}
+                priority={true}
+              />
+              {images.length > 5 && (
+                <div className={styles.morePhotos} onClick={handleModalToggle}>
+                  <span>{images.length - 4}+</span>
+                  <p>More photos</p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
 
       {showModal && (
         <div className={styles.modal} onClick={handleModalToggle}>
