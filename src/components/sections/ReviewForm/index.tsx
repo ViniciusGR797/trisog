@@ -25,7 +25,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ experience, onChange }) => {
     name: "",
     email: "",
     comment: "",
-    image: "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/user.jpg?alt=media&token=a987b2c0-72b9-4b5e-957b-544554b0dc9a"
+    image: "/images/user.svg"
   });
   const [userCookie, setUserCookie] = useState({
     token: "",
@@ -101,7 +101,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ experience, onChange }) => {
     if(!isAnonymous) {
       email = userCookie.email || "";
       name = userCookie.firstName || "";
-      image = userCookie.photoUrl || "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/user.jpg?alt=media&token=a987b2c0-72b9-4b5e-957b-544554b0dc9a";
+      image = userCookie.photoUrl || "/images/user.svg";
     }
 
     const ratings: Ratings = {
@@ -133,7 +133,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ experience, onChange }) => {
         name: "",
         email: "",
         comment: "",
-        image: "https://firebasestorage.googleapis.com/v0/b/trisog-94e32.appspot.com/o/user.jpg?alt=media&token=a987b2c0-72b9-4b5e-957b-544554b0dc9a"
+        image: "/images/user.svg"
       });
       onChange();
     } else {
