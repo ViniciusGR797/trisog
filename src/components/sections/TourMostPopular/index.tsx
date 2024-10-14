@@ -52,7 +52,7 @@ const TourMostPopular: React.FC = () => {
   };
 
   useEffect(() => {
-    const tuorPopularQueryOption = initialQueryOption;
+    const tuorPopularQueryOption = {...initialQueryOption};
     tuorPopularQueryOption.limit = "8";
     fetchDataExperiences(tuorPopularQueryOption);
 

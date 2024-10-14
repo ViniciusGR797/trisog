@@ -58,7 +58,7 @@ const TourPopular: React.FC<TourPopularProps> = ({ destinationId }) => {
 
   useEffect(() => {
     if (destinationId) {
-      const destinationOption = initialQueryOption;
+      const destinationOption = {...initialQueryOption};
       destinationOption.destinationsId = destinationId;
       destinationOption.isActivity = false;
       fetchDataExperiences(destinationOption);
@@ -110,7 +110,7 @@ const TourPopular: React.FC<TourPopularProps> = ({ destinationId }) => {
 
   const handleClickSeeAll = async () => {
     if (destinationId) {
-      const destinationOption = initialQueryOption;
+      const destinationOption = {...initialQueryOption};
       destinationOption.destinationsId = destinationId;
       destinationOption.isActivity = false;
       setLoading(true);

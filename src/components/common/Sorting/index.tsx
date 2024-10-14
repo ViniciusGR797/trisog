@@ -44,7 +44,7 @@ const Sorting: React.FC<SortingProps> = ({ selectedOption, isAscending, onSortCh
       iconDesc: <LuArrowDown10 className={styles.iconSort} />,
     },
     {
-      value: "rating",
+      value: "average_rating",
       label: "Rating",
       iconAsc: <LuArrowUp10 className={styles.iconSort} />,
       iconDesc: <LuArrowDown10 className={styles.iconSort} />,

@@ -7,18 +7,22 @@
   max-width: 300px;
   padding: 1.5rem;
   gap: 0.5rem;
+
+  &:hover {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
 }
 
 .icon {
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   position: relative;
 }
 
 .circleAboutIcon {
   position: absolute;
-  width: 60px;
-  height: 60px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   background-color: var(--details-color);
   opacity: 0.8;
@@ -50,6 +54,42 @@
   font-family: "Kaushan Script";
   font-size: 1.5rem;
   color: var(--details-color);
+}
+
+@media screen and (max-width: 1700px) {
+  .icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .circleAboutIcon {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .icon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .circleAboutIcon {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .icon {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .circleAboutIcon {
+    width: 35px;
+    height: 35px;
+  }
 }
 
 @media screen and (max-width: 600px) {

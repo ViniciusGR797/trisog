@@ -81,7 +81,7 @@ const CategoryCarousel: React.FC = () => {
               },
               0: {
                 slidesPerView: 1,
-                spaceBetween: 0,
+                spaceBetween: 30,
               },
             }}
           >
