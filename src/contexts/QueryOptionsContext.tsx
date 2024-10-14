@@ -13,7 +13,8 @@ export type QueryAction =
   | { type: 'SET_GUESTS'; payload: string | undefined }
   | { type: 'SET_IS_ACTIVITY'; payload: boolean | undefined }
   | { type: 'SET_SORT_BY'; payload: string }
-  | { type: 'SET_ORDER'; payload: 'asc' | 'desc' };
+  | { type: 'SET_ORDER'; payload: 'asc' | 'desc' }
+  | { type: 'RESET_QUERY' };
 
 export const initialQueryOption: QueryOption = {
   page: '1',
@@ -23,7 +24,7 @@ export const initialQueryOption: QueryOption = {
   categoriesId: undefined,
   destinationsId: undefined,
   rating: undefined,
-  date: undefined,
+  date: "",
   guests: undefined,
   isActivity: undefined,
   sortBy: 'title',
@@ -56,6 +57,8 @@ function queryReducer(state: QueryOption, action: QueryAction): QueryOption {
       return { ...state, sortBy: action.payload };
     case 'SET_ORDER':
       return { ...state, order: action.payload };
+    case 'RESET_QUERY':
+      return { ...initialQueryOption };
     default:
       return state;
   }

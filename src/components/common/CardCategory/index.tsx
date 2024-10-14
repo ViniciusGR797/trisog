@@ -6,7 +6,7 @@ import Link from "next/link";
 import { QueryOption } from "@/types/queryOption";
 import ExperienceService from "@/services/api/experienceService";
 import { useCurrency } from "@/contexts/CurrencyContext";
-import { initialQueryOption } from "@/contexts/QueryOptionsContext";
+import { useQueryContext } from "@/contexts/QueryOptionsContext";
 import { useExperienceContext } from "@/contexts/ExperienceContext";
 
 interface CategoryProps {
@@ -16,6 +16,7 @@ interface CategoryProps {
 const CardCategory: React.FC<CategoryProps> = ({ category }) => {
   const { symbol, exchangeRate } = useCurrency();
   const { setExperiences, setLoading } = useExperienceContext();
+  const { state, dispatch } = useQueryContext();
 
   const fetchDataExperiences = async (queryOption: QueryOption) => {
     setLoading(true);
@@ -27,9 +28,21 @@ const CardCategory: React.FC<CategoryProps> = ({ category }) => {
   };
 
   const handleClickCategory = (id: string): void => {
-    const queryOption = initialQueryOption;
-    queryOption.categoriesId = id;
-    fetchDataExperiences(queryOption);
+    const currentCategoriesId = state.categoriesId ? state.categoriesId.split(",") : [];
+  
+    if (!currentCategoriesId.includes(id)) {
+      const newCategoriesId = currentCategoriesId.length > 0
+        ? [...currentCategoriesId, id].join(",")
+        : id;
+  
+      dispatch({
+        type: "SET_CATEGORIES_ID",
+        payload: newCategoriesId,
+      });
+      state.categoriesId = newCategoriesId;
+  
+      fetchDataExperiences(state);
+    }
   };
 
   return (

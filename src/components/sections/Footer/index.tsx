@@ -7,7 +7,7 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import { QueryOption } from "@/types/queryOption";
 import ExperienceService from "@/services/api/experienceService";
-import { initialQueryOption } from "@/contexts/QueryOptionsContext";
+import { useQueryContext, initialQueryOption } from "@/contexts/QueryOptionsContext";
 import { useExperienceContext } from "@/contexts/ExperienceContext";
 
 const Footer: React.FC = () => {
@@ -15,6 +15,7 @@ const Footer: React.FC = () => {
   const [error, setError] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const { setExperiences, setLoading } = useExperienceContext();
+  const { state, dispatch } = useQueryContext();
 
   const fetchDataExperiences = async (queryOption: QueryOption) => {
     setLoading(true);
@@ -67,9 +68,16 @@ const Footer: React.FC = () => {
   };
 
   const handleClickExperience = (city: string): void => {
-    const queryOption = initialQueryOption;
-    queryOption.title = city;
-    fetchDataExperiences(queryOption);
+    dispatch({ type: 'RESET_QUERY' });
+    dispatch({
+      type: "SET_TITLE",
+      payload: city,
+    });
+
+    const newState = { ...initialQueryOption };
+    newState.title = city;
+
+    fetchDataExperiences(newState);
   };
 
   return (

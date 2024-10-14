@@ -58,7 +58,7 @@ const Activities: React.FC<ActivitiesProps> = ({ destinationId }) => {
 
   useEffect(() => {
     if (destinationId) {
-      const destinationOption = initialQueryOption;
+      const destinationOption = {...initialQueryOption};
       destinationOption.destinationsId = destinationId;
       destinationOption.isActivity = true;
       fetchDataExperiences(destinationOption);
@@ -110,7 +110,7 @@ const Activities: React.FC<ActivitiesProps> = ({ destinationId }) => {
 
   const handleClickSeeAll = async () => {
     if (destinationId) {
-      const destinationOption = initialQueryOption;
+      const destinationOption = {...initialQueryOption};
       destinationOption.destinationsId = destinationId;
       destinationOption.isActivity = true;
       setLoading(true);
