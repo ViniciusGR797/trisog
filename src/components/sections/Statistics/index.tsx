@@ -13,7 +13,7 @@ import { PaginatedExperiences } from "@/types/experience";
 const Statistics = () => {
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [experiences, setExperiences] = useState<PaginatedExperiences | undefined>(undefined);
-  const [bookings, setBookings] = useState<Destination[]>([]);
+  const [bookingsCount, setBookingsCount] = useState<number>(0);
   const [reviews, setReviews] = useState<Destination[]>([]);
 
   useEffect(() => {
@@ -40,14 +40,14 @@ const Statistics = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await BookingService.getBookings();
+      const response = await BookingService.getBookingsStatsCount();
       if (response?.status === 200) {
-        setBookings(response.data);
+        setBookingsCount(response.data.count);
       }
     };
 
     fetchData();
-  }, [setBookings]);
+  }, [setBookingsCount]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,7 +82,7 @@ const Statistics = () => {
         />
         <StatisticalData
           data={`${
-            bookings && bookings.length > 0 ? bookings.length - 1 + "+" : "0"
+            bookingsCount > 0 ? bookingsCount - 1 + "+" : "0"
           }`}
           title="Total Travelers"
         />

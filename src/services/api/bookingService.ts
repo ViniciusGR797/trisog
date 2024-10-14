@@ -15,6 +15,18 @@ class BookingService {
     }
   }
 
+  async getBookingsStatsCount(): Promise<any> {
+    try {
+      const response = await api.get("/bookings/stats/count");
+      return response;
+    } catch (error: any) {
+      if (axios.isAxiosError(error)) {
+        return error.response;
+      }
+      return null;
+    }
+  }
+
   async getBookingById(booking_id: string): Promise<any> {
     try {
       const response = await api.get(`/bookings/${booking_id}`);
